@@ -7,6 +7,12 @@
       "dependencies": {},
       "hash": "3d382e6e1d479380685887ef0c7a7a5492911b99"
     },
+    "com.kyrylokuzyk.primetween": {
+      "version": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {}
+    },
     "com.unity.burst": {
       "version": "1.8.23",
       "depth": 1,
