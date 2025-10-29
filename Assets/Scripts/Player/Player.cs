@@ -22,6 +22,11 @@ namespace SmallBallBigPlane
             {
                 collectable.Collect();
             }
+            
+            if (other.gameObject.TryGetComponent(out IInteractable interactable))
+            {
+                interactable.Interact();
+            }
         }
         
         private void ResetPosition()
