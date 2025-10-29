@@ -8,7 +8,8 @@ namespace SmallBallBigPlane.Installers
     {
         public void InstallBindings(ContainerBuilder containerBuilder)
         {
-            containerBuilder.AddSingleton(new CoinManager());
+            containerBuilder.AddSingleton(typeof(GameManager));
+            containerBuilder.AddSingleton(typeof(CoinManager));
         }
     }
 }
