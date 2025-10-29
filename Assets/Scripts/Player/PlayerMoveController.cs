@@ -1,3 +1,5 @@
+using System;
+using Reflex.Attributes;
 using UnityEngine;
 
 namespace SmallBallBigPlane
@@ -6,6 +8,7 @@ namespace SmallBallBigPlane
     {
         [SerializeField] private Rigidbody rb;
         [SerializeField] private PlayerInputs playerInputs;
+        [Inject] private GameManager _gameManager;
 
         private void Awake()
         {
@@ -13,6 +16,22 @@ namespace SmallBallBigPlane
             {
                 Debug.LogError("Rigidbody is null. Add and setup");
             }
+        }
+
+        private void Start()
+        {
+            _gameManager.GameRestarted += GameManager_OnGameRestarted;
+        }
+        
+        private void OnDestroy()
+        {
+            _gameManager.GameRestarted -= GameManager_OnGameRestarted;
+        }
+
+        private void GameManager_OnGameRestarted()
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
 
         private void FixedUpdate()
