@@ -16,7 +16,7 @@ namespace SmallBallBigPlane.Installers
             
             foreach (var window in windows)
             {
-                containerBuilder.AddSingleton(window, window.GetType());
+                containerBuilder.AddSingleton(window);
             }
             
             containerBuilder.AddSingleton(new WindowManager(windows, background));

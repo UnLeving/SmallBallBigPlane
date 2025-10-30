@@ -47,7 +47,7 @@ namespace SmallBallBigPlane
 
             rb.AddForce(movement, ForceMode.Force);
             
-            var soundVolume = Mathf.Clamp(rb.velocity.magnitude, 0, 1);
+            var soundVolume = Mathf.Clamp(rb.velocity.magnitude, 0, .75f);
             
             playerSoundEffectsHandler.PlayMovingSound(soundVolume);
         }
