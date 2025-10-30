@@ -6,14 +6,14 @@ namespace SmallBallBigPlane
     {
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private AudioClipSO movingSound;
-        
+
         private void Start()
         {
             SetMovingSoundSettings();
-            
+
             audioSource.Play();
         }
-        
+
         private void SetMovingSoundSettings()
         {
             audioSource.clip = movingSound.audioClip;
@@ -25,6 +25,20 @@ namespace SmallBallBigPlane
         public void PlayMovingSound(float volumeLevel)
         {
             audioSource.volume = volumeLevel;
+        }
+
+        public void StopMovingSound()
+        {
+            if (audioSource.isPlaying == false) return;
+
+            audioSource.Stop();
+        }
+
+        public void PlayMovingSound()
+        {
+            if (audioSource.isPlaying == true) return;
+            
+            audioSource.Play();
         }
     }
 }

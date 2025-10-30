@@ -8,11 +8,12 @@ namespace SmallBallBigPlane
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private float acceptableTimeInAir = 1f;
         [SerializeField] private Transform groundCheckPoint;
+        [SerializeField] private PlayerSoundEffectsHandler playerSoundEffectsHandler;
 
         private float _timeInAir;
         private int _isGrounded;
         private RaycastHit[] _raycastHits = new RaycastHit[1];
-        
+
         [Inject] private GameManager _gameManager;
 
         private void Start()
@@ -30,19 +31,23 @@ namespace SmallBallBigPlane
 
         private void CheckGroundStatus()
         {
-            _isGrounded = Physics.RaycastNonAlloc(groundCheckPoint.position, 
-                Vector3.down, 
-                _raycastHits, 
-                10f, 
-                groundLayer, 
+            _isGrounded = Physics.RaycastNonAlloc(groundCheckPoint.position,
+                Vector3.down,
+                _raycastHits,
+                10f,
+                groundLayer,
                 QueryTriggerInteraction.Ignore);
 
             if (_isGrounded == 1)
             {
                 _timeInAir = 0f;
+                
+                playerSoundEffectsHandler.PlayMovingSound();
             }
             else
             {
+                playerSoundEffectsHandler.StopMovingSound();
+                
                 _timeInAir += Time.deltaTime;
 
                 if (_timeInAir > acceptableTimeInAir)

@@ -25,6 +25,8 @@ namespace SmallBallBigPlane
         
         public void PlayWinSound()
         {
+            if(audioSource.isPlaying) return;
+            
             audioSource.clip = winSound.audioClip;
             audioSource.volume = 1;
             audioSource.Play();
@@ -32,6 +34,8 @@ namespace SmallBallBigPlane
         
         public void PlayLooseSound()
         {
+            if(audioSource.isPlaying) return;
+            
             audioSource.clip = looseSound.audioClip;
             audioSource.volume = 1;
             audioSource.Play();
