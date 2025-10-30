@@ -9,17 +9,23 @@ namespace SmallBallBigPlane
         [Inject] private WindowManager _windowManager;
 
         public event System.Action GameRestarted;
+        public event System.Action GameLost;
+        public event System.Action GameWon;
 
         public void PlayerFall()
         {
             _coinManager.ResetCoins();
 
             GameRestarted?.Invoke();
+            
+            GameLost?.Invoke();
         }
 
         public void PlayerReachFinish()
         {
             _windowManager.Show<WinLevelWindow>();
+            
+            GameWon?.Invoke();
         }
 
         public void RestartRequested()

@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65faf618da28ed7429d89338f96f2a60, type: 3}
-  m_Name: Finish Audio Clip
+  m_Name: Death Audio Clip
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 6895bab251797cd4d9130641ac1a8c0a, type: 3}
+  audioClip: {fileID: 8300000, guid: 226623b653afef7459eb8dabf55993c5, type: 3}
