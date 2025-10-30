@@ -2,6 +2,7 @@
   "dependencies": {
     "com.gustavopsantos.reflex": "https://github.com/gustavopsantos/reflex.git?path=/Assets/Reflex/#13.0.3",
     "com.kyrylokuzyk.primetween": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
+    "com.unity.cinemachine": "2.10.5",
     "com.unity.ide.rider": "3.0.38",
     "com.unity.inputsystem": "1.14.2",
     "com.unity.render-pipelines.universal": "14.0.12",
