@@ -1,4 +1,3 @@
-using System;
 using Reflex.Attributes;
 using UnityEngine;
 
@@ -8,6 +7,8 @@ namespace SmallBallBigPlane
     {
         [SerializeField] private Rigidbody rb;
         [SerializeField] private PlayerInputs playerInputs;
+        [SerializeField] private PlayerSoundEffectsHandler playerSoundEffectsHandler;
+        
         [Inject] private GameManager _gameManager;
 
         private void Awake()
@@ -22,7 +23,7 @@ namespace SmallBallBigPlane
         {
             _gameManager.GameRestarted += GameManager_OnGameRestarted;
         }
-        
+
         private void OnDestroy()
         {
             _gameManager.GameRestarted -= GameManager_OnGameRestarted;
@@ -43,8 +44,12 @@ namespace SmallBallBigPlane
         {
             Vector2 input = playerInputs.move;
             Vector3 movement = new Vector3(input.x, 0, input.y);
-            
+
             rb.AddForce(movement, ForceMode.Force);
+            
+            var soundVolume = Mathf.Clamp(rb.velocity.magnitude, 0, 1);
+            
+            playerSoundEffectsHandler.PlayMovingSound(soundVolume);
         }
     }
 }
