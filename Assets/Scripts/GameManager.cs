@@ -1,10 +1,13 @@
 using Reflex.Attributes;
 using SmallBallBigPlane.Collectables;
+using Cysharp.Threading.Tasks;
 
 namespace SmallBallBigPlane
 {
     public class GameManager
     {
+        private const int RESTART_DELAY_MS = 2000;
+        
         [Inject] private CoinManager _coinManager;
         [Inject] private WindowManager _windowManager;
 
@@ -12,13 +15,17 @@ namespace SmallBallBigPlane
         public event System.Action GameLost;
         public event System.Action GameWon;
 
-        public void PlayerFall()
+        public async UniTask PlayerFall()
         {
             _coinManager.ResetCoins();
-
-            GameRestarted?.Invoke();
             
             GameLost?.Invoke();
+            
+            _windowManager.Show<LooseWindow>();
+
+            await UniTask.Delay(RESTART_DELAY_MS);
+
+            RestartRequested();
         }
 
         public void PlayerReachFinish()
