@@ -1726,13 +1726,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1313161747}
   - component: {fileID: 1313161749}
-  - component: {fileID: 1313161748}
-  - component: {fileID: 1313161750}
   - component: {fileID: 1313161751}
   - component: {fileID: 1313161752}
   - component: {fileID: 1313161753}
   - component: {fileID: 1313161754}
   - component: {fileID: 1313161756}
+  - component: {fileID: 1313161748}
+  - component: {fileID: 1313161750}
   - component: {fileID: 1313161755}
   m_Layer: 7
   m_Name: Player
@@ -1875,6 +1875,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1313161750}
+  playerInput: {fileID: 1313161751}
   playerInputs: {fileID: 1313161752}
   playerSoundEffectsHandler: {fileID: 1313161756}
 --- !u!114 &1313161754
