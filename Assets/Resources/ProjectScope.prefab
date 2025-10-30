@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4732140701880056613}
   - component: {fileID: 6284408060351066414}
+  - component: {fileID: 2671526831406061494}
   m_Layer: 0
   m_Name: ProjectScope
   m_TagString: Untagged
@@ -44,3 +45,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238ee66aa2bafad47bf60938e98aebca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2671526831406061494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2452957896486037800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e0b21a744504a3eb387e7352ab5de82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupSoundEffectPrefab: {fileID: 2241054932245202754, guid: 8a5d0bd5ea2b74748b7ae98b63139ef8, type: 3}

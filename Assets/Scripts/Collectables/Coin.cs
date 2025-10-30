@@ -5,14 +5,17 @@ namespace SmallBallBigPlane.Collectables
 {
     public class Coin : MonoBehaviour, ICollectable
     {
-       [Inject] private CoinManager _coinManager;
        [SerializeField] private float rotationSpeed = 10f;
+       [Inject] private CoinManager _coinManager;
+       [Inject] private PickupSoundEffect _pickupSoundEffect;
        
         public void Collect()
         {
             _coinManager.CollectCoin();
             
             gameObject.SetActive(false);
+
+            Instantiate(_pickupSoundEffect);
         }
 
         private void Update()
