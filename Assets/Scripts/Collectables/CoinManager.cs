@@ -41,9 +41,7 @@ namespace SmallBallBigPlane.Collectables
 
             foreach (var coin in _coins)
             {
-                if( coin.gameObject.activeSelf) continue;
-                
-                coin.gameObject.SetActive(true);
+                coin.Reset();
             }
         }
     }

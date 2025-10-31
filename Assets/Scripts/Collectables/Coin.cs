@@ -18,6 +18,13 @@ namespace SmallBallBigPlane.Collectables
             _pickupEffectsHandler.PlayPickupEffects(transform.position);
         }
 
+        public void Reset()
+        {
+            if(gameObject.activeSelf == true) return;
+            
+            gameObject.SetActive(true);
+        }
+
         private void Update()
         {
             transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
