@@ -4,24 +4,32 @@ using UnityEngine;
 
 namespace SmallBallBigPlane
 {
-    public class WindowManager
+    public interface IWindowManager
     {
-        private readonly Dictionary<Type, WindowBase> _windows = new();
+        T Get<T>() where T : WindowBase;
+        void Show<T>() where T : WindowBase;
+        void HideAll();
+        void Initialize(IEnumerable<WindowBase> windows, GameObject background);
+    }
+
+    public class WindowManager : IWindowManager
+    {
+        private Dictionary<Type, WindowBase> _windows = new();
         private GameObject _background;
-        
-        public WindowManager(IEnumerable<WindowBase> windows, GameObject background)
+
+        public void Initialize(IEnumerable<WindowBase> windows, GameObject background)
         {
             foreach (var window in windows)
             {
                 _windows.Add(window.GetType(), window);
                 window.Hide();
             }
-            
+
             _background = background;
-            
+
             _background.SetActive(false);
         }
-        
+
         public T Get<T>() where T : WindowBase
         {
             return (T)_windows[typeof(T)];
@@ -33,7 +41,7 @@ namespace SmallBallBigPlane
                 kvp.Value.Hide();
 
             Get<T>().Show();
-            
+
             _background.SetActive(true);
         }
 
@@ -41,7 +49,7 @@ namespace SmallBallBigPlane
         {
             foreach (var window in _windows.Values)
                 window.Hide();
-            
+
             _background.SetActive(false);
         }
     }

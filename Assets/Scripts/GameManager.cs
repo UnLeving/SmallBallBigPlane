@@ -1,5 +1,4 @@
 using System;
-using Reflex.Attributes;
 using SmallBallBigPlane.Collectables;
 using Cysharp.Threading.Tasks;
 
@@ -19,12 +18,18 @@ namespace SmallBallBigPlane
     {
         private const int RESTART_DELAY_MS = 2000;
         
-        [Inject] private ICoinManager _coinManager;
-        [Inject] private WindowManager _windowManager;
+        private readonly ICoinManager _coinManager;
+        private readonly IWindowManager _windowManager;
 
         public event Action GameRestarted;
         public event Action GameLost;
         public event Action GameWon;
+
+        public GameManager(ICoinManager coinManager, IWindowManager windowManager)
+        {
+            _coinManager = coinManager;
+            _windowManager = windowManager;
+        }
 
         public async UniTask PlayerFall()
         {

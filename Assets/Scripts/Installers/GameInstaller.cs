@@ -6,20 +6,11 @@ namespace SmallBallBigPlane.Installers
 {
     public class GameInstaller : MonoBehaviour, IInstaller
     {
-        [SerializeField] private WindowBase[] windows;
-        [SerializeField] private GameObject background;
-        
         public void InstallBindings(ContainerBuilder containerBuilder)
         {
             containerBuilder.AddSingleton(typeof(GameManager), typeof(IGameManager));
             containerBuilder.AddSingleton(typeof(CoinManager), typeof(ICoinManager));
-            
-            foreach (var window in windows)
-            {
-                containerBuilder.AddSingleton(window);
-            }
-            
-            containerBuilder.AddSingleton(new WindowManager(windows, background));
+            containerBuilder.AddSingleton(typeof(WindowManager), typeof(IWindowManager));
         }
     }
 }
