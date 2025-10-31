@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 2
   pitchVariation: 0.25
-  audioSource: {fileID: 9074709616982491912}
+  audioClip: {fileID: 11400000, guid: 36ea2a25fc751fa418a42ed6e082c8c6, type: 2}
 --- !u!82 &9074709616982491912
 AudioSource:
   m_ObjectHideFlags: 0
@@ -59,7 +59,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 491ce6dcb7aada24f9858f077dcd30bd, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 2.4
   Loop: 0

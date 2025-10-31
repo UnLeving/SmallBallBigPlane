@@ -57,5 +57,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e0b21a744504a3eb387e7352ab5de82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSoundEffectPrefab: {fileID: 2241054932245202754, guid: 8a5d0bd5ea2b74748b7ae98b63139ef8, type: 3}
+  pickupSfxPrefab: {fileID: 2241054932245202754, guid: 8a5d0bd5ea2b74748b7ae98b63139ef8, type: 3}
   pickupVFXPrefab: {fileID: 8952805768039932371, guid: af3963951ba7bab459a9d862960bca09, type: 3}

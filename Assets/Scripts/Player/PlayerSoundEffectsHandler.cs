@@ -2,10 +2,17 @@ using UnityEngine;
 
 namespace SmallBallBigPlane
 {
+    [RequireComponent(typeof(AudioSource))]
     public class PlayerSoundEffectsHandler : MonoBehaviour
     {
-        [SerializeField] private AudioSource audioSource;
         [SerializeField] private AudioClipSO movingSound;
+        
+        private AudioSource audioSource;
+
+        private void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
 
         private void Start()
         {

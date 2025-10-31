@@ -2239,7 +2239,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809a93a93cd54b6f8b78fc265aeb942e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 1313161755}
   movingSound: {fileID: 11400000, guid: e336eb6ed2fb28b41a665088b6f7f7b0, type: 2}
 --- !u!1 &1316118815
 GameObject:
