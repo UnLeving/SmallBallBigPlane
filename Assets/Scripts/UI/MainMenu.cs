@@ -22,11 +22,10 @@ namespace SmallBallBigPlane
             startButton.onClick.RemoveListener(OnStartClicked);
             exitButton.onClick.RemoveListener(OnExitClicked);
         }
-
-        // todo add loader scene
+        
         private void OnStartClicked()
         {
-            _sceneLoader.LoadScene(SceneName.GameScene);
+            _sceneLoader.LoadScene(Scene.GameScene);
         }
 
         private void OnExitClicked()

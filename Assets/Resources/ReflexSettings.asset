@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f50e4916e4924f2788a73057a16764c0, type: 3}
   m_Name: ReflexSettings
   m_EditorClassIdentifier: 
-  <LogLevel>k__BackingField: 0
+  <LogLevel>k__BackingField: -1
   <ProjectScopes>k__BackingField:
   - {fileID: 6284408060351066414, guid: 81b591b1ccd01e46c91d4d2ac785e093, type: 3}

@@ -13,7 +13,6 @@ namespace SmallBallBigPlane.Installers
             containerBuilder.AddSingleton(typeof(GameManager), typeof(IGameManager));
             containerBuilder.AddSingleton(typeof(CoinManager), typeof(ICoinManager));
             containerBuilder.AddSingleton(typeof(WindowManager), typeof(IWindowManager));
-            containerBuilder.AddSingleton(typeof(SceneLoader), typeof(ISceneLoader));
             containerBuilder.AddSingleton(pickupEffectsHandler, typeof(IPickupEffectsHandler));
         }
     }

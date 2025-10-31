@@ -7,7 +7,7 @@ namespace SmallBallBigPlane.Installers
     {
         public void InstallBindings(ContainerBuilder containerBuilder)
         {
-            
+            containerBuilder.AddSingleton(typeof(SceneLoader), typeof(ISceneLoader));
         }
     }
 }
