@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 using Random = UnityEngine.Random;
 
 namespace SmallBallBigPlane
@@ -11,21 +12,32 @@ namespace SmallBallBigPlane
         [SerializeField] private AudioClipSO audioClip;
 
         private AudioSource audioSource;
+        private IObjectPool<PickupSFX> _pool;
 
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
         }
 
-        private void Start()
+        public void Initialize(IObjectPool<PickupSFX> pool)
         {
-            Destroy(gameObject, lifeTime);
+            _pool = pool;
 
             audioSource.clip = audioClip.audioClip;
-
-            audioSource.pitch += Random.Range(-pitchVariation, +pitchVariation);
-
+            audioSource.pitch = 1f + Random.Range(-pitchVariation, +pitchVariation);
             audioSource.Play();
+
+            Invoke(nameof(ReturnToPool), lifeTime);
+        }
+
+        private void ReturnToPool()
+        {
+            _pool.Release(this);
+        }
+
+        private void OnDisable()
+        {
+            CancelInvoke();
         }
     }
 }

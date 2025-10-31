@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace SmallBallBigPlane
 {
@@ -6,9 +7,22 @@ namespace SmallBallBigPlane
     {
         [SerializeField, Min(1f)] private float lifeTime;
 
-        private void Start()
+        private IObjectPool<PickupVFX> _pool;
+
+        public void Initialize(IObjectPool<PickupVFX> pool)
         {
-            Destroy(gameObject, lifeTime);
+            _pool = pool;
+            Invoke(nameof(ReturnToPool), lifeTime);
+        }
+
+        private void ReturnToPool()
+        {
+            _pool.Release(this);
+        }
+
+        private void OnDisable()
+        {
+            CancelInvoke();
         }
     }
 }
