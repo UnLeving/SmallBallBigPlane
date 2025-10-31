@@ -1,20 +1,29 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace SmallBallBigPlane.Collectables
 {
-    public class CoinManager
+    public interface ICoinManager
+    {
+        int CoinCount { get; }
+        event Action<int> OnCoinCollected;
+        void CollectCoin();
+        void ResetCoins();
+        void Initialize(IEnumerable<Coin> coins);
+    }
+    
+    public class CoinManager: ICoinManager
     {
         private int _coinCount;
         public int CoinCount => _coinCount;
 
         public event Action<int> OnCoinCollected;
 
-        private List<GameObject> _coins = new();
-        public CoinManager()
+        private List<Coin> _coins = new();
+
+        public void Initialize(IEnumerable<Coin> coins)
         {
-            _coins.AddRange(GameObject.FindGameObjectsWithTag("Coin"));
+            _coins.AddRange(coins);
         }
         
         public void CollectCoin()
@@ -32,9 +41,9 @@ namespace SmallBallBigPlane.Collectables
 
             foreach (var coin in _coins)
             {
-                if( coin.activeSelf) continue;
+                if( coin.gameObject.activeSelf) continue;
                 
-                coin.SetActive(true);
+                coin.gameObject.SetActive(true);
             }
         }
     }

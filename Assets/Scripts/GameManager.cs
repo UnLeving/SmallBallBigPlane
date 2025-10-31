@@ -8,7 +8,7 @@ namespace SmallBallBigPlane
     {
         private const int RESTART_DELAY_MS = 2000;
         
-        [Inject] private CoinManager _coinManager;
+        [Inject] private ICoinManager _coinManager;
         [Inject] private WindowManager _windowManager;
 
         public event System.Action GameRestarted;
