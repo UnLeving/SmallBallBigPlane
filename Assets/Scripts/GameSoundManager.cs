@@ -1,16 +1,23 @@
+using System;
 using Reflex.Attributes;
 using UnityEngine;
 
 namespace SmallBallBigPlane
 {
+    [RequireComponent(typeof(AudioSource))]
     public class GameSoundManager : MonoBehaviour
     {
-        [SerializeField] private AudioSource audioSource;
+        private AudioSource audioSource;
         [SerializeField] private AudioClipSO winSound;
         [SerializeField] private AudioClipSO looseSound;
                 
         [Inject] private IGameManager _gameManager;
-        
+
+        private void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+
         private void Start()
         {
             _gameManager.GameLost += PlayLooseSound;

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2241054932245202754}
   - component: {fileID: 9074709616982491912}
   m_Layer: 0
-  m_Name: PickupSoundEffect
+  m_Name: PickupSFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

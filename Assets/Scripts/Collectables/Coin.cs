@@ -7,7 +7,7 @@ namespace SmallBallBigPlane.Collectables
     {
        [SerializeField] private float rotationSpeed = 10f;
        [Inject] private ICoinManager _coinManager;
-       [Inject] private PickupSoundEffect _pickupSoundEffect;
+       [Inject] private PickupSFX pickupSfx;
        [Inject] private PickupVFX _pickupVFX;
        
         public void Collect()
@@ -16,7 +16,7 @@ namespace SmallBallBigPlane.Collectables
             
             gameObject.SetActive(false);
 
-            Instantiate(_pickupSoundEffect);
+            Instantiate(pickupSfx);
             Instantiate(_pickupVFX, transform.position, Quaternion.identity);
         }
 

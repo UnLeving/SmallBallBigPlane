@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SmallBallBigPlane
 {
-    public class PickupSoundEffect : MonoBehaviour
+    public class PickupSFX : MonoBehaviour
     {
         [SerializeField, Min(1f)] private float lifeTime;
         [SerializeField, Min(0.1f)] private float pitchVariation;

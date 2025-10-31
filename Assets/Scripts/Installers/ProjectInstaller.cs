@@ -5,13 +5,13 @@ namespace SmallBallBigPlane.Installers
 {
     public class ProjectInstaller: MonoBehaviour, IInstaller
     {
-        [SerializeField] private PickupSoundEffect pickupSoundEffectPrefab;
+        [SerializeField] private PickupSFX pickupSfxPrefab;
         [SerializeField] private PickupVFX pickupVFXPrefab;
         
         
         public void InstallBindings(ContainerBuilder containerBuilder)
         {
-            containerBuilder.AddSingleton(pickupSoundEffectPrefab);
+            containerBuilder.AddSingleton(pickupSfxPrefab);
             containerBuilder.AddSingleton(pickupVFXPrefab);
         }
     }
