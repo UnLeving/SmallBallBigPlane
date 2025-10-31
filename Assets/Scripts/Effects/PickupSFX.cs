@@ -17,13 +17,17 @@ namespace SmallBallBigPlane
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
+            
+            audioSource.clip = audioClip.audioClip;
         }
 
-        public void Initialize(IObjectPool<PickupSFX> pool)
+        public void SetPool(IObjectPool<PickupSFX> pool)
         {
             _pool = pool;
+        }
 
-            audioSource.clip = audioClip.audioClip;
+        private void OnEnable()
+        {
             audioSource.pitch = 1f + Random.Range(-pitchVariation, +pitchVariation);
             audioSource.Play();
 

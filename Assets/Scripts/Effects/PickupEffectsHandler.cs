@@ -19,7 +19,7 @@ namespace SmallBallBigPlane.Collectables
         private void Initialize()
         {
             _pickupVFXPool = new ObjectPool<PickupVFX>(
-                createFunc: () => Instantiate(pickupVFXPrefab),
+                createFunc: CreateVFX,
                 actionOnGet: vfx => vfx.gameObject.SetActive(true),
                 actionOnRelease: vfx => vfx.gameObject.SetActive(false),
                 actionOnDestroy: vfx => Destroy(vfx.gameObject),
@@ -29,7 +29,7 @@ namespace SmallBallBigPlane.Collectables
             );
 
             _pickupSFXPool = new ObjectPool<PickupSFX>(
-                createFunc: () => Instantiate(pickupSfxPrefab),
+                createFunc: CreateSFX,
                 actionOnGet: sfx => sfx.gameObject.SetActive(true),
                 actionOnRelease: sfx => sfx.gameObject.SetActive(false),
                 actionOnDestroy: sfx => Destroy(sfx.gameObject),
@@ -37,6 +37,20 @@ namespace SmallBallBigPlane.Collectables
                 defaultCapacity: poolSize,
                 maxSize: poolSize * 2
             );
+        }
+
+        private PickupVFX CreateVFX()
+        {
+            var vfx = Instantiate(pickupVFXPrefab);
+            vfx.SetPool(_pickupVFXPool);
+            return vfx;
+        }
+
+        private PickupSFX CreateSFX()
+        {
+            var sfx = Instantiate(pickupSfxPrefab);
+            sfx.SetPool(_pickupSFXPool);
+            return sfx;
         }
 
         public void PlayPickupEffects(Vector3 position)
@@ -49,14 +63,12 @@ namespace SmallBallBigPlane.Collectables
         {
             var vfx = _pickupVFXPool.Get();
             vfx.transform.position = position;
-            vfx.Initialize(_pickupVFXPool);
         }
 
         private void PlaySFX(Vector3 position)
         {
             var sfx = _pickupSFXPool.Get();
             sfx.transform.position = position;
-            sfx.Initialize(_pickupSFXPool);
         }
     }
 }

@@ -9,9 +9,13 @@ namespace SmallBallBigPlane
 
         private IObjectPool<PickupVFX> _pool;
 
-        public void Initialize(IObjectPool<PickupVFX> pool)
+        public void SetPool(IObjectPool<PickupVFX> pool)
         {
             _pool = pool;
+        }
+
+        private void OnEnable()
+        {
             Invoke(nameof(ReturnToPool), lifeTime);
         }
 
