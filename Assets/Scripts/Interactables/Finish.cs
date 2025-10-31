@@ -5,7 +5,7 @@ namespace SmallBallBigPlane
 {
     public class Finish : MonoBehaviour, IInteractable
     {
-        [Inject] private GameManager _gameManager;
+        [Inject] private IGameManager _gameManager;
         
         public void Interact()
         {

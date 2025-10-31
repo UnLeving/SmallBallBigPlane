@@ -11,7 +11,7 @@ namespace SmallBallBigPlane.Installers
         
         public void InstallBindings(ContainerBuilder containerBuilder)
         {
-            containerBuilder.AddSingleton(typeof(GameManager));
+            containerBuilder.AddSingleton(typeof(GameManager), typeof(IGameManager));
             containerBuilder.AddSingleton(typeof(CoinManager), typeof(ICoinManager));
             
             foreach (var window in windows)

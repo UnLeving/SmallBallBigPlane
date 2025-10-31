@@ -9,7 +9,7 @@ namespace SmallBallBigPlane
         [SerializeField] private AudioClipSO winSound;
         [SerializeField] private AudioClipSO looseSound;
                 
-        [Inject] private GameManager _gameManager;
+        [Inject] private IGameManager _gameManager;
         
         private void Start()
         {

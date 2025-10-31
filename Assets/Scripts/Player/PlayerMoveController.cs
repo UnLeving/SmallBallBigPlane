@@ -11,7 +11,7 @@ namespace SmallBallBigPlane
         [SerializeField] private PlayerInputs playerInputs;
         [SerializeField] private PlayerSoundEffectsHandler playerSoundEffectsHandler;
         
-        [Inject] private GameManager _gameManager;
+        [Inject] private IGameManager _gameManager;
 
         private void Awake()
         {

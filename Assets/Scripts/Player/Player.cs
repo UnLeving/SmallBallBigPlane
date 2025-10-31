@@ -8,7 +8,7 @@ namespace SmallBallBigPlane
     public class Player : MonoBehaviour
     {
         private Vector3 _startPosition;
-        [Inject] private GameManager _gameManager;
+        [Inject] private IGameManager _gameManager;
         
         private void Start()
         {

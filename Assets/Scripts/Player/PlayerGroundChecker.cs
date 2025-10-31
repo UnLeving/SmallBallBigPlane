@@ -14,7 +14,7 @@ namespace SmallBallBigPlane
         private int _isGrounded;
         private RaycastHit[] _raycastHits = new RaycastHit[1];
 
-        [Inject] private GameManager _gameManager;
+        [Inject] private IGameManager _gameManager;
 
         private void Start()
         {

@@ -1,19 +1,30 @@
+using System;
 using Reflex.Attributes;
 using SmallBallBigPlane.Collectables;
 using Cysharp.Threading.Tasks;
 
 namespace SmallBallBigPlane
 {
-    public class GameManager
+    public interface IGameManager
+    {
+        event Action GameRestarted;
+        event Action GameLost;
+        event Action GameWon;
+        UniTask PlayerFall();
+        void PlayerReachFinish();
+        void RestartRequested();
+    }
+
+    public class GameManager : IGameManager
     {
         private const int RESTART_DELAY_MS = 2000;
         
         [Inject] private ICoinManager _coinManager;
         [Inject] private WindowManager _windowManager;
 
-        public event System.Action GameRestarted;
-        public event System.Action GameLost;
-        public event System.Action GameWon;
+        public event Action GameRestarted;
+        public event Action GameLost;
+        public event Action GameWon;
 
         public async UniTask PlayerFall()
         {
