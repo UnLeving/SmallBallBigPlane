@@ -1,5 +1,5 @@
+using Reflex.Attributes;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace SmallBallBigPlane
@@ -9,6 +9,8 @@ namespace SmallBallBigPlane
         [SerializeField] private Button startButton;
         [SerializeField] private Button exitButton;
 
+        [Inject] private ISceneLoader _sceneLoader;
+        
         private void OnEnable()
         {
             startButton.onClick.AddListener(OnStartClicked);
@@ -24,7 +26,7 @@ namespace SmallBallBigPlane
         // todo add loader scene
         private void OnStartClicked()
         {
-            SceneManager.LoadScene("GameScene");
+            _sceneLoader.LoadScene(SceneName.GameScene);
         }
 
         private void OnExitClicked()
