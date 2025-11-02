@@ -1,3 +1,4 @@
+using HelpersAndExtensions.SaveSystem;
 using Reflex.Attributes;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +26,8 @@ namespace SmallBallBigPlane
         
         private void OnStartClicked()
         {
+            SaveLoadSystem.Instance.TryLoadGame();
+            
             _sceneLoader.LoadScene(Scene.GameScene);
         }
 

@@ -14,12 +14,12 @@ namespace HelpersAndExtensions.SaveSystem
         {
             this._serializer = serializer;
             this._dataPath = Application.persistentDataPath;
-            this._fileExtension = "json";
+            this._fileExtension = ".json";
         }
 
         private string GetPathToFile(string fileName)
         {
-            return Path.Combine(_dataPath, string.Concat(fileName, ".", _fileExtension));
+            return Path.Combine(_dataPath, string.Concat(fileName, _fileExtension));
         }
         
         public void Save(GameData data, bool overwrite = true)
@@ -28,7 +28,7 @@ namespace HelpersAndExtensions.SaveSystem
             
             if (File.Exists(fileLocation) && !overwrite)
             {
-                throw new IOException($"File {data.Name}.{_fileExtension} already exists and overwrite is false");
+                throw new IOException($"File {data.Name}{_fileExtension} already exists and overwrite is false");
             }
             
             File.WriteAllText(fileLocation, _serializer.Serialize(data));
@@ -40,7 +40,7 @@ namespace HelpersAndExtensions.SaveSystem
             
             if (!File.Exists(fileLocation))
             {
-                throw new FileNotFoundException($"File {name}.{_fileExtension} not found");
+                throw new FileNotFoundException($"File {name}{_fileExtension} not found");
             }
             
             return _serializer.Deserialize<GameData>(File.ReadAllText(fileLocation));
@@ -52,7 +52,7 @@ namespace HelpersAndExtensions.SaveSystem
             
             if (!File.Exists(fileLocation))
             {
-                throw new FileNotFoundException($"File {name}.{_fileExtension} not found");
+                throw new FileNotFoundException($"File {name}{_fileExtension} not found");
             }
             
             File.Delete(fileLocation);
@@ -70,7 +70,8 @@ namespace HelpersAndExtensions.SaveSystem
         {
             foreach (string path in Directory.EnumerateFiles(_dataPath))
             {
-                if (Path.GetExtension(path) != _fileExtension) continue;
+                var ex = Path.GetExtension(path);
+                if (ex != _fileExtension) continue;
                 
                 yield return Path.GetFileNameWithoutExtension(path);
             }

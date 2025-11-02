@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Reflex.Attributes;
-using SmallBallBigPlane;
+using SmallBallBigPlane.Collectables;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Scene = UnityEngine.SceneManagement.Scene;
 
 namespace HelpersAndExtensions.SaveSystem
 {
@@ -17,44 +18,41 @@ namespace HelpersAndExtensions.SaveSystem
 
     public class SaveLoadSystem : MonoBehaviour, ISaveLoadSystem
     {
-        public GameData gameData;
-        private Player _player;
-        private IDataService _dataService;
+        private const string DefaultSaveName = "New Game";
         
-        [Inject]
-        private void Construct(Player player)
+        public static SaveLoadSystem Instance { get; private set; }
+        
+        
+        public GameData gameData;
+        private IDataService _dataService;
+
+        private void Awake()
         {
-            _player = player;
+            Instance = this;
+            
+            DontDestroyOnLoad(gameObject);
             
             _dataService = new FileDataService(new JsonSerializer());
-            
-            if (gameData == null)
-            {
-                Debug.Log("Game data is null. Creating new game");
-                
-                NewGame();
-            }
+        }
 
-            BindPlayer<Player, PlayerData>(gameData.PlayerData);
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += SceneManager_OnsceneLoaded;
+        }
+
+        private void SceneManager_OnsceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+        { 
+            if(scene.name is "MainMenuScene" or "LoadingScene") return;
+            
+            //Bind<Player, PlayerData>(gameData.PlayerData);
+            Bind<CoinManager, CoinData>(gameData.CoinData);
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= SceneManager_OnsceneLoaded;
         }
         
-        private void BindPlayer<T, TData>(TData data)
-            where T : MonoBehaviour, IBind<TData>
-            where TData : ISavable, new()
-        {
-            var entity = (IBind<TData>)_player;
-
-            if (entity != null)
-            {
-                if (data == null)
-                {
-                    data = new TData { Id = entity.Id };
-                }
-
-                entity.Bind(data);
-            }
-        }
-
         private void Bind<T, TData>(TData data)
             where T : MonoBehaviour, IBind<TData>
             where TData : ISavable, new()
@@ -97,8 +95,8 @@ namespace HelpersAndExtensions.SaveSystem
         {
             gameData = new GameData
             {
-                Name = "New Game",
-                CurrentLevelName = "DemoScene"
+                Name = DefaultSaveName,
+                //CurrentLevelName = "DemoScene"
             };
         }
 
@@ -107,18 +105,23 @@ namespace HelpersAndExtensions.SaveSystem
             _dataService.Save(gameData);
         }
 
-        public void LoadGame(string gameName)
+        public void TryLoadGame()
+        {
+            var saves = ListSaves();
+            
+            if (saves.Any())
+            {
+                LoadGame(saves.First());
+
+                return;
+            }
+            
+            NewGame();
+        }
+
+        public void LoadGame(string gameName = DefaultSaveName)
         {
             gameData = _dataService.Load(gameName);
-
-            // todo: load level through level manager
-
-            // if (String.IsNullOrWhiteSpace(gameData.CurrentLevelName))
-            // {
-            //     gameData.CurrentLevelName = "DemoScene";
-            // }
-
-            //SceneManager.LoadScene(gameData.CurrentLevelName);
         }
 
         public void ReloadGame()
@@ -129,6 +132,11 @@ namespace HelpersAndExtensions.SaveSystem
         public void DeleteGame(string gameName)
         {
             _dataService.Delete(gameName);
+        }
+        
+        private IEnumerable<string> ListSaves()
+        {
+            return _dataService.ListSaves();
         }
     }
 }

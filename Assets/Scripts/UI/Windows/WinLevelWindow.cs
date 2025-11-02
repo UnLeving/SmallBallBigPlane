@@ -1,4 +1,3 @@
-using System;
 using HelpersAndExtensions.SaveSystem;
 using Reflex.Attributes;
 using SmallBallBigPlane.Collectables;
@@ -15,7 +14,6 @@ namespace SmallBallBigPlane
         [SerializeField] private Button restartButton;
         [Inject] private ICoinManager _coinManager;
         [Inject] private IGameManager _gameManager;
-        [Inject] private ISaveLoadSystem _saveLoadSystem;
 
         private void OnEnable()
         {
@@ -31,7 +29,7 @@ namespace SmallBallBigPlane
         {
             _gameManager.RestartRequested();
 
-            _saveLoadSystem.SaveGame();
+            SaveLoadSystem.Instance.SaveGame();
 
             //Hide();
         }
@@ -40,13 +38,15 @@ namespace SmallBallBigPlane
         {
             base.Show();
 
-            UpdateScoreText(_coinManager.CoinCount);
+            _coinManager.SetMaxCoinCount();
+            
+            UpdateScoreText();
         }
 
-        private void UpdateScoreText(int score, int bestScore = 0)
+        private void UpdateScoreText()
         {
-            scoreText.text = score.ToString();
-            bestScoreText.text = bestScore.ToString();
+            scoreText.text = _coinManager.CoinCount.ToString();
+            bestScoreText.text = _coinManager.MaxCoinCount.ToString();
         }
     }
 }

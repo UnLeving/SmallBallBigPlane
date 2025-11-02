@@ -10,16 +10,23 @@ namespace SmallBallBigPlane
     public class PlayerData : ISavable
     {
         [field: SerializeField] public string Id { get; set; }
-        public Vector3 position;
-        public Quaternion rotation;
+        public int maxCoins;
     }
     
     public class Player : MonoBehaviour, IBind<PlayerData>
     {
         private Vector3 _startPosition;
         [Inject] private IGameManager _gameManager;
-        [field: SerializeField] public string Id { get; set; }
-        [SerializeField] private PlayerData data;
+        [field: SerializeField] 
+        public string Id { get; set; }
+        [SerializeField] 
+        private PlayerData data;
+        
+        private void Awake()
+        {
+            if (string.IsNullOrEmpty(Id))
+                Id = Guid.NewGuid().ToString("N");
+        }
         
         private void Start()
         {
@@ -50,15 +57,6 @@ namespace SmallBallBigPlane
         {
             this.data = data;
             this.data.Id = Id;
-            
-            transform.position = data.position;
-            transform.rotation = data.rotation;
-        }
-        
-        private void Update()
-        {
-            data.position = transform.position;
-            data.rotation = transform.rotation;
         }
     }
 }
