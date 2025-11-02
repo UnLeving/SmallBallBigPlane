@@ -1,4 +1,5 @@
 using System;
+using HelpersAndExtensions.SaveSystem;
 using Reflex.Attributes;
 using SmallBallBigPlane.Collectables;
 using TMPro;
@@ -14,6 +15,7 @@ namespace SmallBallBigPlane
         [SerializeField] private Button restartButton;
         [Inject] private ICoinManager _coinManager;
         [Inject] private IGameManager _gameManager;
+        [Inject] private ISaveLoadSystem _saveLoadSystem;
 
         private void OnEnable()
         {
@@ -28,7 +30,9 @@ namespace SmallBallBigPlane
         private void OnRestartClicked()
         {
             _gameManager.RestartRequested();
-            
+
+            _saveLoadSystem.SaveGame();
+
             //Hide();
         }
 

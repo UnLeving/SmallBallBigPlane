@@ -1,45 +1,58 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using HelpersAndExtensions.SaveSystem.Example;
+using Reflex.Attributes;
+using SmallBallBigPlane;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace HelpersAndExtensions.SaveSystem
 {
-    public class SaveLoadSystem : MonoBehaviour
+    public interface ISaveLoadSystem
     {
-        public static SaveLoadSystem Instance { get; private set; }
+        void NewGame();
+        void SaveGame();
+        void LoadGame(string gameName);
+        void ReloadGame();
+        void DeleteGame(string gameName);
+    }
 
-
+    public class SaveLoadSystem : MonoBehaviour, ISaveLoadSystem
+    {
         public GameData gameData;
-
+        private Player _player;
         private IDataService _dataService;
-
-        private void Awake()
+        
+        [Inject]
+        private void Construct(Player player)
         {
-            Instance = this;
-
+            _player = player;
+            
             _dataService = new FileDataService(new JsonSerializer());
+            
+            if (gameData == null)
+            {
+                Debug.Log("Game data is null. Creating new game");
+                
+                NewGame();
+            }
 
-            DontDestroyOnLoad(gameObject);
-        }
-
-        private void OnEnable()
-        {
-            SceneManager.sceneLoaded += SceneManager_OnsceneLoaded;
+            BindPlayer<Player, PlayerData>(gameData.PlayerData);
         }
         
-        private void OnDisable()
+        private void BindPlayer<T, TData>(TData data)
+            where T : MonoBehaviour, IBind<TData>
+            where TData : ISavable, new()
         {
-            SceneManager.sceneLoaded -= SceneManager_OnsceneLoaded;
-        }
+            var entity = (IBind<TData>)_player;
 
-        private void SceneManager_OnsceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            if (scene.name == "MainMenuScene") return;
-            
-            Bind<Hero, PlayerData>(gameData.PlayerData);
+            if (entity != null)
+            {
+                if (data == null)
+                {
+                    data = new TData { Id = entity.Id };
+                }
+
+                entity.Bind(data);
+            }
         }
 
         private void Bind<T, TData>(TData data)
@@ -72,10 +85,10 @@ namespace HelpersAndExtensions.SaveSystem
                 if (data == null)
                 {
                     data = new TData { Id = entity.Id };
-                    
+
                     datas.Add(data);
                 }
-                
+
                 entity.Bind(data);
             }
         }
@@ -87,8 +100,6 @@ namespace HelpersAndExtensions.SaveSystem
                 Name = "New Game",
                 CurrentLevelName = "DemoScene"
             };
-
-            SceneManager.LoadScene(gameData.CurrentLevelName);
         }
 
         public void SaveGame()
@@ -100,12 +111,14 @@ namespace HelpersAndExtensions.SaveSystem
         {
             gameData = _dataService.Load(gameName);
 
-            if (String.IsNullOrWhiteSpace(gameData.CurrentLevelName))
-            {
-                gameData.CurrentLevelName = "DemoScene";
-            }
+            // todo: load level through level manager
 
-            SceneManager.LoadScene(gameData.CurrentLevelName);
+            // if (String.IsNullOrWhiteSpace(gameData.CurrentLevelName))
+            // {
+            //     gameData.CurrentLevelName = "DemoScene";
+            // }
+
+            //SceneManager.LoadScene(gameData.CurrentLevelName);
         }
 
         public void ReloadGame()

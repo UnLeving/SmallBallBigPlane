@@ -4,6 +4,6 @@ namespace HelpersAndExtensions.SaveSystem
 {
     public interface ISavable
     {
-        SerializableGuid Id { get; set; }
+        string Id { get; set; }
     }
 }
