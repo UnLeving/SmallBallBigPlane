@@ -13,7 +13,7 @@ namespace SmallBallBigPlane.Installers
         
         public void InstallBindings(ContainerBuilder containerBuilder)
         {
-            containerBuilder.AddSingleton(player);
+            containerBuilder.AddScoped(_ => player, typeof(Player));
             containerBuilder.AddSingleton(saveLoadSystem, typeof(ISaveLoadSystem));
             containerBuilder.AddSingleton(typeof(GameManager), typeof(IGameManager));
             containerBuilder.AddSingleton(typeof(CoinManager), typeof(ICoinManager));
