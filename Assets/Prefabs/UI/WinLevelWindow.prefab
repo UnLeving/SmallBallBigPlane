@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 5793013093167906811}
   - component: {fileID: 3839177929653278243}
   m_Layer: 5
-  m_Name: ScoreValueText (TMP)
+  m_Name: BestScoreValueText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 6890141323429181616}
   - component: {fileID: 7608521399626511074}
   m_Layer: 5
-  m_Name: ScoreHeaderText (TMP)
+  m_Name: BestScoreHeaderText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1129,6 +1129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 3618715462974173455}
+  bestScoreText: {fileID: 3839177929653278243}
   restartButton: {fileID: 4603270125587491713}
 --- !u!1 &7697773423426725612
 GameObject:
