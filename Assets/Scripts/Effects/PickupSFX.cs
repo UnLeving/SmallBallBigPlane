@@ -11,7 +11,7 @@ namespace SmallBallBigPlane
         [SerializeField, Min(0.1f)] private float pitchVariation;
         [SerializeField] private AudioClipSO audioClip;
 
-        private AudioSource audioSource;
+        protected AudioSource audioSource;
         private IObjectPool<PickupSFX> _pool;
 
         private void Awake()

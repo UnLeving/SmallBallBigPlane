@@ -404,6 +404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupEffectsHandler: {fileID: 13607175}
+  obstacleKickSFX: {fileID: 1844854075072245743, guid: 6160bd85014930d458680bfa979e3429, type: 3}
   player: {fileID: 1313161757}
   coinManager: {fileID: 1026546307}
 --- !u!114 &646911306
