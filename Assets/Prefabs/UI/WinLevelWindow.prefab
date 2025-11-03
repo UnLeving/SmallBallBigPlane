@@ -1100,6 +1100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5747dfaf29ac770a47c28eaac3e417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _background: {fileID: 796079580006831531}
+  viewTransform: {fileID: 3415588527525171553}
   scoreText: {fileID: 3618715462974173455}
   bestScoreText: {fileID: 3839177929653278243}
   restartButton: {fileID: 4852861088790050309}

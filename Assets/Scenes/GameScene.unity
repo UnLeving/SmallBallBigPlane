@@ -504,7 +504,7 @@ MonoBehaviour:
   windows:
   - {fileID: 1799879559}
   - {fileID: 1830908870}
-  background: {fileID: 1470266208}
+  background: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1672,11 +1672,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7219705567769202143, guid: ae8578fa58053cf4caff4a30dda83516, type: 3}
   m_PrefabInstance: {fileID: 1456574198}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1470266208 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7912957482177712405, guid: e1a801313a28d9f49baea07ab1dda718, type: 3}
-  m_PrefabInstance: {fileID: 216659312274731584}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1624356759
 GameObject:
   m_ObjectHideFlags: 0
@@ -2303,6 +2298,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3639784836526870884, guid: e1a801313a28d9f49baea07ab1dda718, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5371487894574614200, guid: e1a801313a28d9f49baea07ab1dda718, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8239164573154777760, guid: e1a801313a28d9f49baea07ab1dda718, type: 3}

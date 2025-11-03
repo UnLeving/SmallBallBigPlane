@@ -10,14 +10,14 @@ namespace SmallBallBigPlane
         event Action GameLost;
         event Action GameWon;
         UniTask PlayerFall();
-        void PlayerReachFinish();
+        UniTask PlayerReachFinish();
         void RestartRequested();
     }
 
     public class GameManager : IGameManager
     {
-        private const int RESTART_DELAY_MS = 2000;
-        
+        private const int RESTART_DELAY_MS = 2500;
+
         private readonly ICoinManager _coinManager;
         private readonly IWindowManager _windowManager;
 
@@ -34,29 +34,29 @@ namespace SmallBallBigPlane
         public async UniTask PlayerFall()
         {
             _coinManager.ResetCoins();
-            
+
             GameLost?.Invoke();
-            
-            _windowManager.Show<LooseWindow>();
+
+            await _windowManager.Show<LooseWindow>();
 
             await UniTask.Delay(RESTART_DELAY_MS);
 
             RestartRequested();
         }
 
-        public void PlayerReachFinish()
+        public async UniTask PlayerReachFinish()
         {
-            _windowManager.Show<WinLevelWindow>();
-            
             GameWon?.Invoke();
+            
+            await _windowManager.Show<WinLevelWindow>();
         }
 
         public void RestartRequested()
         {
             _coinManager.ResetCoins();
-            
+
             GameRestarted?.Invoke();
-            
+
             _windowManager.HideAll();
         }
     }

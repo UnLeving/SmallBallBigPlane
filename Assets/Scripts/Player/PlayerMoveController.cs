@@ -40,8 +40,6 @@ namespace SmallBallBigPlane
             playerInput.enabled = false;
             
             ResetRigidBodyVelocities();
-            
-            Debug.Log("Game won");
         }
 
         private void GameManager_OnGameRestarted()

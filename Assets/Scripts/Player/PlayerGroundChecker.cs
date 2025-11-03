@@ -13,6 +13,7 @@ namespace SmallBallBigPlane
         private float _timeInAir;
         private int _isGrounded;
         private RaycastHit[] _raycastHits = new RaycastHit[1];
+        private bool _blockGroundCheck;
 
         [Inject] private IGameManager _gameManager;
 
@@ -22,10 +23,19 @@ namespace SmallBallBigPlane
             {
                 groundCheckPoint = transform;
             }
+            
+            _gameManager.GameRestarted += GameManager_OnGameRestarted;
+        }
+
+        private void GameManager_OnGameRestarted()
+        {
+            _blockGroundCheck = false;
         }
 
         private void FixedUpdate()
         {
+            if (_blockGroundCheck) return;
+            
             CheckGroundStatus();
         }
 
@@ -42,6 +52,8 @@ namespace SmallBallBigPlane
             {
                 _timeInAir = 0f;
                 
+                _blockGroundCheck = false;
+                
                 playerSoundEffectsHandler.PlayMovingSound();
             }
             else
@@ -53,6 +65,8 @@ namespace SmallBallBigPlane
                 if (_timeInAir > acceptableTimeInAir)
                 {
                     _gameManager.PlayerFall();
+                    
+                    _blockGroundCheck = true;
                 }
             }
             //

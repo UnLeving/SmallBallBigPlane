@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using HelpersAndExtensions.SaveSystem;
 using Reflex.Attributes;
 using SmallBallBigPlane.Collectables;
@@ -34,9 +35,9 @@ namespace SmallBallBigPlane
             //Hide();
         }
 
-        public override void Show()
+        public override async UniTask Show()
         {
-            base.Show();
+            await base.Show();
 
             _coinManager.SetMaxCoinCount();
             
