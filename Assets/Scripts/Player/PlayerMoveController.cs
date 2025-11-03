@@ -11,7 +11,6 @@ namespace SmallBallBigPlane
         [SerializeField] private PlayerInputs playerInputs;
         [SerializeField] private PlayerSoundEffectsHandler playerSoundEffectsHandler;
         [SerializeField] private float moveSpeed = 2f;
-        [Tooltip("Визначає, як гучність звуку (Y-вісь) залежить від нормалізованої швидкості (X-вісь). X:[0-1], Y:[0-1]")]
         [SerializeField] private AnimationCurve volumeBySpeedCurve = AnimationCurve.Linear(0, 0, 1, 1);
         [SerializeField] private float maxVolume = 0.5f;
         
