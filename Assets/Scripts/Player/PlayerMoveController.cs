@@ -10,6 +10,7 @@ namespace SmallBallBigPlane
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] private PlayerInputs playerInputs;
         [SerializeField] private PlayerSoundEffectsHandler playerSoundEffectsHandler;
+        [SerializeField] private float moveSpeed = 2f;
         
         [Inject] private IGameManager _gameManager;
 
@@ -67,9 +68,9 @@ namespace SmallBallBigPlane
             Vector2 input = playerInputs.move;
             Vector3 movement = new Vector3(input.x, 0, input.y);
 
-            rb.AddForce(movement, ForceMode.Force);
+            rb.AddForce(movement * moveSpeed, ForceMode.Force);
             
-            var soundVolume = Mathf.Clamp(rb.velocity.magnitude, 0, .75f);
+            var soundVolume = Mathf.Clamp(rb.velocity.magnitude, 0, .5f);
             
             playerSoundEffectsHandler.PlayMovingSound(soundVolume);
         }
