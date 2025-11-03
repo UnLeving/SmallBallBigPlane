@@ -10,7 +10,14 @@ namespace SmallBallBigPlane
         [SerializeField] private Button startButton;
         [SerializeField] private Button exitButton;
 
-        [Inject] private ISceneLoader _sceneLoader;
+        private ISceneLoader _sceneLoader;
+        
+        
+        [Inject]
+        private void Construct(ISceneLoader sceneLoader)
+        {
+            this._sceneLoader = sceneLoader;
+        }
         
         private void OnEnable()
         {

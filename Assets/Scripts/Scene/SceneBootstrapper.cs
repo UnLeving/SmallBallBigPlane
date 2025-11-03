@@ -8,14 +8,21 @@ namespace SmallBallBigPlane
     {
         [SerializeField] private WindowBase[] windows;
         
-        [Inject] private ICoinManager _coins;
-        [Inject] private IWindowManager _windowManager;
+        private ICoinManager _coinManager;
+        private IWindowManager _windowManager;
+
+        [Inject]
+        private void Construct(ICoinManager coinManager, IWindowManager windowManager)
+        {
+            this._coinManager = coinManager;
+            this._windowManager = windowManager;
+        }
 
         private void Start()
         {
             var allCoins = FindObjectsOfType<Coin>(true);
             
-            _coins.Initialize(allCoins);
+            _coinManager.Initialize(allCoins);
             _windowManager.Initialize(windows);
         }
     }

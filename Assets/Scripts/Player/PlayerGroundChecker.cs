@@ -15,7 +15,14 @@ namespace SmallBallBigPlane
         private RaycastHit[] _raycastHits = new RaycastHit[1];
         private bool _blockGroundCheck;
 
-        [Inject] private IGameManager _gameManager;
+        private IGameManager _gameManager;
+        
+        
+        [Inject]
+        private void Construct(IGameManager gameManager)
+        {
+            this._gameManager = gameManager;
+        }
 
         private void Start()
         {

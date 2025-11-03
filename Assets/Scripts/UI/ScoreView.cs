@@ -9,8 +9,14 @@ namespace SmallBallBigPlane.UI
     {
         [SerializeField] private TextMeshProUGUI scoreText;
         
-        [Inject] private ICoinManager _coinManager;
-
+        private ICoinManager _coinManager;
+        
+        [Inject]
+        private void Construct(ICoinManager coinManager)
+        {
+            this._coinManager = coinManager;
+        }
+        
         private void Start()
         {
             _coinManager.OnCoinCollected += CoinManager_OnOnCoinCollected;

@@ -14,8 +14,14 @@ namespace SmallBallBigPlane
         [SerializeField] private AnimationCurve volumeBySpeedCurve = AnimationCurve.Linear(0, 0, 1, 1);
         [SerializeField] private float maxVolume = 0.5f;
         
-        [Inject] private IGameManager _gameManager;
+        private IGameManager _gameManager;
 
+        [Inject]
+        private void Construct(IGameManager gameManager)
+        {
+            this._gameManager = gameManager;
+        }
+        
         private void Awake()
         {
             if (rb == null)

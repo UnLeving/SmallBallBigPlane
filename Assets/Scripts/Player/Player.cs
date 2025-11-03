@@ -16,11 +16,17 @@ namespace SmallBallBigPlane
     public class Player : MonoBehaviour, IBind<PlayerData>
     {
         private Vector3 _startPosition;
-        [Inject] private IGameManager _gameManager;
+        private IGameManager _gameManager;
         [field: SerializeField] 
         public string Id { get; set; }
         [SerializeField] 
         private PlayerData data;
+
+        [Inject]
+        private void Construct(IGameManager gameManager)
+        {
+            this._gameManager = gameManager;
+        }
         
         private void Awake()
         {

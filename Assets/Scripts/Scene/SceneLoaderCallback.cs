@@ -7,8 +7,14 @@ namespace SmallBallBigPlane
     {
         private bool isFirstUpdate = true;
 
-        [Inject] private ISceneLoader _sceneLoader;
-    
+        private ISceneLoader _sceneLoader;
+
+        [Inject]
+        private void Construct(ISceneLoader sceneLoader)
+        {
+            this._sceneLoader = sceneLoader;
+        }
+
         private void Update()
         {
             if (!isFirstUpdate) return;

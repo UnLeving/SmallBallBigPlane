@@ -10,12 +10,19 @@ namespace SmallBallBigPlane
     [RequireComponent(typeof(CinemachineVirtualCamera))]
     public class VirtualCameraWarp : MonoBehaviour
     {
-        [Inject] private IGameManager _gameManager;
+        private IGameManager _gameManager;
         private CinemachineVirtualCamera _virtualCamera;
         private CinemachineTransposer _transposer;
         private float originalXDamping;
         private float originalYDamping;
         private float originalZDamping;
+        
+        
+        [Inject]
+        private void Construct(IGameManager gameManager)
+        {
+            this._gameManager = gameManager;
+        }
 
         private void Awake()
         {

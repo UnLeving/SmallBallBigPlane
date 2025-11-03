@@ -13,8 +13,16 @@ namespace SmallBallBigPlane
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI bestScoreText;
         [SerializeField] private Button restartButton;
-        [Inject] private ICoinManager _coinManager;
-        [Inject] private IGameManager _gameManager;
+        
+        private ICoinManager _coinManager;
+        private IGameManager _gameManager;
+        
+        [Inject]
+        private void Construct(ICoinManager coinManager, IGameManager gameManager)
+        {
+            this._coinManager = coinManager;
+            this._gameManager = gameManager;
+        }
 
         private void OnEnable()
         {

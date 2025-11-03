@@ -7,11 +7,17 @@ namespace SmallBallBigPlane
     [RequireComponent(typeof(AudioSource))]
     public class GameSoundManager : MonoBehaviour
     {
-        private AudioSource audioSource;
         [SerializeField] private AudioClipSO winSound;
         [SerializeField] private AudioClipSO looseSound;
                 
-        [Inject] private IGameManager _gameManager;
+        private AudioSource audioSource;
+        private IGameManager _gameManager;
+
+        [Inject]
+        private void Construct(IGameManager gameManager)
+        {
+            this._gameManager = gameManager;
+        }
 
         private void Awake()
         {
