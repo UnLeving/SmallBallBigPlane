@@ -43,8 +43,6 @@ namespace SmallBallBigPlane.Collectables
             this.data = data;
             this.data.Id = Id;
             
-            Debug.Log($"CoinManager: {data.MaxCoinCount}");
-            
             this._maxCoinCount = data.MaxCoinCount;
         }
         

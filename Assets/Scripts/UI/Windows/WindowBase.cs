@@ -32,8 +32,6 @@ namespace SmallBallBigPlane
 
         private async UniTask ShowPanel(CancellationToken cancellationToken = default)
         {
-            Debug.Log("ShowPanel");
-
             gameObject.SetActive(true);
 
             Tween.Alpha(_background, 0.5f, 0.5f);
@@ -47,8 +45,6 @@ namespace SmallBallBigPlane
 
         private async UniTask HidePanel(CancellationToken cancellationToken = default)
         {
-            Debug.Log("HidePanel");
-
             Tween.Alpha(_background, 0.5f, 0.5f);
 
             var tween = Tween.Scale(viewTransform, Vector3.zero, 0.5f, Ease.InBack);
