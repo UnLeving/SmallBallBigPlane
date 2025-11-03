@@ -1,99 +1,34 @@
 using System.Collections.Generic;
 using System.Linq;
-using SmallBallBigPlane.Collectables;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using Scene = UnityEngine.SceneManagement.Scene;
 
 namespace HelpersAndExtensions.SaveSystem
 {
-    public interface ISaveLoadSystem
+    public interface ISaveLoadSystem 
     {
+        GameData GameData { get; }
         void NewGame();
         void SaveGame();
         void LoadGame(string gameName);
         void ReloadGame();
         void DeleteGame(string gameName);
+        void TryLoadGame();
     }
 
-    public class SaveLoadSystem : MonoBehaviour, ISaveLoadSystem
+    public class SaveLoadSystem : ISaveLoadSystem
     {
         private const string DefaultSaveName = "New Game";
         
-        public static SaveLoadSystem Instance { get; private set; }
-        
-        
-        public GameData gameData;
-        private IDataService _dataService;
+        public GameData GameData { get; private set; }
+        private readonly IDataService _dataService;
 
-        private void Awake()
+        public SaveLoadSystem(IDataService dataService)
         {
-            Instance = this;
-            
-            DontDestroyOnLoad(gameObject);
-            
-            _dataService = new FileDataService(new JsonSerializer());
-        }
-
-        private void OnEnable()
-        {
-            SceneManager.sceneLoaded += SceneManager_OnsceneLoaded;
-        }
-
-        private void SceneManager_OnsceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
-        { 
-            if(scene.name is "MainMenuScene" or "LoadingScene") return;
-            
-            //Bind<Player, PlayerData>(gameData.PlayerData);
-            Bind<CoinManager, CoinData>(gameData.CoinData);
-        }
-
-        private void OnDisable()
-        {
-            SceneManager.sceneLoaded -= SceneManager_OnsceneLoaded;
-        }
-        
-        private void Bind<T, TData>(TData data)
-            where T : MonoBehaviour, IBind<TData>
-            where TData : ISavable, new()
-        {
-            var entity = FindObjectsByType<T>(FindObjectsSortMode.None).FirstOrDefault();
-
-            if (entity != null)
-            {
-                if (data == null)
-                {
-                    data = new TData { Id = entity.Id };
-                }
-
-                entity.Bind(data);
-            }
-        }
-
-        private void Bind<T, TData>(List<TData> datas)
-            where T : MonoBehaviour, IBind<TData>
-            where TData : ISavable, new()
-        {
-            var entities = FindObjectsByType<T>(FindObjectsSortMode.None);
-
-            foreach (var entity in entities)
-            {
-                var data = datas.FirstOrDefault(d => d.Id == entity.Id);
-
-                if (data == null)
-                {
-                    data = new TData { Id = entity.Id };
-
-                    datas.Add(data);
-                }
-
-                entity.Bind(data);
-            }
+            _dataService = dataService ?? throw new System.ArgumentNullException(nameof(dataService));
         }
 
         public void NewGame()
         {
-            gameData = new GameData
+            GameData = new GameData
             {
                 Name = DefaultSaveName,
                 //CurrentLevelName = "DemoScene"
@@ -102,7 +37,12 @@ namespace HelpersAndExtensions.SaveSystem
 
         public void SaveGame()
         {
-            _dataService.Save(gameData);
+            if (GameData == null)
+            {
+                throw new System.InvalidOperationException("Cannot save: GameData is null. Call NewGame() or LoadGame() first.");
+            }
+
+            _dataService.Save(GameData);
         }
 
         public void TryLoadGame()
@@ -112,7 +52,6 @@ namespace HelpersAndExtensions.SaveSystem
             if (saves.Any())
             {
                 LoadGame(saves.First());
-
                 return;
             }
             
@@ -121,12 +60,17 @@ namespace HelpersAndExtensions.SaveSystem
 
         public void LoadGame(string gameName = DefaultSaveName)
         {
-            gameData = _dataService.Load(gameName);
+            GameData = _dataService.Load(gameName);
         }
 
         public void ReloadGame()
         {
-            LoadGame(gameData.Name);
+            if (GameData == null)
+            {
+                throw new System.InvalidOperationException("Cannot reload: GameData is null. Call NewGame() or LoadGame() first.");
+            }
+
+            LoadGame(GameData.Name);
         }
 
         public void DeleteGame(string gameName)

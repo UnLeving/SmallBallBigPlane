@@ -16,12 +16,14 @@ namespace SmallBallBigPlane
         
         private ICoinManager _coinManager;
         private IGameManager _gameManager;
+        private ISaveLoadSystem _saveLoadSystem;
         
         [Inject]
-        private void Construct(ICoinManager coinManager, IGameManager gameManager)
+        private void Construct(ICoinManager coinManager, IGameManager gameManager, ISaveLoadSystem saveLoadSystem)
         {
             this._coinManager = coinManager;
             this._gameManager = gameManager;
+            this._saveLoadSystem = saveLoadSystem;
         }
 
         private void OnEnable()
@@ -38,7 +40,7 @@ namespace SmallBallBigPlane
         {
             _gameManager.RestartRequested();
 
-            SaveLoadSystem.Instance.SaveGame();
+            _saveLoadSystem.SaveGame();
 
             //Hide();
         }

@@ -11,12 +11,14 @@ namespace SmallBallBigPlane
         [SerializeField] private Button exitButton;
 
         private ISceneLoader _sceneLoader;
+        private ISaveLoadSystem _saveLoadSystem;
         
         
         [Inject]
-        private void Construct(ISceneLoader sceneLoader)
+        private void Construct(ISceneLoader sceneLoader, ISaveLoadSystem saveLoadSystem)
         {
             this._sceneLoader = sceneLoader;
+            this._saveLoadSystem = saveLoadSystem;
         }
         
         private void OnEnable()
@@ -33,7 +35,7 @@ namespace SmallBallBigPlane
         
         private void OnStartClicked()
         {
-            SaveLoadSystem.Instance.TryLoadGame();
+            _saveLoadSystem.TryLoadGame();
             
             _sceneLoader.LoadScene(Scene.GameScene);
         }
