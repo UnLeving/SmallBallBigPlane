@@ -10,5 +10,11 @@ namespace HelpersAndExtensions.SaveSystem
         //public string CurrentLevelName;
         //public PlayerData PlayerData;
         public CoinData CoinData;
+        public SettingsData SettingsData;
+        
+        public override string ToString()
+        {
+            return $"GameData: {Name}, Coins: {CoinData?.Id}, Settings: {SettingsData?.Id}";
+        }
     }
 }

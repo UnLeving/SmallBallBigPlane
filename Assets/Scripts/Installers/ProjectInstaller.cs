@@ -13,6 +13,7 @@ namespace SmallBallBigPlane.Installers
             containerBuilder.AddSingleton(typeof(JsonSerializer), typeof(ISerializer));
             containerBuilder.AddSingleton(typeof(FileDataService), typeof(IDataService));
             containerBuilder.AddSingleton(typeof(SaveLoadSystem), typeof(ISaveLoadSystem));
+            containerBuilder.AddSingleton(typeof(SettingsSystem), typeof(ISettingsSystem));
         }
     }
 }
