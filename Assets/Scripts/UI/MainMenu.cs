@@ -41,7 +41,7 @@ namespace SmallBallBigPlane
         {
             _saveLoadSystem.TryLoadGame();
 
-            _sceneLoader.LoadScene(Scene.GameScene);
+            _sceneLoader.LoadSceneAsync(SceneLoader.Scene.GameScene);
         }
 
         private void OnExitClicked()
