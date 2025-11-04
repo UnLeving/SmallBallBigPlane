@@ -15,18 +15,18 @@ namespace SmallBallBigPlane
         public virtual async UniTask Show()
         {
             if (isOpened) return;
-            
+
             isOpened = true;
-            
+
             await ShowPanel();
         }
 
         public virtual async UniTask Hide()
         {
             if (!isOpened) return;
-            
+
             isOpened = false;
-            
+
             await HidePanel();
         }
 
@@ -34,22 +34,22 @@ namespace SmallBallBigPlane
         {
             gameObject.SetActive(true);
 
-            Tween.Alpha(_background, 0.5f, 0.5f);
-
             viewTransform.localScale = Vector3.zero;
+            
+            await Tween.Alpha(_background, 0.5f, 0.5f);
 
-            var tween = Tween.Scale(viewTransform, Vector3.one, 0.5f, Ease.OutBack);
+            var tween = Tween.Scale(viewTransform, Vector3.one, 0.5f, Ease.OutBack).ToYieldInstruction();
 
             await tween.ToUniTask(cancellationToken: cancellationToken);
         }
 
         private async UniTask HidePanel(CancellationToken cancellationToken = default)
         {
-            Tween.Alpha(_background, 0.5f, 0.5f);
-
-            var tween = Tween.Scale(viewTransform, Vector3.zero, 0.5f, Ease.InBack);
+            var tween = Tween.Scale(viewTransform, Vector3.zero, 0.5f, Ease.InBack).ToYieldInstruction();
 
             await tween.ToUniTask(cancellationToken: cancellationToken);
+            
+            await Tween.Alpha(_background, 0f, 0.5f);
 
             gameObject.SetActive(false);
         }

@@ -8,7 +8,7 @@ namespace SmallBallBigPlane
     {
         T Get<T>() where T : WindowBase;
         UniTask Show<T>() where T : WindowBase;
-        void HideAll();
+        UniTask HideAll();
         void Initialize(IEnumerable<WindowBase> windows);
     }
 
@@ -34,10 +34,10 @@ namespace SmallBallBigPlane
             await Get<T>().Show();
         }
 
-        public void HideAll()
+        public async UniTask HideAll()
         {
             foreach (var window in _windows.Values)
-                window.Hide();
+               await window.Hide();
         }
     }
 }
