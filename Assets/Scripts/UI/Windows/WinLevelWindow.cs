@@ -38,11 +38,9 @@ namespace SmallBallBigPlane
 
         private void OnRestartClicked()
         {
-            _gameManager.RestartRequested();
-
             _saveLoadSystem.SaveGame();
-
-            //Hide();
+            
+            _gameManager.RestartRequested();
         }
 
         public override async UniTask Show()
