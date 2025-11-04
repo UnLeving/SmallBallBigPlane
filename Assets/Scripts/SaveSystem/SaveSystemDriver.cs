@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Reflex.Attributes;
-using Reflex.Core;
 using SmallBallBigPlane.Collectables;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,33 +10,14 @@ namespace SmallBallBigPlane
 {
     public class SaveSystemDriver : MonoBehaviour
     {
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        private static void EnsureExists()
-        {
-            if (FindObjectOfType<SaveSystemDriver>(true) != null) return;
-
-            var go = new GameObject("SaveSystemDriver");
-            DontDestroyOnLoad(go);
-            go.AddComponent<SaveSystemDriver>();
-        }
-
+        private ISaveLoadSystem _saveLoadSystem;
+        
         [Inject]
         public void Construct(ISaveLoadSystem saveLoadSystem)
         {
             _saveLoadSystem = saveLoadSystem;
         }
-
-        private ISaveLoadSystem _saveLoadSystem;
-
-        private void Awake()
-        {
-            if (_saveLoadSystem == null)
-            {
-                var container = Container.ProjectContainer;
-                _saveLoadSystem = container.Resolve<ISaveLoadSystem>();
-            }
-        }
-
+        
         private void OnEnable()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
@@ -50,17 +30,26 @@ namespace SmallBallBigPlane
 
         public void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode loadSceneMode)
         {
-            if (scene.name is "MainMenuScene" or "LoadingScene") return;
-            if (_saveLoadSystem.GameData == null) return;
-
-            Bind<CoinManager, CoinData>(_saveLoadSystem.GameData.CoinData);
+            if (_saveLoadSystem.GameData == null)
+            {
+                _saveLoadSystem.TryLoadGame();
+            }
+            
+            if (scene.name is "MainMenuScene")
+            {
+                Bind<SettingsBinder, SettingsData>(_saveLoadSystem.GameData.SettingsData);
+            }
+            else if (scene.name is "GameScene")
+            {
+                Bind<CoinManager, CoinData>(_saveLoadSystem.GameData.CoinData);
+            }
         }
 
         private void Bind<T, TData>(TData data)
             where T : MonoBehaviour, IBind<TData>
             where TData : ISavable, new()
         {
-            var entity = FindObjectsByType<T>(FindObjectsSortMode.None).FirstOrDefault();
+            var entity = FindObjectsByType<T>(FindObjectsInactive.Include, FindObjectsSortMode.None).FirstOrDefault();
 
             if (entity != null)
             {
@@ -70,6 +59,10 @@ namespace SmallBallBigPlane
                 }
 
                 entity.Bind(data);
+            }
+            else
+            {
+                Debug.LogError($"SaveSystemDriver.Bind: Cannot find {typeof(T).Name} in scene.");
             }
         }
 
