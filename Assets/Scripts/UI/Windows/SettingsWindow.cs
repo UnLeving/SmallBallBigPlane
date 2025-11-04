@@ -1,4 +1,4 @@
-using System;
+using Cysharp.Threading.Tasks;
 using HelpersAndExtensions.SaveSystem;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,7 +6,7 @@ using Reflex.Attributes;
 
 namespace SmallBallBigPlane
 {
-    public class SettingsWindow : MonoBehaviour
+    public class SettingsWindow : WindowBase
     {
         [SerializeField] private Toggle fps60Toggle;
         [SerializeField] private Toggle soundToggle;
@@ -40,6 +40,11 @@ namespace SmallBallBigPlane
             SyncUIFromSettings();
         }
         
+        private void OnEnable()
+        {
+            Show().Forget();
+        }
+        
         private void OnDestroy()
         {
             fps60Toggle.onValueChanged.RemoveListener(On60FpsToggleValueChanged);
@@ -52,7 +57,9 @@ namespace SmallBallBigPlane
         
         private void OnCloseClicked()
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            
+            Hide().Forget();
             
             _settingsBinder.SaveData();
             

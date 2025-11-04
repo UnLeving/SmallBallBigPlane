@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.70980394}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -552,6 +552,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d809b14f58a7e24891033762e06844c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _background: {fileID: 796079580006831531}
+  viewTransform: {fileID: 3415588527525171553}
   fps60Toggle: {fileID: 7850091911081999297}
   soundToggle: {fileID: 6996895366076458063}
   consoleToggle: {fileID: 2306720568396526017}
