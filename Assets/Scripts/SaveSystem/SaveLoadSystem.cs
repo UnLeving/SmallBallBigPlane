@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace HelpersAndExtensions.SaveSystem
 {
@@ -28,18 +29,27 @@ namespace HelpersAndExtensions.SaveSystem
 
         public void NewGame()
         {
+            if (GameData != null)
+            {
+                return;
+            }
+            
             GameData = new GameData
             {
                 Name = DefaultSaveName,
                 //CurrentLevelName = "DemoScene"
             };
+            
+            SaveGame();
         }
 
         public void SaveGame()
         {
             if (GameData == null)
             {
-                throw new System.InvalidOperationException("Cannot save: GameData is null. Call NewGame() or LoadGame() first.");
+                NewGame();
+                
+                Debug.Log("Cannot save: GameData is null. Calling NewGame().");
             }
 
             _dataService.Save(GameData);
