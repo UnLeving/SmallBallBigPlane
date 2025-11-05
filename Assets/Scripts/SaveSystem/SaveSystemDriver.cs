@@ -28,20 +28,21 @@ namespace SmallBallBigPlane
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
-        public void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode loadSceneMode)
+        public void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
         {
             if (_saveLoadSystem.GameData == null)
             {
                 _saveLoadSystem.TryLoadGame();
             }
-            
-            if (scene.name is "MainMenuScene")
+
+            switch (scene.name)
             {
-                Bind<SettingsBinder, SettingsData>(_saveLoadSystem.GameData.SettingsData);
-            }
-            else if (scene.name is "GameScene")
-            {
-                Bind<CoinManager, CoinData>(_saveLoadSystem.GameData.CoinData);
+                case nameof(SceneLoader.Scene.MainMenuScene):
+                    Bind<SettingsBinder, SettingsData>(_saveLoadSystem.GameData.SettingsData);
+                    break;
+                case nameof(SceneLoader.Scene.GameScene):
+                    Bind<CoinManager, CoinData>(_saveLoadSystem.GameData.CoinData);
+                    break;
             }
         }
 
