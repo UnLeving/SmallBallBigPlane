@@ -1,5 +1,4 @@
-﻿using System;
-using Reflex.Attributes;
+﻿using Reflex.Attributes;
 using UnityEngine;
 
 namespace SmallBallBigPlane
@@ -7,22 +6,30 @@ namespace SmallBallBigPlane
     [RequireComponent(typeof(AudioSource))]
     public class ObstacleRigidBodyPush : MonoBehaviour
     {
-        [SerializeField] private LayerMask pushLayers;
-        [SerializeField] private bool canPush;
-        [Range(0.5f, 5f)] [SerializeField] private float strength = 1.1f;
-        [SerializeField] private AudioClipSO audioClip;
         private AudioSource audioSource;
-
+        private GameSettingsSO _gameSettings;
+        
+        private LayerMask PushLayers => _gameSettings.obstaclePushLayers;
+        private bool CanPush => _gameSettings.canObstaclePush;
+        private float Strength => _gameSettings.obstaclePushStrength;
+        private AudioClipSO AudioClip => _gameSettings.obstacleKickAudioClip;
+        
+        [Inject]
+        private void Construct(GameSettingsSO gameSettings)
+        {
+            this._gameSettings = gameSettings;
+        }
+        
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
             
-            audioSource.clip = audioClip.audioClip;
+            audioSource.clip = AudioClip.audioClip;
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (canPush == false) return;
+            if (CanPush == false) return;
 
             PushRigidBodies(collision);
         }
@@ -34,7 +41,7 @@ namespace SmallBallBigPlane
             if (body == null || body.isKinematic) return;
 
             var bodyLayerMask = 1 << body.gameObject.layer;
-            if ((bodyLayerMask & pushLayers.value) == 0) return;
+            if ((bodyLayerMask & PushLayers.value) == 0) return;
 
             ContactPoint contact = collision.GetContact(0);
 
@@ -42,7 +49,7 @@ namespace SmallBallBigPlane
 
             Vector3 pushDir = new Vector3(-contact.normal.x, 0.0f, -contact.normal.z);
 
-            body.AddForce(pushDir * strength, ForceMode.Impulse);
+            body.AddForce(pushDir * Strength, ForceMode.Impulse);
             
             audioSource.Play();
         }

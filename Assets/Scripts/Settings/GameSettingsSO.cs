@@ -19,5 +19,11 @@ namespace SmallBallBigPlane
         
         [Header("Coin Settings")]
         public float coinRotationSpeed = 50f;
+        
+        [Header("Obstacle Settings")]
+        public bool canObstaclePush;
+        public LayerMask obstaclePushLayers;
+        [Range(0.5f, 5f)] public float obstaclePushStrength = 4f;
+        public AudioClipSO obstacleKickAudioClip;
     }
 }
