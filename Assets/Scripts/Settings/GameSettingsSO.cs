@@ -16,5 +16,8 @@ namespace SmallBallBigPlane
         [Header("UI sounds")]
         public AudioClipSO winSound;
         public AudioClipSO loseSound;
+        
+        [Header("Coin Settings")]
+        public float coinRotationSpeed = 50f;
     }
 }
