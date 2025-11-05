@@ -404,9 +404,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupEffectsHandler: {fileID: 13607175}
-  obstacleKickSFX: {fileID: 1844854075072245743, guid: 6160bd85014930d458680bfa979e3429, type: 3}
   player: {fileID: 1313161757}
   coinManager: {fileID: 1026546307}
+  gameSettings: {fileID: 11400000, guid: d64057c0770025241ac5041435ffaa49, type: 2}
 --- !u!114 &646911306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1322,41 +1322,6 @@ MonoBehaviour:
   playerInput: {fileID: 1313161751}
   playerInputs: {fileID: 1313161752}
   playerSoundEffectsHandler: {fileID: 1313161756}
-  moveSpeed: 2
-  volumeBySpeedCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.7121273
-      value: 0.26089472
-      inSlope: 1.0788407
-      outSlope: 1.0788407
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  maxVolume: 0.5
 --- !u!114 &1313161754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1369,10 +1334,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d2b04b1fd6bf0cca371738e7328c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  acceptableTimeInAir: 1
   groundCheckPoint: {fileID: 2017878336}
   playerSoundEffectsHandler: {fileID: 1313161756}
 --- !u!82 &1313161755
@@ -1483,7 +1444,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809a93a93cd54b6f8b78fc265aeb942e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movingSound: {fileID: 11400000, guid: e336eb6ed2fb28b41a665088b6f7f7b0, type: 2}
 --- !u!114 &1313161757
 MonoBehaviour:
   m_ObjectHideFlags: 0

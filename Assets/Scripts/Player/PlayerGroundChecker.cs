@@ -5,8 +5,6 @@ namespace SmallBallBigPlane
 {
     public class PlayerGroundChecker : MonoBehaviour
     {
-        [SerializeField] private LayerMask groundLayer;
-        [SerializeField] private float acceptableTimeInAir = 1f;
         [SerializeField] private Transform groundCheckPoint;
         [SerializeField] private PlayerSoundEffectsHandler playerSoundEffectsHandler;
 
@@ -16,12 +14,16 @@ namespace SmallBallBigPlane
         private bool _blockGroundCheck;
 
         private IGameManager _gameManager;
+        private GameSettingsSO _gameSettings;
         
+        private LayerMask GroundLayer => _gameSettings.playerGroundLayer;
+        private float AcceptableTimeInAir => _gameSettings.timeInAirBeforePlayerDie;
         
         [Inject]
-        private void Construct(IGameManager gameManager)
+        private void Construct(IGameManager gameManager, GameSettingsSO gameSettings)
         {
             this._gameManager = gameManager;
+            this._gameSettings = gameSettings;
         }
 
         private void Start()
@@ -52,7 +54,7 @@ namespace SmallBallBigPlane
                 Vector3.down,
                 _raycastHits,
                 10f,
-                groundLayer,
+                GroundLayer,
                 QueryTriggerInteraction.Ignore);
 
             if (_isGrounded == 1)
@@ -69,7 +71,7 @@ namespace SmallBallBigPlane
                 
                 _timeInAir += Time.deltaTime;
 
-                if (_timeInAir > acceptableTimeInAir)
+                if (_timeInAir > AcceptableTimeInAir)
                 {
                     _gameManager.PlayerFall();
                     

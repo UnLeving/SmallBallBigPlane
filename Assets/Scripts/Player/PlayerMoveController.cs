@@ -10,16 +10,19 @@ namespace SmallBallBigPlane
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] private PlayerInputs playerInputs;
         [SerializeField] private PlayerSoundEffectsHandler playerSoundEffectsHandler;
-        [SerializeField] private float moveSpeed = 2f;
-        [SerializeField] private AnimationCurve volumeBySpeedCurve = AnimationCurve.Linear(0, 0, 1, 1);
-        [SerializeField] private float maxVolume = 0.5f;
         
         private IGameManager _gameManager;
+        private GameSettingsSO _gameSettings;
+        
+        private float MoveSpeed => _gameSettings.playerMoveSpeed;
+        private float MaxVolume => _gameSettings.playerMoveSoundMaxVolume;
+        private AnimationCurve VolumeBySpeedCurve => _gameSettings.volumeBySpeedCurve;
 
         [Inject]
-        private void Construct(IGameManager gameManager)
+        private void Construct(IGameManager gameManager, GameSettingsSO gameSettings )
         {
             this._gameManager = gameManager;
+            this._gameSettings = gameSettings;
         }
         
         private void Awake()
@@ -76,11 +79,11 @@ namespace SmallBallBigPlane
             Vector2 input = playerInputs.move;
             Vector3 movement = new Vector3(input.x, 0, input.y);
 
-            rb.AddForce(movement * moveSpeed, ForceMode.Force);
+            rb.AddForce(movement * MoveSpeed, ForceMode.Force);
             
-            float curveValue = volumeBySpeedCurve.Evaluate(rb.velocity.magnitude);
+            float curveValue = VolumeBySpeedCurve.Evaluate(rb.velocity.magnitude);
             
-            float soundVolume = Mathf.Clamp(curveValue * maxVolume, 0, maxVolume);
+            float soundVolume = Mathf.Clamp(curveValue * MaxVolume, 0, MaxVolume);
             
             playerSoundEffectsHandler.PlayMovingSound(soundVolume);
         }

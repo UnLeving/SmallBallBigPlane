@@ -1,3 +1,4 @@
+using Reflex.Attributes;
 using UnityEngine;
 
 namespace SmallBallBigPlane
@@ -5,9 +6,16 @@ namespace SmallBallBigPlane
     [RequireComponent(typeof(AudioSource))]
     public class PlayerSoundEffectsHandler : MonoBehaviour
     {
-        [SerializeField] private AudioClipSO movingSound;
-        
         private AudioSource audioSource;
+        private GameSettingsSO _gameSettings;
+
+        private AudioClipSO MovingSound => _gameSettings.playerMovingSound;
+
+        [Inject]
+        public void Construct(GameSettingsSO gameSettings)
+        {
+            this._gameSettings = gameSettings;
+        }
 
         private void Awake()
         {
@@ -23,7 +31,7 @@ namespace SmallBallBigPlane
 
         private void SetMovingSoundSettings()
         {
-            audioSource.clip = movingSound.audioClip;
+            audioSource.clip = MovingSound.audioClip;
             audioSource.volume = 0f;
             audioSource.loop = true;
             audioSource.playOnAwake = false;
@@ -44,7 +52,7 @@ namespace SmallBallBigPlane
         public void PlayMovingSound()
         {
             if (audioSource.isPlaying == true) return;
-            
+
             audioSource.Play();
         }
     }

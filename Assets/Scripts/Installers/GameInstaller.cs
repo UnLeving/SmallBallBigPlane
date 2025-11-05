@@ -9,6 +9,7 @@ namespace SmallBallBigPlane.Installers
         [SerializeField] private PickupEffectsHandler pickupEffectsHandler;
         [SerializeField] private Player player;
         [SerializeField] private CoinManager coinManager;
+        [SerializeField] private GameSettingsSO gameSettings;
         
         public void InstallBindings(ContainerBuilder containerBuilder)
         {
@@ -18,6 +19,8 @@ namespace SmallBallBigPlane.Installers
             containerBuilder.AddSingleton(coinManager, typeof(ICoinManager));
             containerBuilder.AddSingleton(typeof(WindowManager), typeof(IWindowManager));
             containerBuilder.AddSingleton(pickupEffectsHandler, typeof(IPickupEffectsHandler));
+            
+            containerBuilder.AddSingleton(gameSettings);
         }
     }
 }
