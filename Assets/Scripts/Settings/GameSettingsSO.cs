@@ -12,5 +12,9 @@ namespace SmallBallBigPlane
         public float timeInAirBeforePlayerDie = 1f;
         public AudioClipSO playerMovingSound;
         public AnimationCurve volumeBySpeedCurve = AnimationCurve.Linear(0, 0, 1, 1);
+        
+        [Header("UI sounds")]
+        public AudioClipSO winSound;
+        public AudioClipSO loseSound;
     }
 }

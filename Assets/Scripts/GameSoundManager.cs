@@ -1,4 +1,3 @@
-using System;
 using Reflex.Attributes;
 using UnityEngine;
 
@@ -7,16 +6,19 @@ namespace SmallBallBigPlane
     [RequireComponent(typeof(AudioSource))]
     public class GameSoundManager : MonoBehaviour
     {
-        [SerializeField] private AudioClipSO winSound;
-        [SerializeField] private AudioClipSO looseSound;
-                
         private AudioSource audioSource;
         private IGameManager _gameManager;
+        private GameSettingsSO _gameSettings;
+        
+        private AudioClipSO WinSound => _gameSettings.winSound;
+        private AudioClipSO LooseSound => _gameSettings.loseSound;
+                
 
         [Inject]
-        private void Construct(IGameManager gameManager)
+        private void Construct(IGameManager gameManager, GameSettingsSO gameSettings)
         {
             this._gameManager = gameManager;
+            this._gameSettings = gameSettings;
         }
 
         private void Awake()
@@ -40,7 +42,7 @@ namespace SmallBallBigPlane
         {
             if(audioSource.isPlaying) return;
             
-            audioSource.clip = winSound.audioClip;
+            audioSource.clip = WinSound.audioClip;
             audioSource.volume = 1;
             audioSource.Play();
         }
@@ -49,7 +51,7 @@ namespace SmallBallBigPlane
         {
             if(audioSource.isPlaying) return;
             
-            audioSource.clip = looseSound.audioClip;
+            audioSource.clip = LooseSound.audioClip;
             audioSource.volume = 1;
             audioSource.Play();
         }

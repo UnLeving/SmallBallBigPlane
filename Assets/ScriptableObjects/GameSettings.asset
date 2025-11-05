@@ -52,3 +52,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  winSound: {fileID: 11400000, guid: f12d29ecdb71e4a40984368b28357813, type: 2}
+  loseSound: {fileID: 11400000, guid: 108f4c93fdd0aef4983e10fec8bdbff3, type: 2}
