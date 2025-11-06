@@ -54,3 +54,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   winSound: {fileID: 11400000, guid: f12d29ecdb71e4a40984368b28357813, type: 2}
   loseSound: {fileID: 11400000, guid: 108f4c93fdd0aef4983e10fec8bdbff3, type: 2}
+  coinRotationSpeed: 50
+  canObstaclePush: 1
+  obstaclePushLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  obstaclePushStrength: 4
+  obstacleKickAudioClip: {fileID: 11400000, guid: a7ad1d04e12dde649ba8604112247bc9, type: 2}
