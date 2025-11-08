@@ -1,12 +1,11 @@
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace SmallBallBigPlane
 {
     public interface ISceneLoader
     {
-        void LoadScene(SceneLoader.Scene scene);
-        void LoadSceneAsync(SceneLoader.Scene scene);
-        void LoaderCallback();
+        AsyncOperation LoadSceneAsync(SceneLoader.Scene scene);
     }
 
     public class SceneLoader : ISceneLoader
@@ -17,26 +16,10 @@ namespace SmallBallBigPlane
             LoadingScene,
             GameScene,
         }
-        
-        private Scene targetScene;
 
-        public void LoadScene(Scene scene)
+        public AsyncOperation LoadSceneAsync(Scene scene)
         {
-            targetScene = scene;
-
-            SceneManager.LoadScene(nameof(Scene.LoadingScene));
-        }
-
-        public void LoadSceneAsync(Scene scene)
-        {
-            targetScene = scene;
-
-            SceneManager.LoadSceneAsync(nameof(Scene.LoadingScene));
-        }
-
-        public void LoaderCallback()
-        {
-            SceneManager.LoadSceneAsync(targetScene.ToString());
+            return SceneManager.LoadSceneAsync((int)scene);
         }
     }
 }
