@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using HelpersAndExtensions.SaveSystem;
 using UnityEngine;
+using Reflex.Attributes;
 
 namespace SmallBallBigPlane.Collectables
 {
@@ -12,7 +14,6 @@ namespace SmallBallBigPlane.Collectables
         event Action<int> OnCoinCollected;
         void CollectCoin();
         void ResetCoins();
-        void Initialize(IEnumerable<Coin> coins);
         void SetMaxCoinCount();
     }
 
@@ -37,6 +38,31 @@ namespace SmallBallBigPlane.Collectables
         public event Action<int> OnCoinCollected;
 
         private List<Coin> _coins = new();
+        private IGameManager _gameManager;
+
+        [Inject]
+        private void Construct(IGameManager gameManager)
+        {
+            _gameManager = gameManager;
+            _gameManager.OnLevelLoaded += HandleLevelLoaded;
+        }
+
+        private void OnDestroy()
+        {
+            if (_gameManager != null)
+            {
+                _gameManager.OnLevelLoaded -= HandleLevelLoaded;
+            }
+        }
+
+        private void HandleLevelLoaded(GameObject levelRoot)
+        {
+            var coins = levelRoot.GetComponentsInChildren<Coin>(true);
+
+            Initialize(coins);
+            
+            ResetCoins();
+        }
 
         public void Bind(CoinData data)
         {
@@ -46,9 +72,12 @@ namespace SmallBallBigPlane.Collectables
             this._maxCoinCount = data.MaxCoinCount;
         }
         
-        public void Initialize(IEnumerable<Coin> coins)
+        private void Initialize(IEnumerable<Coin> coins)
         {
-            _coins.AddRange(coins);
+            var list = coins as IList<Coin> ?? coins.ToList();
+            
+            _coins.Clear();
+            _coins.AddRange(list);
         }
 
         public void CollectCoin()

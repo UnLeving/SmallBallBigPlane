@@ -2,6 +2,7 @@ using Reflex.Attributes;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Cysharp.Threading.Tasks;
 
 namespace SmallBallBigPlane
 {
@@ -9,21 +10,44 @@ namespace SmallBallBigPlane
     {
         private AssetReferenceGameObject[] _assetReferenceGameObjects;
         private GameObject _currentLevel;
+        private AsyncOperationHandle<GameObject> _currentLevelHandle;
+        private IGameManager _gameManager;
 
         [Inject]
-        public void Construct(LevelsSO levelsSO)
+        public void Construct(LevelsSO levelsSO, IGameManager gameManager)
         {
-            this._assetReferenceGameObjects = levelsSO.levelsAssetReferences;
+            _assetReferenceGameObjects = levelsSO.levelsAssetReferences;
+            _gameManager = gameManager;
         }
         
-        private void Start()
+        private async void Start()
         {
-            LoadLevel(0);
+            await LoadLevelAsync(0);
         }
         
-        private void LoadLevel(int levelIndex)
+        public async UniTask LoadLevelAsync(int levelIndex)
         {
-            AsyncOperationHandle<GameObject> ao = Addressables.InstantiateAsync(_assetReferenceGameObjects[levelIndex], transform);
+            // Unload previous level instance if any
+            if (_currentLevel != null)
+            {
+                if (_currentLevelHandle.IsValid())
+                {
+                    Addressables.ReleaseInstance(_currentLevelHandle);
+                }
+                else
+                {
+                    Destroy(_currentLevel);
+                }
+
+                _currentLevel = null;
+            }
+
+            // Instantiate new level under this manager
+            _currentLevelHandle = Addressables.InstantiateAsync(_assetReferenceGameObjects[levelIndex], transform);
+            _currentLevel = await _currentLevelHandle.Task;
+
+            // Notify through GameManager that a level is loaded, passing the level root
+            _gameManager?.NotifyLevelLoaded(_currentLevel);
         }
     }
 }

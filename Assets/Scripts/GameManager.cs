@@ -1,6 +1,7 @@
 using System;
 using SmallBallBigPlane.Collectables;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace SmallBallBigPlane
 {
@@ -9,9 +10,11 @@ namespace SmallBallBigPlane
         event Action GameRestarted;
         event Action GameLost;
         event Action GameWon;
+        event Action<GameObject> OnLevelLoaded;
         UniTask PlayerFall();
         UniTask PlayerReachFinish();
         void RestartRequested();
+        void NotifyLevelLoaded(GameObject levelRoot);
     }
 
     public class GameManager : IGameManager
@@ -24,11 +27,17 @@ namespace SmallBallBigPlane
         public event Action GameRestarted;
         public event Action GameLost;
         public event Action GameWon;
+        public event Action<GameObject> OnLevelLoaded;
 
         public GameManager(ICoinManager coinManager, IWindowManager windowManager)
         {
             _coinManager = coinManager;
             _windowManager = windowManager;
+        }
+
+        public void NotifyLevelLoaded(GameObject levelRoot)
+        {
+            OnLevelLoaded?.Invoke(levelRoot);
         }
 
         public async UniTask PlayerFall()
