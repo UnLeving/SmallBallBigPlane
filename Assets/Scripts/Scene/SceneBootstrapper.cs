@@ -6,16 +6,12 @@ namespace SmallBallBigPlane
 {
     public class SceneBootstrapper : MonoBehaviour
     {
-        [SerializeField] private WindowBase[] windows;
-        
         private ICoinManager _coinManager;
-        private IWindowManager _windowManager;
 
         [Inject]
-        private void Construct(ICoinManager coinManager, IWindowManager windowManager)
+        private void Construct(ICoinManager coinManager)
         {
             this._coinManager = coinManager;
-            this._windowManager = windowManager;
         }
 
         private void Start()
@@ -23,7 +19,6 @@ namespace SmallBallBigPlane
             var allCoins = FindObjectsOfType<Coin>(true);
             
             _coinManager.Initialize(allCoins);
-            _windowManager.Initialize(windows);
         }
     }
 }

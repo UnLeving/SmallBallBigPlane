@@ -17,8 +17,23 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: db5242df8dc9794b2a13b0bf8c093f66
   m_SerializeEntries:
+  - m_GUID: 49ace433d7b792144be8305d6deb3285
+    m_Address: Windows/LooseWindow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75896d36c2871e84d8604b87209cacbb
+    m_Address: Windows/WinLevelWindow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a3dad7ae1d2d9a17dbd801526d11a678
     m_Address: Levels/Level 0.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf6c8c194ade03c4c8f818353b9777cb
+    m_Address: Windows/SettingsWindow.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -10,6 +10,8 @@ namespace SmallBallBigPlane.Installers
         [SerializeField] private CoinManager coinManager;
         [SerializeField] private GameSettingsSO gameSettings;
         [SerializeField] private LevelsSO levels;
+        [SerializeField] private WindowsSO windows;
+        [SerializeField] private RectTransform windowsParent;
         
         public void InstallBindings(ContainerBuilder containerBuilder)
         {
@@ -21,6 +23,8 @@ namespace SmallBallBigPlane.Installers
             containerBuilder.AddSingleton(gameSettings);
             
             containerBuilder.AddSingleton(levels);
+            containerBuilder.AddSingleton(windows);
+            containerBuilder.AddSingleton(windowsParent);
         }
     }
 }
