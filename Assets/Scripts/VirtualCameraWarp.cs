@@ -41,13 +41,15 @@ namespace SmallBallBigPlane
                 originalYDamping = _transposer.m_YDamping;
                 originalZDamping = _transposer.m_ZDamping;
             }
+            else
+            {
+                Debug.LogError("Transposer not found!");
+            }
         }
 
         private void OnDestroy()
         {
-            //_gameManager.GameRestarted -= GameManager_OnGameRestarted;
-            
-            _gameManager.GameLost -= GameManager_OnGameRestarted;
+            _gameManager.GameRestarted -= GameManager_OnGameRestarted;
         }
 
         private void GameManager_OnGameRestarted()
@@ -59,8 +61,6 @@ namespace SmallBallBigPlane
 
         private void SetDampingToZero()
         {
-            if (_transposer == null) return;
-            
             _transposer.m_XDamping = 0f;
             _transposer.m_YDamping = 0f;
             _transposer.m_ZDamping = 0f;
@@ -68,8 +68,6 @@ namespace SmallBallBigPlane
         
         private void RestoreDamping()
         {
-            if (_transposer == null) return;
-            
             _transposer.m_XDamping = originalXDamping;
             _transposer.m_YDamping = originalYDamping;
             _transposer.m_ZDamping = originalZDamping;
@@ -77,6 +75,7 @@ namespace SmallBallBigPlane
 
         private IEnumerator RestoreDampingAfterFrame()
         {
+            yield return null;
             yield return null;
 
             RestoreDamping();
