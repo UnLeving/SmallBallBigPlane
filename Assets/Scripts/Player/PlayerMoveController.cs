@@ -16,6 +16,7 @@ namespace SmallBallBigPlane
         
         private float MoveSpeed => _gameSettings.playerMoveSpeed;
         private float MaxVolume => _gameSettings.playerMoveSoundMaxVolume;
+        private float JumpPower => _gameSettings.playerJumpPower;
         private AnimationCurve VolumeBySpeedCurve => _gameSettings.volumeBySpeedCurve;
 
         [Inject]
@@ -72,6 +73,7 @@ namespace SmallBallBigPlane
         private void FixedUpdate()
         {
             UpdateMovement();
+            UpdateJump();
         }
 
         private void UpdateMovement()
@@ -86,6 +88,16 @@ namespace SmallBallBigPlane
             float soundVolume = Mathf.Clamp(curveValue * MaxVolume, 0, MaxVolume);
             
             playerSoundEffectsHandler.PlayMovingSound(soundVolume);
+        }
+
+        private void UpdateJump()
+        {
+            if (playerInputs.jump)
+            {
+                rb.AddForce(Vector3.up * JumpPower, ForceMode.Impulse);
+                
+                playerInputs.jump = false;
+            }
         }
     }
 }
