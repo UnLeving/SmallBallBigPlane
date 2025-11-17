@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using Reflex.Core;
-using SmallBallBigPlane;
-using SmallBallBigPlane.Collectables;
+using SmallBallBigPlane.Infrastructure.Services;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace HelpersAndExtensions.SaveSystem
 {
