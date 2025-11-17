@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Reflex.Attributes;
 using UnityEngine;
 
@@ -13,14 +14,14 @@ namespace SmallBallBigPlane
         private RaycastHit[] _raycastHits = new RaycastHit[1];
         private bool _blockGroundCheck;
 
-        private IGameManager _gameManager;
+        private GameManager _gameManager;
         private GameSettingsSO _gameSettings;
         
         private LayerMask GroundLayer => _gameSettings.playerGroundLayer;
         private float AcceptableTimeInAir => _gameSettings.timeInAirBeforePlayerDie;
         
         [Inject]
-        private void Construct(IGameManager gameManager, GameSettingsSO gameSettings)
+        private void Construct(GameManager gameManager, GameSettingsSO gameSettings)
         {
             this._gameManager = gameManager;
             this._gameSettings = gameSettings;

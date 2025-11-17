@@ -4,6 +4,7 @@ using PrimeTween;
 using Reflex.Attributes;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
+using SmallBallBigPlane.Infrastructure.Services;
 
 namespace SmallBallBigPlane
 {
@@ -12,10 +13,10 @@ namespace SmallBallBigPlane
         [SerializeField] private TextMeshProUGUI loadingText;
         [SerializeField] private Slider loadingSlider;
 
-        private ISceneLoader _sceneLoader;
+        private SceneLoader _sceneLoader;
 
         [Inject]
-        private void Construct(ISceneLoader sceneLoader)
+        private void Construct(SceneLoader sceneLoader)
         {
             this._sceneLoader = sceneLoader;
         }

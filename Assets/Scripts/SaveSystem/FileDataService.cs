@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace HelpersAndExtensions.SaveSystem
@@ -34,7 +35,7 @@ namespace HelpersAndExtensions.SaveSystem
             File.WriteAllText(fileLocation, _serializer.Serialize(data));
         }
 
-        public GameData Load(string name)
+        public async UniTask<GameData> Load(string name)
         {
             string fileLocation = GetPathToFile(name);
             
@@ -43,7 +44,9 @@ namespace HelpersAndExtensions.SaveSystem
                 throw new FileNotFoundException($"File {name}{_fileExtension} not found");
             }
             
-            return _serializer.Deserialize<GameData>(File.ReadAllText(fileLocation));
+            string data = await File.ReadAllTextAsync(fileLocation);
+            
+            return _serializer.Deserialize<GameData>(data);
         }
 
         public void Delete(string name)

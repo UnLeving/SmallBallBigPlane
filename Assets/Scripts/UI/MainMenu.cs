@@ -1,5 +1,7 @@
-using HelpersAndExtensions.SaveSystem;
 using Reflex.Attributes;
+using SmallBallBigPlane.Infrastructure.FSM;
+using SmallBallBigPlane.Infrastructure.FSM.States;
+using SmallBallBigPlane.UI.Windows;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,15 +14,13 @@ namespace SmallBallBigPlane
         [SerializeField] private Button exitButton;
         [SerializeField] private SettingsWindow settingsWindow;
 
-        private ISceneLoader _sceneLoader;
-        private ISaveLoadSystem _saveLoadSystem;
+        private StateMachine _stateMachine;
 
 
         [Inject]
-        private void Construct(ISceneLoader sceneLoader, ISaveLoadSystem saveLoadSystem)
+        private void Construct(StateMachine stateMachine)
         {
-            this._sceneLoader = sceneLoader;
-            this._saveLoadSystem = saveLoadSystem;
+            this._stateMachine = stateMachine;
         }
 
         private void OnEnable()
@@ -39,14 +39,12 @@ namespace SmallBallBigPlane
 
         private void OnStartClicked()
         {
-            _saveLoadSystem.TryLoadGame();
-
-            _sceneLoader.LoadSceneAsync(SceneLoader.Scene.LoadingScene);
+            _stateMachine.Enter<LoadingState>();
         }
 
         private void OnExitClicked()
         {
-            Application.Quit();
+            _stateMachine.Enter<ExitState>();
         }
 
         private void OnSettingsClicked()

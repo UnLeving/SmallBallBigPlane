@@ -57,5 +57,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e0b21a744504a3eb387e7352ab5de82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSfxPrefab: {fileID: 2241054932245202754, guid: 8a5d0bd5ea2b74748b7ae98b63139ef8, type: 3}
-  pickupVFXPrefab: {fileID: 8952805768039932371, guid: af3963951ba7bab459a9d862960bca09, type: 3}
+  windows: {fileID: 11400000, guid: 222a2d583a8a635de8b6ea662daa7a92, type: 2}
+  gameSettings: {fileID: 11400000, guid: d64057c0770025241ac5041435ffaa49, type: 2}
+  levels: {fileID: 11400000, guid: f2b612392c9164a50a7d9ccbf1e18b2e, type: 2}

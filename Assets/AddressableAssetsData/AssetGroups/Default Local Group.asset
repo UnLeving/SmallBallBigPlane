@@ -32,6 +32,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a8f6e560f916ecccda1e2119b4a1b20a
+    m_Address: UIRoot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bf6c8c194ade03c4c8f818353b9777cb
     m_Address: Windows/SettingsWindow.prefab
     m_ReadOnly: 0

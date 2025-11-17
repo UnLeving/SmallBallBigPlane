@@ -5,40 +5,69 @@ using HelpersAndExtensions.SaveSystem;
 
 namespace SmallBallBigPlane
 {
-    public class SettingsSystem : ISettingsSystem
+    [System.Serializable]
+    public class SettingsData : ISavable
+    {
+        public string Id { get; set; }
+        public bool LimitTo60Fps;
+        public bool SoundEnabled;
+        public bool ConsoleEnabled;
+        public bool StatsEnabled;
+    }
+    
+    public class SettingsSystem
     {
         private const string ConsolePrefabPath = "IngameDebugConsole";
         private const string FpsCounterPrefabPath = "LiteFPSCounter";
 
+        public string Id { get; set; } = "Settings";
+        public SettingsData data;
+        private readonly SaveLoadSystem _saveLoadSystem;
+        
         private GameObject _consoleInstance;
         private GameObject _fpsCounterInstance;
-
-        public bool LimitTo60Fps { get; set; } = true;
-        public bool SoundEnabled { get; set; } = true;
-        public bool ConsoleEnabled { get; set; } = false;
-        public bool StatsEnabled { get; set; } = false;
-
-        public SettingsSystem()
+        
+        public SettingsSystem(SaveLoadSystem saveLoadSystem)
         {
-            ApplyAll();
+            this._saveLoadSystem = saveLoadSystem;
         }
 
-        public void ApplyAll()
+        private void ApplyAll()
         {
             ApplyLimitFps();
             ApplySound();
             ApplyConsole();
             ApplyStats();
         }
+        
+        public void Initialize()
+        {
+            this.data = _saveLoadSystem.GameData.SettingsData;
+            this.data.Id = Id;
+            
+            FromData(data);
+        }
+        
+        public void SaveData()
+        {
+            if (data == null) return;
+
+            var currentData = ToData();
+            
+            data.LimitTo60Fps = currentData.LimitTo60Fps;
+            data.SoundEnabled = currentData.SoundEnabled;
+            data.ConsoleEnabled = currentData.ConsoleEnabled;
+            data.StatsEnabled = currentData.StatsEnabled;
+        }
 
         public SettingsData ToData()
         {
             return new SettingsData
             {
-                LimitTo60Fps = LimitTo60Fps,
-                SoundEnabled = SoundEnabled,
-                ConsoleEnabled = ConsoleEnabled,
-                StatsEnabled = StatsEnabled
+                LimitTo60Fps = data.LimitTo60Fps,
+                SoundEnabled = data.SoundEnabled,
+                ConsoleEnabled = data.ConsoleEnabled,
+                StatsEnabled = data.StatsEnabled
             };
         }
 
@@ -46,22 +75,23 @@ namespace SmallBallBigPlane
         {
             if (data == null) return;
             
-            LimitTo60Fps = data.LimitTo60Fps;
-            SoundEnabled = data.SoundEnabled;
-            ConsoleEnabled = data.ConsoleEnabled;
-            StatsEnabled = data.StatsEnabled;
+            this.data.LimitTo60Fps = data.LimitTo60Fps;
+            this.data.SoundEnabled = data.SoundEnabled;
+            this.data.ConsoleEnabled = data.ConsoleEnabled;
+            this.data.StatsEnabled = data.StatsEnabled;
+            
             ApplyAll();
         }
 
         public void ApplyLimitFps()
         {
             QualitySettings.vSyncCount = 0;
-            Application.targetFrameRate = LimitTo60Fps ? 60 : 30;
+            Application.targetFrameRate = this.data.LimitTo60Fps ? 60 : 30;
         }
 
         public void ApplySound()
         {
-            AudioListener.volume = SoundEnabled ? 1f : 0f;
+            AudioListener.volume = this.data.SoundEnabled ? 1f : 0f;
         }
 
         public void ApplyConsole()
@@ -69,11 +99,11 @@ namespace SmallBallBigPlane
             EnsureConsoleInstance();
             if (_consoleInstance != null)
             {
-                _consoleInstance.SetActive(ConsoleEnabled);
+                _consoleInstance.SetActive(this.data.ConsoleEnabled);
                 var manager = DebugLogManager.Instance;
                 if (manager != null)
                 {
-                    if (ConsoleEnabled) manager.ShowLogWindow(); else manager.HideLogWindow();
+                    if (this.data.ConsoleEnabled) manager.ShowLogWindow(); else manager.HideLogWindow();
                 }
             }
         }
@@ -83,7 +113,7 @@ namespace SmallBallBigPlane
             EnsureStatsInstance();
             if (_fpsCounterInstance != null)
             {
-                _fpsCounterInstance.SetActive(StatsEnabled);
+                _fpsCounterInstance.SetActive(this.data.StatsEnabled);
             }
         }
 

@@ -2,11 +2,13 @@ using Cysharp.Threading.Tasks;
 using HelpersAndExtensions.SaveSystem;
 using Reflex.Attributes;
 using SmallBallBigPlane.Collectables;
+using SmallBallBigPlane.Infrastructure.FSM;
+using SmallBallBigPlane.Infrastructure.FSM.States;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SmallBallBigPlane
+namespace SmallBallBigPlane.UI.Windows
 {
     public class WinLevelWindow : WindowBase
     {
@@ -14,16 +16,18 @@ namespace SmallBallBigPlane
         [SerializeField] private TextMeshProUGUI bestScoreText;
         [SerializeField] private Button restartButton;
         
-        private ICoinManager _coinManager;
-        private IGameManager _gameManager;
-        private ISaveLoadSystem _saveLoadSystem;
+        private CoinManager _coinManager;
+        private GameManager _gameManager;
+        private SaveLoadSystem _saveLoadSystem;
+        private StateMachine _stateMachine;
         
         [Inject]
-        private void Construct(ICoinManager coinManager, IGameManager gameManager, ISaveLoadSystem saveLoadSystem)
+        private void Construct(CoinManager coinManager, GameManager gameManager, SaveLoadSystem saveLoadSystem, StateMachine stateMachine)
         {
             this._coinManager = coinManager;
             this._gameManager = gameManager;
             this._saveLoadSystem = saveLoadSystem;
+            this._stateMachine = stateMachine;
         }
 
         private void OnEnable()
@@ -36,20 +40,37 @@ namespace SmallBallBigPlane
             restartButton.onClick.RemoveListener(OnRestartClicked);
         }
 
-        private void OnRestartClicked()
+        private async void OnRestartClicked()
         {
             _saveLoadSystem.SaveGame();
             
             _gameManager.RestartRequested();
+
+           await Hide();
+           
+           _stateMachine.Enter<GameLoopState>();
         }
 
         public override async UniTask Show()
         {
-            await base.Show();
+            if (isOpened) return;
+            
+            isOpened = true;
+            
+            await base.ShowPanel();
 
             _coinManager.SetMaxCoinCount();
             
             UpdateScoreText();
+        }
+
+        public override async UniTask Hide()
+        {
+            if (!isOpened) return;
+            
+            isOpened = false;
+            
+            await base.HidePanel();
         }
 
         private void UpdateScoreText()

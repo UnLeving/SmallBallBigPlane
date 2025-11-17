@@ -4,33 +4,15 @@ using PrimeTween;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SmallBallBigPlane
+namespace SmallBallBigPlane.UI.Windows
 {
-    public abstract class WindowBase : MonoBehaviour
+    public abstract class WindowBase : UIContainer
     {
         [SerializeField] private Image _background;
         [SerializeField] private Transform viewTransform;
         protected bool isOpened;
-
-        public virtual async UniTask Show()
-        {
-            if (isOpened) return;
-
-            isOpened = true;
-
-            await ShowPanel();
-        }
-
-        public virtual async UniTask Hide()
-        {
-            if (!isOpened) return;
-
-            isOpened = false;
-
-            await HidePanel();
-        }
-
-        private async UniTask ShowPanel(CancellationToken cancellationToken = default)
+        
+        protected async UniTask ShowPanel(CancellationToken cancellationToken = default)
         {
             gameObject.SetActive(true);
 
@@ -43,7 +25,7 @@ namespace SmallBallBigPlane
             await tween.ToUniTask(cancellationToken: cancellationToken);
         }
 
-        private async UniTask HidePanel(CancellationToken cancellationToken = default)
+        protected async UniTask HidePanel(CancellationToken cancellationToken = default)
         {
             var tween = Tween.Scale(viewTransform, Vector3.zero, 0.5f, Ease.InBack).ToYieldInstruction();
 

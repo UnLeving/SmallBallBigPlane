@@ -1,17 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace SmallBallBigPlane
+namespace SmallBallBigPlane.Infrastructure.Services
 {
-    public interface ISceneLoader
-    {
-        AsyncOperation LoadSceneAsync(SceneLoader.Scene scene);
-    }
-
-    public class SceneLoader : ISceneLoader
+    public class SceneLoader : IService
     {
         public enum Scene
         {
+            BootstrapScene,
             MainMenuScene,
             LoadingScene,
             GameScene,

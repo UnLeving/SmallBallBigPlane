@@ -11,7 +11,7 @@ namespace SmallBallBigPlane
         [SerializeField] private PlayerInputs playerInputs;
         [SerializeField] private PlayerSoundEffectsHandler playerSoundEffectsHandler;
         
-        private IGameManager _gameManager;
+        private GameManager _gameManager;
         private GameSettingsSO _gameSettings;
         
         private float MoveSpeed => _gameSettings.playerMoveSpeed;
@@ -20,7 +20,7 @@ namespace SmallBallBigPlane
         private AnimationCurve VolumeBySpeedCurve => _gameSettings.volumeBySpeedCurve;
 
         [Inject]
-        private void Construct(IGameManager gameManager, GameSettingsSO gameSettings )
+        private void Construct(GameManager gameManager, GameSettingsSO gameSettings )
         {
             this._gameManager = gameManager;
             this._gameSettings = gameSettings;

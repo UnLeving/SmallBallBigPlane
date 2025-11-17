@@ -14,6 +14,9 @@ namespace SmallBallBigPlane
         public AudioClipSO playerMovingSound;
         public AnimationCurve volumeBySpeedCurve = AnimationCurve.Linear(0, 0, 1, 1);
         
+        [Header("UI Settings")]
+        public int restartDelayMS = 2500;
+        
         [Header("UI sounds")]
         public AudioClipSO winSound;
         public AudioClipSO loseSound;

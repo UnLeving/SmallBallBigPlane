@@ -7,7 +7,7 @@ namespace SmallBallBigPlane
     public class GameSoundManager : MonoBehaviour
     {
         private AudioSource audioSource;
-        private IGameManager _gameManager;
+        private GameManager _gameManager;
         private GameSettingsSO _gameSettings;
         
         private AudioClipSO WinSound => _gameSettings.winSound;
@@ -15,7 +15,7 @@ namespace SmallBallBigPlane
                 
 
         [Inject]
-        private void Construct(IGameManager gameManager, GameSettingsSO gameSettings)
+        private void Construct(GameManager gameManager, GameSettingsSO gameSettings)
         {
             this._gameManager = gameManager;
             this._gameSettings = gameSettings;

@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using Reflex.Attributes;
 using UnityEngine;
@@ -10,7 +8,7 @@ namespace SmallBallBigPlane
     [RequireComponent(typeof(CinemachineVirtualCamera))]
     public class VirtualCameraWarp : MonoBehaviour
     {
-        private IGameManager _gameManager;
+        private GameManager _gameManager;
         private CinemachineVirtualCamera _virtualCamera;
         private CinemachineTransposer _transposer;
         private float originalXDamping;
@@ -19,7 +17,7 @@ namespace SmallBallBigPlane
         
         
         [Inject]
-        private void Construct(IGameManager gameManager)
+        private void Construct(GameManager gameManager)
         {
             this._gameManager = gameManager;
         }

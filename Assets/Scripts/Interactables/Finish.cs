@@ -5,10 +5,10 @@ namespace SmallBallBigPlane
 {
     public class Finish : MonoBehaviour, IInteractable
     {
-        private IGameManager _gameManager;
+        private GameManager _gameManager;
         
         [Inject]
-        private void Construct(IGameManager gameManager)
+        private void Construct(GameManager gameManager)
         {
             this._gameManager = gameManager;
         }

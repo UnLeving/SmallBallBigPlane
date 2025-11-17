@@ -1,10 +1,10 @@
 using Cysharp.Threading.Tasks;
 using HelpersAndExtensions.SaveSystem;
+using Reflex.Attributes;
 using UnityEngine;
 using UnityEngine.UI;
-using Reflex.Attributes;
 
-namespace SmallBallBigPlane
+namespace SmallBallBigPlane.UI.Windows
 {
     public class SettingsWindow : WindowBase
     {
@@ -14,13 +14,12 @@ namespace SmallBallBigPlane
         [SerializeField] private Toggle statsToggle;
         [SerializeField] private Button closeButton;
 
-        private ISettingsSystem _settingsSystem;
-        private ISaveLoadSystem _saveLoadSystem;
+        private SettingsSystem _settingsSystem;
+        private SaveLoadSystem _saveLoadSystem;
         private bool _isUpdatingUI;
-        private SettingsBinder _settingsBinder;
 
         [Inject]
-        public void Construct(ISettingsSystem settingsSystem, ISaveLoadSystem saveLoadSystem)
+        public void Construct(SettingsSystem settingsSystem, SaveLoadSystem saveLoadSystem)
         {
             _settingsSystem = settingsSystem;
             _saveLoadSystem = saveLoadSystem;
@@ -34,8 +33,6 @@ namespace SmallBallBigPlane
             statsToggle.onValueChanged.AddListener(OnStatsToggleValueChanged);
             
             closeButton.onClick.AddListener(OnCloseClicked);
-            
-            _settingsBinder = GetComponent<SettingsBinder>();
 
             SyncUIFromSettings();
         }
@@ -57,11 +54,9 @@ namespace SmallBallBigPlane
         
         private void OnCloseClicked()
         {
-            //gameObject.SetActive(false);
-            
             Hide().Forget();
             
-            _settingsBinder.SaveData();
+            _settingsSystem.SaveData();
             
             _saveLoadSystem.SaveGame();
         }
@@ -69,39 +64,59 @@ namespace SmallBallBigPlane
         private void On60FpsToggleValueChanged(bool value)
         {
             if (_isUpdatingUI) return;
-            _settingsSystem.LimitTo60Fps = value;
+            _settingsSystem.data.LimitTo60Fps = value;
             _settingsSystem.ApplyLimitFps();
         }
 
         private void OnSoundToggleValueChanged(bool value)
         {
             if (_isUpdatingUI) return;
-            _settingsSystem.SoundEnabled = value;
+            _settingsSystem.data.SoundEnabled = value;
             _settingsSystem.ApplySound();
         }
 
         private void OnConsoleToggleValueChanged(bool value)
         {
             if (_isUpdatingUI) return;
-            _settingsSystem.ConsoleEnabled = value;
+            _settingsSystem.data.ConsoleEnabled = value;
             _settingsSystem.ApplyConsole();
         }
 
         private void OnStatsToggleValueChanged(bool value)
         {
             if (_isUpdatingUI) return;
-            _settingsSystem.StatsEnabled = value;
+            _settingsSystem.data.StatsEnabled = value;
             _settingsSystem.ApplyStats();
         }
 
         private void SyncUIFromSettings()
         {
+            _settingsSystem.Initialize();
+            
             _isUpdatingUI = true;
-            fps60Toggle.isOn = _settingsSystem.LimitTo60Fps;
-            soundToggle.isOn = _settingsSystem.SoundEnabled;
-            consoleToggle.isOn = _settingsSystem.ConsoleEnabled;
-            statsToggle.isOn = _settingsSystem.StatsEnabled;
+            fps60Toggle.isOn = _settingsSystem.data.LimitTo60Fps;
+            soundToggle.isOn = _settingsSystem.data.SoundEnabled;
+            consoleToggle.isOn = _settingsSystem.data.ConsoleEnabled;
+            statsToggle.isOn = _settingsSystem.data.StatsEnabled;
             _isUpdatingUI = false;
+        }
+
+        public override async UniTask Show()
+        {
+            if (isOpened) return;
+        
+            isOpened = true;
+        
+            await ShowPanel();
+        }
+        
+        public override async UniTask Hide()
+        {
+            if (!isOpened) return;
+        
+            isOpened = false;
+        
+            await HidePanel();
         }
     }
 }

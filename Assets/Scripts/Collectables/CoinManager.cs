@@ -3,20 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using HelpersAndExtensions.SaveSystem;
 using UnityEngine;
-using Reflex.Attributes;
 
 namespace SmallBallBigPlane.Collectables
 {
-    public interface ICoinManager
-    {
-        int CoinCount { get; }
-        int MaxCoinCount { get; }
-        event Action<int> OnCoinCollected;
-        void CollectCoin();
-        void ResetCoins();
-        void SetMaxCoinCount();
-    }
-
     [Serializable]
     public class CoinData : ISavable
     {
@@ -24,10 +13,10 @@ namespace SmallBallBigPlane.Collectables
         [field: SerializeField] public int MaxCoinCount { get; set; }
     }
     
-    public class CoinManager : MonoBehaviour, ICoinManager, IBind<CoinData>
+    public class CoinManager: IService
     {
-        [field: SerializeField] public string Id { get; set; }
-        [SerializeField] private CoinData data;
+        public string Id { get; set; } = "Coin";
+        private CoinData data;
         
         private int _coinCount;
         private int _maxCoinCount;
@@ -38,48 +27,29 @@ namespace SmallBallBigPlane.Collectables
         public event Action<int> OnCoinCollected;
 
         private List<Coin> _coins = new();
-        private IGameManager _gameManager;
-
-        [Inject]
-        private void Construct(IGameManager gameManager)
+        
+        public void Initialize(CoinData coinData)
         {
-            _gameManager = gameManager;
-            _gameManager.OnLevelLoaded += HandleLevelLoaded;
-        }
+            this.data = coinData;
+            
+            this.data.Id = Id;
+            
+            this._maxCoinCount = this.data.MaxCoinCount;
+            
+            var coinsGoList = GameObject.FindGameObjectsWithTag("Coin").ToList();
+            
+            _coins.Clear();
 
-        private void OnDestroy()
-        {
-            if (_gameManager != null)
+            foreach (var coinGo in coinsGoList)
             {
-                _gameManager.OnLevelLoaded -= HandleLevelLoaded;
+                var coin = coinGo.GetComponent<Coin>();
+                
+                _coins.Add(coin);
             }
-        }
-
-        private void HandleLevelLoaded(GameObject levelRoot)
-        {
-            var coins = levelRoot.GetComponentsInChildren<Coin>(true);
-
-            Initialize(coins);
             
             ResetCoins();
         }
-
-        public void Bind(CoinData data)
-        {
-            this.data = data;
-            this.data.Id = Id;
-            
-            this._maxCoinCount = data.MaxCoinCount;
-        }
         
-        private void Initialize(IEnumerable<Coin> coins)
-        {
-            var list = coins as IList<Coin> ?? coins.ToList();
-            
-            _coins.Clear();
-            _coins.AddRange(list);
-        }
-
         public void CollectCoin()
         {
             _coinCount++;
@@ -96,7 +66,7 @@ namespace SmallBallBigPlane.Collectables
             data.MaxCoinCount = _maxCoinCount;
         }
 
-        public void ResetCoins()
+        private void ResetCoins()
         {
             _coinCount = 0;
 
