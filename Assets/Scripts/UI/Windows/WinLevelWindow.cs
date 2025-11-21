@@ -55,11 +55,11 @@ namespace SmallBallBigPlane.UI.Windows
             
             isOpened = true;
             
-            await base.ShowPanel();
-
             _coinManager.SetMaxCoinCount();
             
             UpdateScoreText();
+
+            await base.ShowPanel();
         }
 
         public override async UniTask Hide()
