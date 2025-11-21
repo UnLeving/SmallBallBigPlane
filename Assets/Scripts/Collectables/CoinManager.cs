@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using HelpersAndExtensions.SaveSystem;
 using SmallBallBigPlane.Infrastructure.Services;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace SmallBallBigPlane.Collectables
 
         private List<Coin> _coins = new();
         
-        public void Initialize(CoinData coinData)
+        public UniTask Initialize(CoinData coinData)
         {
             this.data = coinData;
             
@@ -38,6 +39,11 @@ namespace SmallBallBigPlane.Collectables
             this._maxCoinCount = this.data.MaxCoinCount;
             
             var coinsGoList = GameObject.FindGameObjectsWithTag("Coin").ToList();
+            
+            if(coinsGoList.Count == 0)
+            {
+                Debug.LogError("CoinManager.Initialize: coins = " + coinsGoList.Count);
+            }
             
             _coins.Clear();
 
@@ -49,6 +55,8 @@ namespace SmallBallBigPlane.Collectables
             }
             
             ResetCoins();
+
+            return UniTask.CompletedTask;
         }
         
         public void CollectCoin()
@@ -67,11 +75,11 @@ namespace SmallBallBigPlane.Collectables
             data.MaxCoinCount = _maxCoinCount;
         }
 
-        private void ResetCoins()
+        public void ResetCoins()
         {
             _coinCount = 0;
 
-            OnCoinCollected?.Invoke(_coinCount);
+            OnCoinCollected?.Invoke(0);
 
             foreach (var coin in _coins)
             {

@@ -6,7 +6,6 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
 {
     public class WinLevelState : IState
     {
-        private StateMachine _stateMachine;
         private readonly WindowsService _windowsService;
 
         public WinLevelState(WindowsService windowsService)
@@ -21,7 +20,7 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
 
         public void SetStateMachine(StateMachine stateMachine)
         {
-            this._stateMachine = stateMachine;
+            
         }
 
         public void Exit()

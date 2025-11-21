@@ -9,13 +9,12 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
         private StateMachine _stateMachine;
         private readonly WindowsService _windowsService;
         private readonly GameSettingsSO _gameSettings;
-        private readonly GameManager _gameManager;
+
         
-        public LooseLevelState(WindowsService windowsService,  GameSettingsSO gameSettings, GameManager gameManager)
+        public LooseLevelState(WindowsService windowsService,  GameSettingsSO gameSettings)
         {
             this._windowsService = windowsService;
             this._gameSettings = gameSettings;
-            this._gameManager = gameManager;
         }
 
         public async void Enter()
@@ -26,9 +25,7 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
             
             _windowsService.Hide(WindowId.Lose);
             
-            _stateMachine.Enter<GameLoopState>();
-            
-            _gameManager.RestartRequested();
+            _stateMachine.Enter<RestartState>();
         }
 
         public void SetStateMachine(StateMachine stateMachine)

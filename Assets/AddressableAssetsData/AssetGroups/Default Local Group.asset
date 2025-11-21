@@ -17,11 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: db5242df8dc9794b2a13b0bf8c093f66
   m_SerializeEntries:
-  - m_GUID: 08d99fbc755b82758bca329850a63b6a
-    m_Address: MainMenu
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 49ace433d7b792144be8305d6deb3285
     m_Address: Windows/LooseWindow.prefab
     m_ReadOnly: 0

@@ -43,12 +43,10 @@ namespace SmallBallBigPlane.UI.Windows
         private async void OnRestartClicked()
         {
             _saveLoadSystem.SaveGame();
-            
-            _gameManager.RestartRequested();
 
            await Hide();
            
-           _stateMachine.Enter<GameLoopState>();
+           _stateMachine.Enter<RestartState>();
         }
 
         public override async UniTask Show()

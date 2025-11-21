@@ -78,6 +78,7 @@ namespace SmallBallBigPlane.Infrastructure.DI.Installers
             containerBuilder.AddSingleton(typeof(WinLevelState));
             containerBuilder.AddSingleton(typeof(LooseLevelState));
             containerBuilder.AddSingleton(typeof(LoadLevelState));
+            containerBuilder.AddSingleton(typeof(RestartState));
 
             containerBuilder.AddSingleton(c => new StateMachine(
                 c.Resolve<BootstrapState>(),
@@ -87,7 +88,8 @@ namespace SmallBallBigPlane.Infrastructure.DI.Installers
                 c.Resolve<WinLevelState>(),
                 c.Resolve<LooseLevelState>(),
                 c.Resolve<MainMenu>(), 
-                c.Resolve<LoadLevelState>()
+                c.Resolve<LoadLevelState>(),
+                c.Resolve<RestartState>()
             ));
         }
 

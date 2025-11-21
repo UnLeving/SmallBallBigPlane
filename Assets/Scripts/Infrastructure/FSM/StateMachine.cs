@@ -22,7 +22,8 @@ namespace SmallBallBigPlane.Infrastructure.FSM
             WinLevelState winLevelState,
             LooseLevelState looseLevelState, 
             MainMenu mainMenu,
-            LoadLevelState loadLevelState)
+            LoadLevelState loadLevelState,
+            RestartState restartState)
         {
             bootstrapState.SetStateMachine(this);
             _states.Add(bootstrapState.GetType(), bootstrapState);
@@ -46,6 +47,9 @@ namespace SmallBallBigPlane.Infrastructure.FSM
             
             loadLevelState.SetStateMachine(this);
             _states.Add(loadLevelState.GetType(), loadLevelState);
+            
+            restartState.SetStateMachine(this);
+            _states.Add(restartState.GetType(), restartState);
         }
 
         public UniTask Initialize()
