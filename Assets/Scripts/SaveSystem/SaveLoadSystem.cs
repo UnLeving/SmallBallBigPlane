@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using SmallBallBigPlane;
+using SmallBallBigPlane.Collectables;
 using SmallBallBigPlane.Infrastructure.Services;
 using UnityEngine;
 
@@ -28,6 +30,8 @@ namespace HelpersAndExtensions.SaveSystem
             GameData = new GameData
             {
                 Name = DefaultSaveName,
+                CoinData = new CoinData(),
+                SettingsData = new SettingsData()
             };
 
             SaveGame();
