@@ -16,22 +16,26 @@ namespace SmallBallBigPlane.UI.Windows
         {
             gameObject.SetActive(true);
 
+            // Reset state
             viewTransform.localScale = Vector3.zero;
-            
-            await Tween.Alpha(_background, 0.5f, 0.5f);
+            var color = _background.color;
+            color.a = 0f;
+            _background.color = color;
 
-            var tween = Tween.Scale(viewTransform, Vector3.one, 0.5f, Ease.OutBack).ToYieldInstruction();
-
-            await tween.ToUniTask(cancellationToken: cancellationToken);
+            // Run both animations in parallel
+            await UniTask.WhenAll(
+                Tween.Alpha(_background, 0.5f, 0.5f).ToUniTask(cancellationToken: cancellationToken),
+                Tween.Scale(viewTransform, Vector3.one, 0.5f, Ease.OutBack).ToUniTask(cancellationToken: cancellationToken)
+            );
         }
 
         protected async UniTask HidePanel(CancellationToken cancellationToken = default)
         {
-            var tween = Tween.Scale(viewTransform, Vector3.zero, 0.5f, Ease.InBack).ToYieldInstruction();
-
-            await tween.ToUniTask(cancellationToken: cancellationToken);
-            
-            await Tween.Alpha(_background, 0f, 0.5f);
+            // Run both in parallel
+            await UniTask.WhenAll(
+                Tween.Scale(viewTransform, Vector3.zero, 0.5f, Ease.InBack).ToUniTask(cancellationToken: cancellationToken),
+                Tween.Alpha(_background, 0f, 0.5f).ToUniTask(cancellationToken: cancellationToken)
+            );
 
             gameObject.SetActive(false);
         }
