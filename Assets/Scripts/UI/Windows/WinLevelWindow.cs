@@ -17,17 +17,17 @@ namespace SmallBallBigPlane.UI.Windows
         [SerializeField] private Button restartButton;
         
         private CoinManager _coinManager;
-        private GameManager _gameManager;
         private SaveLoadSystem _saveLoadSystem;
         private StateMachine _stateMachine;
+        private LoadingScreen _loadingScreen;
         
         [Inject]
-        private void Construct(CoinManager coinManager, GameManager gameManager, SaveLoadSystem saveLoadSystem, StateMachine stateMachine)
+        private void Construct(CoinManager coinManager, SaveLoadSystem saveLoadSystem, StateMachine stateMachine,  LoadingScreen loadingScreen)
         {
             this._coinManager = coinManager;
-            this._gameManager = gameManager;
             this._saveLoadSystem = saveLoadSystem;
             this._stateMachine = stateMachine;
+            this._loadingScreen = loadingScreen;
         }
 
         private void OnEnable()
@@ -45,6 +45,8 @@ namespace SmallBallBigPlane.UI.Windows
             _saveLoadSystem.SaveGame();
 
            await Hide();
+
+           await _loadingScreen.Show();
            
            _stateMachine.Enter<RestartState>();
         }
