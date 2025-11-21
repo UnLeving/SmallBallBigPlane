@@ -3,7 +3,7 @@ using Reflex.Core;
 using SmallBallBigPlane.Infrastructure.FSM;
 using UnityEngine;
 
-namespace SmallBallBigPlane.Installers
+namespace SmallBallBigPlane.Infrastructure.DI.Installers
 {
     public class GameBootstrapper : MonoBehaviour
     {

@@ -1,5 +1,6 @@
 using HelpersAndExtensions;
 using Reflex.Core;
+using SmallBallBigPlane.Infrastructure.DI.Installers;
 using UnityEngine;
 
 namespace SmallBallBigPlane.Installers

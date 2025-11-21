@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using SmallBallBigPlane.Infrastructure.FSM.States;
+using SmallBallBigPlane.UI;
 using UnityEngine;
 
 namespace SmallBallBigPlane.Infrastructure.FSM
@@ -15,19 +16,16 @@ namespace SmallBallBigPlane.Infrastructure.FSM
         private IState _currentState;
 
         public StateMachine(BootstrapState bootstrapState,
-            LoadGameState loadGameState,
             MainMenuState mainMenuState,
             GameLoopState gameLoopState,
             ExitState exitState,
             WinLevelState winLevelState,
             LooseLevelState looseLevelState, 
-            LoadingState loadingState)
+            MainMenu mainMenu,
+            LoadLevelState loadLevelState)
         {
             bootstrapState.SetStateMachine(this);
             _states.Add(bootstrapState.GetType(), bootstrapState);
-            
-            loadGameState.SetStateMachine(this);
-            _states.Add(loadGameState.GetType(), loadGameState);
             
             mainMenuState.SetStateMachine(this);
             _states.Add(mainMenuState.GetType(), mainMenuState);
@@ -44,8 +42,10 @@ namespace SmallBallBigPlane.Infrastructure.FSM
             looseLevelState.SetStateMachine(this);
             _states.Add(looseLevelState.GetType(), looseLevelState);
             
-            loadingState.SetStateMachine(this);
-            _states.Add(loadingState.GetType(), loadingState);
+            mainMenu.SetStateMachine(this);
+            
+            loadLevelState.SetStateMachine(this);
+            _states.Add(loadLevelState.GetType(), loadLevelState);
         }
 
         public UniTask Initialize()

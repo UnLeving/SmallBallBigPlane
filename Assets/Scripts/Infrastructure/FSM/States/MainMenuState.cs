@@ -1,29 +1,33 @@
-using SmallBallBigPlane.Infrastructure.Services;
+using SmallBallBigPlane.UI;
 
 namespace SmallBallBigPlane.Infrastructure.FSM.States
 {
     public class MainMenuState : IState
     {
-        private StateMachine _stateMachine;
-        private readonly SceneLoader _sceneLoader;
+        private readonly MainMenu _mainMenu;
+        private readonly LoadingScreen _loadingScreen;
 
-        public MainMenuState(SceneLoader sceneLoader)
+        public MainMenuState(MainMenu mainMenu, LoadingScreen loadingScreen)
         {
-            _sceneLoader = sceneLoader;
+            this._mainMenu = mainMenu;
+            this._loadingScreen = loadingScreen;
         }
 
         public void SetStateMachine(StateMachine stateMachine)
         {
-            _stateMachine = stateMachine;
+            
         }
 
         public void Enter()
         {
-            _sceneLoader.LoadSceneAsync(SceneLoader.Scene.MainMenuScene);
+            _mainMenu.Show();
+
+            _loadingScreen.Hide();
         }
 
         public void Exit()
         {
+            _mainMenu.Hide();
         }
     }
 }

@@ -1,12 +1,12 @@
+using Cysharp.Threading.Tasks;
 using Reflex.Attributes;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using Cysharp.Threading.Tasks;
 
-namespace SmallBallBigPlane
+namespace SmallBallBigPlane.Infrastructure.Services
 {
-    public class LevelsManager : MonoBehaviour
+    public class LevelsManager : IService
     {
         private AssetReferenceGameObject[] _assetReferenceGameObjects;
         private GameObject _currentLevel;
@@ -18,12 +18,7 @@ namespace SmallBallBigPlane
             _assetReferenceGameObjects = levelsSO.levelsAssetReferences;
         }
         
-        private async void Start()
-        {
-            await LoadLevelAsync(0);
-        }
-        
-        private async UniTask LoadLevelAsync(int levelIndex)
+        public async UniTask LoadLevelAsync(int levelIndex)
         {
             // Unload previous level instance if any
             if (_currentLevel != null)
@@ -34,14 +29,14 @@ namespace SmallBallBigPlane
                 }
                 else
                 {
-                    Destroy(_currentLevel);
+                    Object.Destroy(_currentLevel);
                 }
 
                 _currentLevel = null;
             }
 
             // Instantiate new level under this manager
-            _currentLevelHandle = Addressables.InstantiateAsync(_assetReferenceGameObjects[levelIndex], transform);
+            _currentLevelHandle = Addressables.InstantiateAsync(_assetReferenceGameObjects[levelIndex]);
             _currentLevel = await _currentLevelHandle.Task;
         }
     }

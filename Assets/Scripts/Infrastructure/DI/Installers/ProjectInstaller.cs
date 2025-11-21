@@ -1,11 +1,13 @@
 using HelpersAndExtensions.SaveSystem;
 using Reflex.Core;
+using Reflex.Injectors;
 using SmallBallBigPlane.Collectables;
 using SmallBallBigPlane.Infrastructure.FSM;
 using SmallBallBigPlane.Infrastructure.FSM.States;
 using SmallBallBigPlane.Infrastructure.Services;
 using SmallBallBigPlane.Infrastructure.Services.AssetManagement;
 using SmallBallBigPlane.Infrastructure.Services.Factories;
+using SmallBallBigPlane.UI;
 using SmallBallBigPlane.UI.Windows;
 using UnityEngine;
 
@@ -16,6 +18,8 @@ namespace SmallBallBigPlane.Infrastructure.DI.Installers
         [SerializeField] private WindowsSO windows;
         [SerializeField] private GameSettingsSO gameSettings;
         [SerializeField] private LevelsSO levels;
+        [SerializeField] private LoadingScreen loadingScreenPrefab;
+        [SerializeField] private MainMenu mainMenuPrefab;
 
         public void InstallBindings(ContainerBuilder containerBuilder)
         {
@@ -28,15 +32,31 @@ namespace SmallBallBigPlane.Infrastructure.DI.Installers
             containerBuilder.AddSingleton(levels);
 
             BindServices(containerBuilder);
-            BindStates(containerBuilder);
             BindFactories(containerBuilder);
             BindAssets(containerBuilder);
             BindWindows(containerBuilder);
+            BindStates(containerBuilder);
         }
 
         private void BindWindows(ContainerBuilder containerBuilder)
         {
             containerBuilder.AddSingleton(typeof(WindowsService));
+
+            containerBuilder.AddSingleton(c =>
+            {
+                LoadingScreen loadingScreen = c.Resolve<AssetProvider>()
+                    .Instantiate<LoadingScreen>(loadingScreenPrefab.gameObject, inject: false);
+
+                return loadingScreen;
+            });
+
+            containerBuilder.AddSingleton(c =>
+            {
+                MainMenu loadingScreen = c.Resolve<AssetProvider>()
+                    .Instantiate<MainMenu>(mainMenuPrefab.gameObject, inject: false);
+                
+                return loadingScreen;
+            });
         }
 
         private void BindAssets(ContainerBuilder containerBuilder)
@@ -52,23 +72,22 @@ namespace SmallBallBigPlane.Infrastructure.DI.Installers
         private void BindStates(ContainerBuilder containerBuilder)
         {
             containerBuilder.AddSingleton(typeof(BootstrapState));
-            containerBuilder.AddSingleton(typeof(LoadGameState));
             containerBuilder.AddSingleton(typeof(MainMenuState));
             containerBuilder.AddSingleton(typeof(GameLoopState));
             containerBuilder.AddSingleton(typeof(ExitState));
             containerBuilder.AddSingleton(typeof(WinLevelState));
             containerBuilder.AddSingleton(typeof(LooseLevelState));
-            containerBuilder.AddSingleton(typeof(LoadingState));
+            containerBuilder.AddSingleton(typeof(LoadLevelState));
 
             containerBuilder.AddSingleton(c => new StateMachine(
                 c.Resolve<BootstrapState>(),
-                c.Resolve<LoadGameState>(),
                 c.Resolve<MainMenuState>(),
                 c.Resolve<GameLoopState>(),
                 c.Resolve<ExitState>(),
                 c.Resolve<WinLevelState>(),
                 c.Resolve<LooseLevelState>(),
-                c.Resolve<LoadingState>()
+                c.Resolve<MainMenu>(), 
+                c.Resolve<LoadLevelState>()
             ));
         }
 
@@ -77,6 +96,7 @@ namespace SmallBallBigPlane.Infrastructure.DI.Installers
             containerBuilder.AddSingleton(typeof(FileDataService));
             containerBuilder.AddSingleton(typeof(SaveLoadSystem));
             containerBuilder.AddSingleton(typeof(SceneLoader));
+            containerBuilder.AddSingleton(typeof(LevelsManager));
         }
     }
 }
