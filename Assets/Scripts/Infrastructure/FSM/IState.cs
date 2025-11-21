@@ -1,12 +1,17 @@
-using Cysharp.Threading.Tasks;
-using SmallBallBigPlane.Infrastructure.FSM;
-
-namespace SmallBallBigPlane
+namespace SmallBallBigPlane.Infrastructure.FSM
 {
     public interface IState
     {
         void Enter();
-        void SetStateMachine(StateMachine stateMachine);
+    }
+    
+    public interface IStateExitable
+    {
         void Exit();
+    }
+    
+    public interface IStateSetStateMachine
+    {
+        void SetStateMachine(StateMachine stateMachine);
     }
 }

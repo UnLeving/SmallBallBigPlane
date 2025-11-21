@@ -17,15 +17,5 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
         {
             _windowsService.Show(WindowId.Win).Forget();
         }
-
-        public void SetStateMachine(StateMachine stateMachine)
-        {
-            
-        }
-
-        public void Exit()
-        {
-
-        }
     }
 }

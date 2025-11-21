@@ -6,7 +6,7 @@ using SmallBallBigPlane.UI;
 
 namespace SmallBallBigPlane.Infrastructure.FSM.States
 {
-    public class BootstrapState : IState, IInitializable
+    public class BootstrapState : IState, IStateSetStateMachine ,IInitializable
     {
         private StateMachine _stateMachine;
         private readonly SaveLoadSystem _saveLoadSystem;
@@ -26,11 +26,7 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
         {
             Initialize().Forget();
         }
-
-        public void Exit()
-        {
-        }
-
+        
         public void SetStateMachine(StateMachine value)
         {
             _stateMachine = value;

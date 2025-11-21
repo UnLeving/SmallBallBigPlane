@@ -8,15 +8,5 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
         {
             Application.Quit();
         }
-
-        public void SetStateMachine(StateMachine stateMachine)
-        {
-            
-        }
-
-        public void Exit()
-        {
-            
-        }
     }
 }

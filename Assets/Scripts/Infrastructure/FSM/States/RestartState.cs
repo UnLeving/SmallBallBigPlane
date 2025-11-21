@@ -2,7 +2,7 @@ using SmallBallBigPlane.Collectables;
 
 namespace SmallBallBigPlane.Infrastructure.FSM.States
 {
-    public class RestartState: IState
+    public class RestartState: IState, IStateSetStateMachine
     {
         private StateMachine _stateMachine;
         
@@ -27,11 +27,6 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
         public void SetStateMachine(StateMachine stateMachine)
         {
             this._stateMachine = stateMachine;
-        }
-
-        public void Exit()
-        {
-            
         }
     }
 }

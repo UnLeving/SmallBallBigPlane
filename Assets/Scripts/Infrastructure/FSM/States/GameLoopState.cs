@@ -2,7 +2,7 @@ using SmallBallBigPlane.UI;
 
 namespace SmallBallBigPlane.Infrastructure.FSM.States
 {
-    public class GameLoopState : IState
+    public class GameLoopState : IState, IStateExitable, IStateSetStateMachine
     {
         private StateMachine _stateMachine;
         private readonly GameManager _gameManager;

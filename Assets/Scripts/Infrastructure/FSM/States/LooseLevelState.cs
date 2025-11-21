@@ -4,7 +4,7 @@ using SmallBallBigPlane.Infrastructure.Services.Factories;
 
 namespace SmallBallBigPlane.Infrastructure.FSM.States
 {
-    public class LooseLevelState : IState
+    public class LooseLevelState : IState, IStateSetStateMachine
     {
         private StateMachine _stateMachine;
         private readonly WindowsService _windowsService;
@@ -31,11 +31,6 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
         public void SetStateMachine(StateMachine stateMachine)
         {
             this._stateMachine = stateMachine;
-        }
-
-        public void Exit()
-        {
-            
         }
     }
 }

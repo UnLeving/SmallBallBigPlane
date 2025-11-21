@@ -5,7 +5,7 @@ using SmallBallBigPlane.UI;
 
 namespace SmallBallBigPlane.Infrastructure.FSM.States
 {
-    public class LoadLevelState : IState
+    public class LoadLevelState : IState, IStateExitable, IStateSetStateMachine
     {
         private StateMachine _stateMachine;
         private readonly LevelsManager _levelsManager;

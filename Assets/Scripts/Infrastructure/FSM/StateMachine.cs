@@ -28,16 +28,13 @@ namespace SmallBallBigPlane.Infrastructure.FSM
             bootstrapState.SetStateMachine(this);
             _states.Add(bootstrapState.GetType(), bootstrapState);
             
-            mainMenuState.SetStateMachine(this);
             _states.Add(mainMenuState.GetType(), mainMenuState);
             
             gameLoopState.SetStateMachine(this);
             _states.Add(gameLoopState.GetType(), gameLoopState);
             
-            exitState.SetStateMachine(this);
             _states.Add(exitState.GetType(), exitState);
             
-            winLevelState.SetStateMachine(this);
             _states.Add(winLevelState.GetType(), winLevelState);
             
             looseLevelState.SetStateMachine(this);
@@ -68,7 +65,10 @@ namespace SmallBallBigPlane.Infrastructure.FSM
         private TState ChangeState<TState>() where TState : class, IState
         {
             //Debug.Log("StateMachine.ChangeState: " + typeof(TState));
-            _currentState?.Exit();
+            if(_currentState is IStateExitable exitable)
+            {
+                exitable?.Exit();
+            }
 
             var state = GetState<TState>();
             _currentState = state;
