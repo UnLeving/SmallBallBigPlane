@@ -36,7 +36,8 @@ A small physics-driven ball navigates floating platforms. Collect coins, avoid f
   - UniTask
   - PrimeTween
   - Finite State Machine for game loop
-  - Json based Save/Load system 
+  - Json based Save/Load system
+  - Addressables
 
 ---
 
