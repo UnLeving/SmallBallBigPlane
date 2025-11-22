@@ -12,14 +12,15 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
         private readonly SaveLoadSystem _saveLoadSystem;
         private readonly LoadingScreen _loadingScreen;
         private readonly SceneLoader _sceneLoader;
-
+        private readonly SettingsSystem _settingsSystem;
 
         public BootstrapState(LoadingScreen loadingScreen, SceneLoader sceneLoader,
-            SaveLoadSystem saveLoadSystem)
+            SaveLoadSystem saveLoadSystem,  SettingsSystem settingsSystem)
         {
             this._loadingScreen = loadingScreen;
             this._sceneLoader = sceneLoader;
             this._saveLoadSystem = saveLoadSystem;
+            this._settingsSystem = settingsSystem;
         }
 
         public void Enter()
@@ -37,6 +38,8 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
             _loadingScreen.Show();
 
             await _saveLoadSystem.TryLoadGame();
+            
+            _settingsSystem.Initialize();
 
             _sceneLoader.Load(SceneLoader.Scene.GameScene, () => { _stateMachine.Enter<MainMenuState>(); });
         }

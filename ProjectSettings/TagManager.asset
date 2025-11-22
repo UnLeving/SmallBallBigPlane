@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Coin
   - WindowsParent
+  - IngameDebugConsole
   layers:
   - Default
   - TransparentFX

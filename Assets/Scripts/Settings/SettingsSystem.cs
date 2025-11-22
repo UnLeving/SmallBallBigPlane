@@ -97,14 +97,22 @@ namespace SmallBallBigPlane
         public void ApplyConsole()
         {
             EnsureConsoleInstance();
-            if (_consoleInstance != null)
+
+            if (_consoleInstance == null) return;
+            
+            _consoleInstance.SetActive(this.data.ConsoleEnabled);
+                
+            var manager = DebugLogManager.Instance;
+
+            if (manager == null) return;
+                
+            if (this.data.ConsoleEnabled)
             {
-                _consoleInstance.SetActive(this.data.ConsoleEnabled);
-                var manager = DebugLogManager.Instance;
-                if (manager != null)
-                {
-                    if (this.data.ConsoleEnabled) manager.ShowLogWindow(); else manager.HideLogWindow();
-                }
+                manager.ShowLogWindow();
+            }
+            else
+            {
+                manager.HideLogWindow();
             }
         }
 
@@ -150,7 +158,8 @@ namespace SmallBallBigPlane
                 return;
             }
 
-            var found = GameObject.Find("IngameDebugConsole");
+            var found = GameObject.FindWithTag("IngameDebugConsole");
+            
             if (found != null)
             {
                 _consoleInstance = found;
@@ -159,13 +168,13 @@ namespace SmallBallBigPlane
             }
 
             var prefab = Resources.Load<GameObject>(ConsolePrefabPath);
-            if (prefab != null)
-            {
-                _consoleInstance = Object.Instantiate(prefab);
-                _consoleInstance.name = "IngameDebugConsole";
-                Object.DontDestroyOnLoad(_consoleInstance);
-                _consoleInstance.SetActive(false);
-            }
+            
+            if (prefab == null) return;
+            
+            _consoleInstance = Object.Instantiate(prefab);
+            _consoleInstance.name = "IngameDebugConsole";
+            Object.DontDestroyOnLoad(_consoleInstance);
+            _consoleInstance.SetActive(false);
         }
     }
 }

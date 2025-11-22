@@ -91,8 +91,6 @@ namespace SmallBallBigPlane.UI.Windows
 
         private void SyncUIFromSettings()
         {
-            _settingsSystem.Initialize();
-            
             _isUpdatingUI = true;
             fps60Toggle.isOn = _settingsSystem.data.LimitTo60Fps;
             soundToggle.isOn = _settingsSystem.data.SoundEnabled;
