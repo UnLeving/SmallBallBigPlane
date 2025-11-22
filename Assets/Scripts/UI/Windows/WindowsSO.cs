@@ -16,8 +16,7 @@ namespace SmallBallBigPlane.UI.Windows
             {
                 case WindowId.Win: return windowsReferences[0];
                 case WindowId.Lose: return windowsReferences[1];
-                case WindowId.MainMenu: return windowsReferences[2];
-                case WindowId.LoadingScreen: return windowsReferences[3];
+                case WindowId.Settings: return windowsReferences[2];
                 default:
                     throw new ArgumentOutOfRangeException(nameof(windowId), windowId, null);
             }

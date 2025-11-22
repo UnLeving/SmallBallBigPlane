@@ -1,6 +1,9 @@
 using Cysharp.Threading.Tasks;
+using Reflex.Attributes;
 using SmallBallBigPlane.Infrastructure.FSM;
 using SmallBallBigPlane.Infrastructure.FSM.States;
+using SmallBallBigPlane.Infrastructure.Services;
+using SmallBallBigPlane.Infrastructure.Services.Factories;
 using SmallBallBigPlane.UI.Windows;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +17,9 @@ namespace SmallBallBigPlane.UI
         [SerializeField] private Button exitButton;
 
         private StateMachine _stateMachine;
-        
+        [Inject] private readonly WindowsService _windowsService;
+
+
         private void OnEnable()
         {
             startButton.onClick.AddListener(OnStartClicked);
@@ -42,20 +47,20 @@ namespace SmallBallBigPlane.UI
         private void OnSettingsClicked()
         {
             //todo fix settings wnd call
-            //settingsWindow.gameObject.SetActive(true);
+            _windowsService.Show(WindowId.Settings);
         }
 
         public override UniTask Show()
         {
             gameObject.SetActive(true);
-            
+
             return UniTask.CompletedTask;
         }
 
         public override UniTask Hide()
         {
             gameObject.SetActive(false);
-            
+
             return UniTask.CompletedTask;
         }
 

@@ -58,5 +58,10 @@ namespace SmallBallBigPlane.Infrastructure.Services.Factories
         {
             return await InstantiateRegisteredAsync(WindowId.Lose, _uiRoot);
         }
+        
+        public async UniTask<UIContainer> CreateSettingsWindow()
+        {
+            return await InstantiateRegisteredAsync(WindowId.Settings, _uiRoot);
+        }
     }
 }
