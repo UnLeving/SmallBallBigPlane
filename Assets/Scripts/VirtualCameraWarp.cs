@@ -1,4 +1,3 @@
-using System.Collections;
 using Cinemachine;
 using Reflex.Attributes;
 using UnityEngine;
@@ -10,11 +9,6 @@ namespace SmallBallBigPlane
     {
         private GameManager _gameManager;
         private CinemachineVirtualCamera _virtualCamera;
-        private CinemachineTransposer _transposer;
-        private float originalXDamping;
-        private float originalYDamping;
-        private float originalZDamping;
-        
         
         [Inject]
         private void Construct(GameManager gameManager)
@@ -25,24 +19,11 @@ namespace SmallBallBigPlane
         private void Awake()
         {
             _virtualCamera = GetComponent<CinemachineVirtualCamera>();
-            
-            _transposer = _virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
         }
 
         private void Start()
         {
             _gameManager.GameRestarted += GameManager_OnGameRestarted;
-
-            if (_transposer != null)
-            {
-                originalXDamping = _transposer.m_XDamping;
-                originalYDamping = _transposer.m_YDamping;
-                originalZDamping = _transposer.m_ZDamping;
-            }
-            else
-            {
-                Debug.LogError("Transposer not found!");
-            }
         }
 
         private void OnDestroy()
@@ -52,31 +33,7 @@ namespace SmallBallBigPlane
 
         private void GameManager_OnGameRestarted()
         {
-            SetDampingToZero();
-
-            StartCoroutine(RestoreDampingAfterFrame());
-        }
-
-        private void SetDampingToZero()
-        {
-            _transposer.m_XDamping = 0f;
-            _transposer.m_YDamping = 0f;
-            _transposer.m_ZDamping = 0f;
-        }
-        
-        private void RestoreDamping()
-        {
-            _transposer.m_XDamping = originalXDamping;
-            _transposer.m_YDamping = originalYDamping;
-            _transposer.m_ZDamping = originalZDamping;
-        }
-
-        private IEnumerator RestoreDampingAfterFrame()
-        {
-            yield return null;
-            yield return null;
-
-            RestoreDamping();
+            _virtualCamera.PreviousStateIsValid = false;
         }
     }
 }
