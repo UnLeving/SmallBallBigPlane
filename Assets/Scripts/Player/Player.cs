@@ -1,3 +1,4 @@
+using System;
 using Reflex.Attributes;
 using SmallBallBigPlane.Collectables;
 using UnityEngine;
@@ -21,7 +22,12 @@ namespace SmallBallBigPlane
 
             _startPosition = transform.position;
         }
-        
+
+        private void OnDestroy()
+        {
+            _gameManager.GameRestarted -= ResetPosition;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.TryGetComponent(out ICollectable collectable))

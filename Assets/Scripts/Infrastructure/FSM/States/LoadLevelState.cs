@@ -25,7 +25,7 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
         {
             _loadingScreen.Show();
             
-           await _levelsManager.LoadLevelAsync(0);
+           await _levelsManager.LoadLevelAsync();
            
            await _coinManager.Initialize(_saveLoadSystem.GameData.CoinData);
 

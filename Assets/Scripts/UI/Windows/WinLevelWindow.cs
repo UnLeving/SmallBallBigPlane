@@ -15,6 +15,7 @@ namespace SmallBallBigPlane.UI.Windows
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI bestScoreText;
         [SerializeField] private Button restartButton;
+        [SerializeField] private Button nextLevelButton;
         
         private CoinManager _coinManager;
         private SaveLoadSystem _saveLoadSystem;
@@ -33,11 +34,28 @@ namespace SmallBallBigPlane.UI.Windows
         private void OnEnable()
         {
             restartButton.onClick.AddListener(OnRestartClicked);
+            nextLevelButton.onClick.AddListener(OnNextLevelClicked);
         }
 
         private void OnDisable()
         {
             restartButton.onClick.RemoveListener(OnRestartClicked);
+            nextLevelButton.onClick.RemoveListener(OnNextLevelClicked);
+            
+        }
+
+        private async void OnNextLevelClicked()
+        {
+            Debug.Log("WinLevelWindow.OnNextLevelClicked");
+            
+            _saveLoadSystem.SaveGame();
+
+            await Hide();
+
+            //called from state
+            //await _loadingScreen.Show();
+            
+            _stateMachine.Enter<LoadLevelState>();
         }
 
         private async void OnRestartClicked()

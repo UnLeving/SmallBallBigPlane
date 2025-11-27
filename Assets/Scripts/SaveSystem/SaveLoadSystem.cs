@@ -31,7 +31,8 @@ namespace HelpersAndExtensions.SaveSystem
             {
                 Name = DefaultSaveName,
                 CoinData = new CoinData(),
-                SettingsData = new SettingsData()
+                SettingsData = new SettingsData(),
+                LevelData = new LevelData(),
             };
 
             SaveGame();
