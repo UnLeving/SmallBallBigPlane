@@ -1,14 +1,13 @@
-using Cinemachine;
 using Reflex.Attributes;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace SmallBallBigPlane
 {
-    [RequireComponent(typeof(CinemachineVirtualCamera))]
     public class VirtualCameraWarp : MonoBehaviour
     {
         private GameManager _gameManager;
-        private CinemachineVirtualCamera _virtualCamera;
+        private CinemachineCamera _virtualCamera;
         
         [Inject]
         private void Construct(GameManager gameManager)
@@ -18,7 +17,7 @@ namespace SmallBallBigPlane
 
         private void Awake()
         {
-            _virtualCamera = GetComponent<CinemachineVirtualCamera>();
+            _virtualCamera = GetComponent<CinemachineCamera>();
         }
 
         private void Start()

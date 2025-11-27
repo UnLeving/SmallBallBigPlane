@@ -66,7 +66,7 @@ namespace SmallBallBigPlane
 
         private void ResetRigidBodyVelocities()
         {
-            rb.velocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
 
@@ -83,7 +83,7 @@ namespace SmallBallBigPlane
 
             rb.AddForce(movement * MoveSpeed, ForceMode.Force);
             
-            float curveValue = VolumeBySpeedCurve.Evaluate(rb.velocity.magnitude);
+            float curveValue = VolumeBySpeedCurve.Evaluate(rb.linearVelocity.magnitude);
             
             float soundVolume = Mathf.Clamp(curveValue * MaxVolume, 0, MaxVolume);
             

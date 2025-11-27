@@ -22,11 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 67117722a812a2e46ab8cb8eafbf5f5e
-    m_Address: IngameDebugConsole
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 75896d36c2871e84d8604b87209cacbb
     m_Address: Windows/WinLevelWindow.prefab
     m_ReadOnly: 0
