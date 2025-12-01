@@ -6,26 +6,22 @@ namespace SmallBallBigPlane.Collectables
     public class Coin : MonoBehaviour, ICollectable
     {
        private CoinManager _coinManager;
-       private IPickupEffectsHandler _pickupEffectsHandler;
        private GameSettingsSO _gameSettings;
        
        private float RotationSpeed => _gameSettings.coinRotationSpeed;
        
        [Inject]
-       private void Construct(CoinManager coinManager, IPickupEffectsHandler pickupEffectsHandler, GameSettingsSO gameSettings)
+       private void Construct(CoinManager coinManager, GameSettingsSO gameSettings)
        {
             this._coinManager = coinManager;
-            this._pickupEffectsHandler = pickupEffectsHandler;
             this._gameSettings = gameSettings;
        }
        
         public void Collect()
         {
-            _coinManager.CollectCoin();
+            _coinManager.CollectCoin(this);
             
             gameObject.SetActive(false);
-            
-            _pickupEffectsHandler.PlayPickupEffects(transform.position);
         }
 
         public void Reset()

@@ -2,6 +2,7 @@ using HelpersAndExtensions.SaveSystem;
 using Reflex.Core;
 using Reflex.Injectors;
 using SmallBallBigPlane.Collectables;
+using SmallBallBigPlane.Effects;
 using SmallBallBigPlane.Infrastructure.FSM;
 using SmallBallBigPlane.Infrastructure.FSM.States;
 using SmallBallBigPlane.Infrastructure.Services;
@@ -20,6 +21,7 @@ namespace SmallBallBigPlane.Infrastructure.DI.Installers
         [SerializeField] private LevelsSO levels;
         [SerializeField] private LoadingScreen loadingScreenPrefab;
         [SerializeField] private MainMenu mainMenuPrefab;
+        [SerializeField] private PickupEffectsHandler pickupEffectsHandler;
 
         public void InstallBindings(ContainerBuilder containerBuilder)
         {
@@ -59,9 +61,17 @@ namespace SmallBallBigPlane.Infrastructure.DI.Installers
             });
         }
 
-        private void BindAssets(ContainerBuilder containerBuilder)
+        private async void BindAssets(ContainerBuilder containerBuilder)
         {
             containerBuilder.AddSingleton(typeof(AssetProvider));
+
+            containerBuilder.AddSingleton(c =>
+            {
+                PickupEffectsHandler effects = c.Resolve<AssetProvider>()
+                    .Instantiate<PickupEffectsHandler>(pickupEffectsHandler.gameObject, inject: false);
+
+                return effects;
+            });
         }
 
         private void BindFactories(ContainerBuilder containerBuilder)

@@ -119,53 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &13607174
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 13607176}
-  - component: {fileID: 13607175}
-  m_Layer: 0
-  m_Name: PickupEffectsHandler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &13607175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 13607174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de5b75bdc1c04e08a623328745a3f958, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupVFXPrefab: {fileID: 8952805768039932371, guid: af3963951ba7bab459a9d862960bca09, type: 3}
-  pickupSfxPrefab: {fileID: 2241054932245202754, guid: 8a5d0bd5ea2b74748b7ae98b63139ef8, type: 3}
-  poolSize: 5
---- !u!4 &13607176
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 13607174}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &646911302
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 646911304}
   - component: {fileID: 646911303}
-  - component: {fileID: 646911305}
   m_Layer: 0
   m_Name: SceneScope
   m_TagString: Untagged
@@ -211,19 +163,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &646911305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 646911302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba878aba58c19dd5e91a94fb7e88d4aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupEffectsHandler: {fileID: 13607175}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,4 +838,3 @@ SceneRoots:
   - {fileID: 646911304}
   - {fileID: 216659312274731584}
   - {fileID: 1984500891}
-  - {fileID: 13607176}

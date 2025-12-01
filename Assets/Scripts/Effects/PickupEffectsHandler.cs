@@ -1,7 +1,8 @@
+using SmallBallBigPlane.Collectables;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace SmallBallBigPlane.Collectables
+namespace SmallBallBigPlane.Effects
 {
     public class PickupEffectsHandler : MonoBehaviour, IPickupEffectsHandler
     {
