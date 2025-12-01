@@ -12,8 +12,9 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
         private readonly LoadingScreen _loadingScreen;
         private readonly CoinManager _coinManager;
         private readonly SaveLoadSystem _saveLoadSystem;
-        
-        public LoadLevelState(LevelsManager  levelsManager, LoadingScreen loadingScreen, CoinManager coinManager,  SaveLoadSystem saveLoadSystem)
+
+        public LoadLevelState(LevelsManager levelsManager, LoadingScreen loadingScreen, CoinManager coinManager,
+            SaveLoadSystem saveLoadSystem)
         {
             this._levelsManager = levelsManager;
             this._loadingScreen = loadingScreen;
@@ -24,19 +25,19 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
         public async void Enter()
         {
             _loadingScreen.Show();
-            
-           await _levelsManager.LoadLevelAsync();
-           
-           await _coinManager.Initialize(_saveLoadSystem.GameData.CoinData);
 
-           _stateMachine.Enter<GameLoopState>();
+            var currentLevelIndex = await _levelsManager.LoadLevelAsync();
+
+            await _coinManager.Initialize(_saveLoadSystem.GameData.CoinData,  currentLevelIndex);
+
+            _stateMachine.Enter<GameLoopState>();
         }
 
         public void Exit()
         {
             _loadingScreen.Hide();
         }
-        
+
         public void SetStateMachine(StateMachine stateMachine)
         {
             _stateMachine = stateMachine;

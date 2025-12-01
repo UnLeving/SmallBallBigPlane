@@ -24,10 +24,10 @@ namespace SmallBallBigPlane.Infrastructure.Services
         private GameObject _currentLevel;
         private AsyncOperationHandle<GameObject> _currentLevelHandle;
         private LevelData _data;
-        private int _currentLevelIndex;
+        public int CurrentLevelIndex { get; private set; }
 
         [Inject]
-        public void Construct(LevelsSO levelsSO, GameManager gameManager)
+        public void Construct(LevelsSO levelsSO)
         {
             _assetReferenceGameObjects = levelsSO.levelsAssetReferences;
         }
@@ -36,13 +36,13 @@ namespace SmallBallBigPlane.Infrastructure.Services
         {
             this._data = levelData;
             this._data.Id = Id;
-            this._currentLevelIndex = levelData.CurrentLevelIndex;
+            this.CurrentLevelIndex = levelData.CurrentLevelIndex;
         }
 
-        public async UniTask LoadLevelAsync()
+        public async UniTask<int> LoadLevelAsync()
         {
             // Unload previous level instance if any
-            if (_currentLevel != null)
+            if (_currentLevel)
             {
                 if (_currentLevelHandle.IsValid())
                 {
@@ -56,20 +56,21 @@ namespace SmallBallBigPlane.Infrastructure.Services
                 _currentLevel = null;
             }
 
-            // Instantiate new level under this manager
-            _currentLevelHandle = Addressables.InstantiateAsync(_assetReferenceGameObjects[_currentLevelIndex]);
+            _currentLevelHandle = Addressables.InstantiateAsync(_assetReferenceGameObjects[CurrentLevelIndex]);
             _currentLevel = await _currentLevelHandle.Task;
+            
+            return CurrentLevelIndex;
         }
 
         public void LevelPassed()
         {
-            _currentLevelIndex++;
-            if (_currentLevelIndex >= _assetReferenceGameObjects.Length)
+            CurrentLevelIndex++;
+            if (CurrentLevelIndex >= _assetReferenceGameObjects.Length)
             {
-                _currentLevelIndex = _assetReferenceGameObjects.Length - 1;
+                CurrentLevelIndex = 0;
             }
             
-            _data.CurrentLevelIndex = _currentLevelIndex;
+            _data.CurrentLevelIndex = CurrentLevelIndex;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace HelpersAndExtensions.SaveSystem
         {
             _dataService = dataService ?? throw new System.ArgumentNullException(nameof(dataService));
         }
-        
+
         private void NewGame()
         {
             if (GameData != null)
@@ -30,7 +30,7 @@ namespace HelpersAndExtensions.SaveSystem
             GameData = new GameData
             {
                 Name = DefaultSaveName,
-                CoinData = new CoinData(),
+                CoinData = new CoinData { MaxCoinCount = new int[10] },
                 SettingsData = new SettingsData(),
                 LevelData = new LevelData(),
             };
@@ -68,7 +68,7 @@ namespace HelpersAndExtensions.SaveSystem
         {
             GameData = await _dataService.Load(gameName);
         }
-        
+
         private IEnumerable<string> ListSaves()
         {
             return _dataService.ListSaves();

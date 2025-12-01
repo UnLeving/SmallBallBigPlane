@@ -23,11 +23,11 @@ namespace SmallBallBigPlane.Collectables
         private CoinData data;
         private PickupEffectsHandler _pickupEffectsHandler;
         private int _coinCount;
-        private int[] _maxCoinCount = new int[2];
+        private int _maxCoinCount;
+        private int _currentLevelIndex = -1;
 
         public int CoinCount => _coinCount;
-        public int[] MaxCoinCount => _maxCoinCount;
-        public int CurrentLevelMaxCoinCount;
+        public int MaxCoinCount => _maxCoinCount;
 
         public event Action<int> OnCoinCollected;
 
@@ -39,13 +39,22 @@ namespace SmallBallBigPlane.Collectables
             _pickupEffectsHandler = pickupEffectsHandler;
         }
 
-        public UniTask Initialize(CoinData coinData)
+        public UniTask Initialize(CoinData coinData, int currentLevelIndex)
         {
+            if (_currentLevelIndex == currentLevelIndex)
+            {
+                ResetCoins();
+                
+                return UniTask.CompletedTask;
+            }
+            
+            this._currentLevelIndex  = currentLevelIndex;
+            
             this.data = coinData;
 
             this.data.Id = Id;
 
-            this._maxCoinCount = this.data.MaxCoinCount;
+            this._maxCoinCount = this.data.MaxCoinCount[currentLevelIndex];
 
             var coinsGoList = GameObject.FindGameObjectsWithTag("Coin").ToList();
 
@@ -79,11 +88,9 @@ namespace SmallBallBigPlane.Collectables
 
         public void SetMaxCoinCount(int ind)
         {
-            if (CoinCount < MaxCoinCount[ind]) return;
+            if (CoinCount < MaxCoinCount) return;
 
-            _maxCoinCount[ind] = _coinCount;
-
-            CurrentLevelMaxCoinCount = _coinCount;
+            _maxCoinCount = _coinCount;
 
             data.MaxCoinCount[ind] = _coinCount;
         }
