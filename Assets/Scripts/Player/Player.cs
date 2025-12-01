@@ -1,6 +1,6 @@
-using System;
 using Reflex.Attributes;
 using SmallBallBigPlane.Collectables;
+using SmallBallBigPlane.Interactables;
 using UnityEngine;
 
 namespace SmallBallBigPlane
