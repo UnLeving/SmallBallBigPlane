@@ -30,6 +30,7 @@ namespace SmallBallBigPlane.Collectables
         public int MaxCoinCount => _maxCoinCount;
 
         public event Action<int> OnCoinCollected;
+        public event Action OnRewardedCoinAdded;
 
         private List<Coin> _coins = new();
 
@@ -86,13 +87,22 @@ namespace SmallBallBigPlane.Collectables
             OnCoinCollected?.Invoke(_coinCount);
         }
 
-        public void SetMaxCoinCount(int ind)
+        public void SetMaxCoinCount()
         {
             if (CoinCount < MaxCoinCount) return;
 
             _maxCoinCount = _coinCount;
 
-            data.MaxCoinCount[ind] = _coinCount;
+            data.MaxCoinCount[_currentLevelIndex] = _coinCount;
+        }
+
+        public void AddRewardedCoins(int amount)
+        {
+            _coinCount += amount;
+            
+            SetMaxCoinCount();
+            
+            OnRewardedCoinAdded?.Invoke();
         }
 
         public void ResetCoins()
