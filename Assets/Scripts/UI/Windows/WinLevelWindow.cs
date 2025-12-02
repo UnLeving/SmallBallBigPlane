@@ -17,6 +17,7 @@ namespace SmallBallBigPlane.UI.Windows
         [SerializeField] private TextMeshProUGUI bestScoreText;
         [SerializeField] private Button restartButton;
         [SerializeField] private Button nextLevelButton;
+        
         [SerializeField] private AdWheel.AdWheel adWheel;
 
         private CoinManager _coinManager;
@@ -40,12 +41,16 @@ namespace SmallBallBigPlane.UI.Windows
         {
             restartButton.onClick.AddListener(OnRestartClicked);
             nextLevelButton.onClick.AddListener(OnNextLevelClicked);
+            
+            _coinManager.OnRewardedCoinAdded += CoinManager_OnOnRewardedCoinAdded;
         }
 
         private void OnDisable()
         {
             restartButton.onClick.RemoveListener(OnRestartClicked);
             nextLevelButton.onClick.RemoveListener(OnNextLevelClicked);
+            
+            _coinManager.OnRewardedCoinAdded -= CoinManager_OnOnRewardedCoinAdded;
         }
 
         private async void OnNextLevelClicked()
@@ -75,6 +80,8 @@ namespace SmallBallBigPlane.UI.Windows
             if (isOpened) return;
 
             isOpened = true;
+            
+            adWheel.Initialize(_coinManager.CoinCount);
 
             UpdateScoreText();
 
@@ -92,10 +99,13 @@ namespace SmallBallBigPlane.UI.Windows
 
         private void UpdateScoreText()
         {
-            adWheel.Initialize(_coinManager.CoinCount);
-            
             scoreText.text = _coinManager.CoinCount.ToString();
             bestScoreText.text = _coinManager.MaxCoinCount.ToString();
+        }
+        
+        private void CoinManager_OnOnRewardedCoinAdded()
+        {
+            UpdateScoreText();
         }
     }
 }

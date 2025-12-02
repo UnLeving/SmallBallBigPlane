@@ -1,3 +1,5 @@
+using Reflex.Attributes;
+using SmallBallBigPlane.Collectables;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,12 +13,14 @@ namespace SmallBallBigPlane.UI.AdWheel
         [SerializeField] private Button button;
         [SerializeField] private TextMeshProUGUI buttonValue;
 
-        private int _reward;
+        [Inject] private readonly CoinManager _coinManager;
         
+        private int _reward;
         private readonly int[] _modifiers = new[] { 2, 4, 6, 4, 2 };
 
         public int Mult { get; private set; }
-        
+        private int _prevMult;
+
         private void Awake()
         {
             if (values == null || values.Length == 0)
@@ -28,27 +32,27 @@ namespace SmallBallBigPlane.UI.AdWheel
 
             SetModifiers();
         }
-        
+
         private void OnEnable()
         {
             button.onClick.AddListener(OnClick);
-            
+
             arrow.OnValueChanged += Arrow_OnOnValueChanged;
         }
 
         private void OnDisable()
         {
             button.onClick.RemoveListener(OnClick);
-            
+
             arrow.OnValueChanged -= Arrow_OnOnValueChanged;
         }
 
         public void Initialize(int reward)
         {
             _reward = reward;
-            
+
             SetButtonText(reward);
-            
+
             arrow.Enable();
         }
 
@@ -56,17 +60,21 @@ namespace SmallBallBigPlane.UI.AdWheel
         {
             Mult = Mathf.Abs(angle) switch
             {
-                <= 18 and >= 0 => _modifiers[2],
-                <= 54 and > 18 => _modifiers[1],
-                <= 90 and > 54 => _modifiers[0],
+                <= 18 and >= 0 => _modifiers[2], // 12 hour
+                <= 54 and > 18 => _modifiers[1], // 10 2 hour
+                <= 90 and > 54 => _modifiers[0], // 9 3 hour
                 _ => 1
             };
-            
+
+            if (_prevMult == Mult) return;
+
+            _prevMult = Mult;
+
             var total = _reward * Mult;
-            
+
             SetButtonText(total);
         }
-        
+
         private void SetModifiers()
         {
             for (var i = 0; i < values.Length; i++)
@@ -78,6 +86,11 @@ namespace SmallBallBigPlane.UI.AdWheel
         private void OnClick()
         {
             arrow.Disable();
+            
+            // show rewarded ad here
+            // on shawn callback add money
+            
+            _coinManager.AddRewardedCoins(_reward * Mult);
         }
 
         private void SetButtonText(int value)

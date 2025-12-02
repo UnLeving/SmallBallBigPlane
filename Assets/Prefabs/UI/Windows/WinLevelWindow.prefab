@@ -699,6 +699,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6809398000471896321}
   - component: {fileID: 5831083090856674201}
+  - component: {fileID: 5071038729043267555}
   m_Layer: 5
   m_Name: AdWheel
   m_TagString: Untagged
@@ -747,6 +748,19 @@ MonoBehaviour:
   - {fileID: 1919388143863731423}
   button: {fileID: 9094047868617027030}
   buttonValue: {fileID: 8209388036121910234}
+--- !u!114 &5071038729043267555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4518377151423241007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20620ae30fdd0164c9bb5bdc717d3ada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionStrategy: 0
 --- !u!1 &4624454602934912311
 GameObject:
   m_ObjectHideFlags: 0
@@ -2404,11 +2418,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8029341248358034571, guid: 43ca56c156b2dfd4ba7cc752956b9591, type: 3}
       propertyPath: m_text
-      value: 500
+      value: GET 500
       objectReference: {fileID: 0}
     - target: {fileID: 8029341248358034571, guid: 43ca56c156b2dfd4ba7cc752956b9591, type: 3}
       propertyPath: m_fontSize
-      value: 135.2
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 8029341248358034571, guid: 43ca56c156b2dfd4ba7cc752956b9591, type: 3}
       propertyPath: m_fontStyle
@@ -2416,7 +2430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8029341248358034571, guid: 43ca56c156b2dfd4ba7cc752956b9591, type: 3}
       propertyPath: m_fontSizeBase
-      value: 135.2
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 8029341248358034571, guid: 43ca56c156b2dfd4ba7cc752956b9591, type: 3}
       propertyPath: m_ActiveFontFeatures.Array.size
