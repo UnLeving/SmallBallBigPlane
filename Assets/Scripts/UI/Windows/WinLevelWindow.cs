@@ -17,6 +17,7 @@ namespace SmallBallBigPlane.UI.Windows
         [SerializeField] private TextMeshProUGUI bestScoreText;
         [SerializeField] private Button restartButton;
         [SerializeField] private Button nextLevelButton;
+        [SerializeField] private AdWheel.AdWheel adWheel;
 
         private CoinManager _coinManager;
         private SaveLoadSystem _saveLoadSystem;
@@ -91,6 +92,8 @@ namespace SmallBallBigPlane.UI.Windows
 
         private void UpdateScoreText()
         {
+            adWheel.Initialize(_coinManager.CoinCount);
+            
             scoreText.text = _coinManager.CoinCount.ToString();
             bestScoreText.text = _coinManager.MaxCoinCount.ToString();
         }
