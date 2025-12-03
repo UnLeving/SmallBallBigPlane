@@ -16,7 +16,7 @@ MonoBehaviour:
   m_GUID: db5242df8dc9794b2a13b0bf8c093f66
   m_SerializeEntries:
   - m_GUID: 0839f42c5ce5105088a90ed2ef3e8894
-    m_Address: Levels/Level 1.prefab
+    m_Address: Assets/Prefabs/Levels/Level 2.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -36,7 +36,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a3dad7ae1d2d9a17dbd801526d11a678
-    m_Address: Levels/Level 0.prefab
+    m_Address: Assets/Prefabs/Levels/Level 0.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
