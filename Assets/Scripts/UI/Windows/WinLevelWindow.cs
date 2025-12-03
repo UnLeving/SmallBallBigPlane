@@ -19,6 +19,7 @@ namespace SmallBallBigPlane.UI.Windows
         [SerializeField] private Button nextLevelButton;
         
         [SerializeField] private AdWheel.AdWheel adWheel;
+        [SerializeField] private StarsHandler starsHandler;
 
         private CoinManager _coinManager;
         private SaveLoadSystem _saveLoadSystem;
@@ -86,6 +87,10 @@ namespace SmallBallBigPlane.UI.Windows
             UpdateScoreText();
 
             await base.ShowPanel();
+            
+            var count = 3;
+            
+            starsHandler.Show(count).Forget();
         }
 
         public override async UniTask Hide()
@@ -95,6 +100,8 @@ namespace SmallBallBigPlane.UI.Windows
             isOpened = false;
 
             await base.HidePanel();
+
+            starsHandler.Hide();
         }
 
         private void UpdateScoreText()
