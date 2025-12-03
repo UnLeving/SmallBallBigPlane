@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 4619488486825884964}
   - component: {fileID: 3177336723674649823}
   m_Layer: 5
-  m_Name: LooseWindow
+  m_Name: LooseLevelWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
