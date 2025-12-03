@@ -13,6 +13,7 @@ namespace SmallBallBigPlane.UI.Windows
         [SerializeField] private Toggle consoleToggle;
         [SerializeField] private Toggle statsToggle;
         [SerializeField] private Button closeButton;
+        [SerializeField] private Button quitButton;
 
         private SettingsSystem _settingsSystem;
         private SaveLoadSystem _saveLoadSystem;
@@ -33,6 +34,7 @@ namespace SmallBallBigPlane.UI.Windows
             statsToggle.onValueChanged.AddListener(OnStatsToggleValueChanged);
             
             closeButton.onClick.AddListener(OnCloseClicked);
+            quitButton.onClick.AddListener(OnQuitClicked);
 
             SyncUIFromSettings();
         }
@@ -50,6 +52,7 @@ namespace SmallBallBigPlane.UI.Windows
             statsToggle.onValueChanged.RemoveListener(OnStatsToggleValueChanged);
             
             closeButton.onClick.RemoveListener(OnCloseClicked);
+            quitButton.onClick.RemoveListener(OnQuitClicked);
         }
         
         private void OnCloseClicked()
@@ -115,6 +118,11 @@ namespace SmallBallBigPlane.UI.Windows
             isOpened = false;
         
             await HidePanel();
+        }
+
+        private void OnQuitClicked()
+        {
+            Application.Quit();
         }
     }
 }
