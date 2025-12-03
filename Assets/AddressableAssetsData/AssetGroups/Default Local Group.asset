@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 480bf78f2c5ddda688ecd5101705cfee
+    m_Address: Assets/Prefabs/Levels/Level 4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 49ace433d7b792144be8305d6deb3285
     m_Address: Windows/LooseWindow.prefab
     m_ReadOnly: 0
