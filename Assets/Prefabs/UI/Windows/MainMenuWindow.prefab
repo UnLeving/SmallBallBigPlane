@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 7746491166342916256}
   - component: {fileID: -6054230692514859690}
   - component: {fileID: -873154357200708972}
-  - component: {fileID: 3272383769594902626}
   - component: {fileID: 634369275085082778}
+  - component: {fileID: -7509465272803622369}
   m_Layer: 5
   m_Name: MainMenuWindow
   m_TagString: Untagged
@@ -79,7 +79,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -356798857
   m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &7647495037556509594
@@ -160,18 +160,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3272383769594902626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5073093481007663293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95b32bccdd8446689c954f868a75b5ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &634369275085082778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +172,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20620ae30fdd0164c9bb5bdc717d3ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _injectionStrategy: 0
+  _injectionStrategy: 1
+--- !u!114 &-7509465272803622369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5073093481007663293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 367e3bd262a54bcd9dc2463db16542bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 4393012433267596384}
 --- !u!1 &5992715147621762159
 GameObject:
   m_ObjectHideFlags: 0

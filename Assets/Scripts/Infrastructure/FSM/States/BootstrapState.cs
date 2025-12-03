@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using HelpersAndExtensions.SaveSystem;
-using SmallBallBigPlane.Collectables;
 using SmallBallBigPlane.Infrastructure.Services;
 using SmallBallBigPlane.UI;
 

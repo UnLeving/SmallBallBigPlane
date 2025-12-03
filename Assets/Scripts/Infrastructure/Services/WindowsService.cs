@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using SmallBallBigPlane.Infrastructure.Services.Factories;
@@ -20,13 +19,7 @@ namespace SmallBallBigPlane.Infrastructure.Services
         {
             if (!_instantiatedWindows.ContainsKey(windowId))
             {
-                UIContainer window = windowId switch
-                {
-                    WindowId.Lose => await _uiFactory.CreateLoseWindow(),
-                    WindowId.Win => await _uiFactory.CreateWinWindow(),
-                    WindowId.Settings => await _uiFactory.CreateSettingsWindow(),
-                    _ => throw new ArgumentOutOfRangeException(nameof(windowId), windowId, null)
-                };
+                UIContainer window = await _uiFactory.InstantiateRegisteredAsync(windowId);
 
                 if (window == null)
                 {

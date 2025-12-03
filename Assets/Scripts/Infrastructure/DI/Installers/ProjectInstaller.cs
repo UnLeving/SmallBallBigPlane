@@ -20,7 +20,6 @@ namespace SmallBallBigPlane.Infrastructure.DI.Installers
         [SerializeField] private GameSettingsSO gameSettings;
         [SerializeField] private LevelsSO levels;
         [SerializeField] private LoadingScreen loadingScreenPrefab;
-        [SerializeField] private MainMenu mainMenuPrefab;
         [SerializeField] private PickupEffectsHandler pickupEffectsHandler;
 
         public void InstallBindings(ContainerBuilder containerBuilder)
@@ -51,17 +50,9 @@ namespace SmallBallBigPlane.Infrastructure.DI.Installers
 
                 return loadingScreen;
             });
-
-            containerBuilder.AddSingleton(c =>
-            {
-                MainMenu loadingScreen = c.Resolve<AssetProvider>()
-                    .Instantiate<MainMenu>(mainMenuPrefab.gameObject, inject: false);
-                
-                return loadingScreen;
-            });
         }
 
-        private async void BindAssets(ContainerBuilder containerBuilder)
+        private void BindAssets(ContainerBuilder containerBuilder)
         {
             containerBuilder.AddSingleton(typeof(AssetProvider));
 
@@ -97,7 +88,6 @@ namespace SmallBallBigPlane.Infrastructure.DI.Installers
                 c.Resolve<ExitState>(),
                 c.Resolve<WinLevelState>(),
                 c.Resolve<LooseLevelState>(),
-                c.Resolve<MainMenu>(), 
                 c.Resolve<LoadLevelState>(),
                 c.Resolve<RestartState>()
             ));

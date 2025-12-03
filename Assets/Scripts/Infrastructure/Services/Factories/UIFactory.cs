@@ -9,7 +9,8 @@ namespace SmallBallBigPlane.Infrastructure.Services.Factories
     {
         Settings,
         Lose,
-        Win
+        Win,
+        MainMenu
     }
 
     public class UIFactory : IService
@@ -23,29 +24,14 @@ namespace SmallBallBigPlane.Infrastructure.Services.Factories
             this._assetProvider = assetProvider;
         }
 
-        private UniTask<UIContainer> InstantiateRegisteredAsync(WindowId windowId, Transform parent)
+        public UniTask<UIContainer> InstantiateRegisteredAsync(WindowId windowId, Transform parent = null)
         {
-            return _assetProvider.InstantiateAsync(windowId, parent);
+            return _assetProvider.InstantiateAsync(windowId, parent ?? _uiRoot);
         }
 
         private UIContainer InstantiateRegistered(WindowId windowId, Transform parent)
         {
             return _assetProvider.Instantiate(windowId, parent);
-        }
-
-        public async UniTask<UIContainer> CreateWinWindow()
-        {
-            return await InstantiateRegisteredAsync(WindowId.Win, _uiRoot);
-        }
-
-        public async UniTask<UIContainer> CreateLoseWindow()
-        {
-            return await InstantiateRegisteredAsync(WindowId.Lose, _uiRoot);
-        }
-
-        public async UniTask<UIContainer> CreateSettingsWindow()
-        {
-            return await InstantiateRegisteredAsync(WindowId.Settings, _uiRoot);
         }
     }
 }

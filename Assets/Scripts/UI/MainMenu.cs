@@ -10,13 +10,13 @@ using UnityEngine.UI;
 
 namespace SmallBallBigPlane.UI
 {
-    public class MainMenu : UIContainer
+    public sealed class MainMenu : UIContainer
     {
         [SerializeField] private Button startButton;
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button exitButton;
 
-        private StateMachine _stateMachine;
+        [Inject] private readonly StateMachine _stateMachine;
         [Inject] private readonly WindowsService _windowsService;
 
 
@@ -47,7 +47,7 @@ namespace SmallBallBigPlane.UI
         private void OnSettingsClicked()
         {
             //todo fix settings wnd call
-            _windowsService.Show(WindowId.Settings);
+            _windowsService.Show(WindowId.Settings).Forget();
         }
 
         public override UniTask Show()
@@ -62,11 +62,6 @@ namespace SmallBallBigPlane.UI
             gameObject.SetActive(false);
 
             return UniTask.CompletedTask;
-        }
-
-        public void SetStateMachine(StateMachine stateMachine)
-        {
-            _stateMachine = stateMachine;
         }
     }
 }

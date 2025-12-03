@@ -16,12 +16,20 @@ MonoBehaviour:
   - m_AssetGUID: 75896d36c2871e84d8604b87209cacbb
     m_SubObjectName: 
     m_SubObjectType: 
+    m_SubObjectGUID: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: 49ace433d7b792144be8305d6deb3285
     m_SubObjectName: 
     m_SubObjectType: 
+    m_SubObjectGUID: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: bf6c8c194ade03c4c8f818353b9777cb
     m_SubObjectName: 
     m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 08d99fbc755b82758bca329850a63b6a
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
     m_EditorAssetChanged: 0

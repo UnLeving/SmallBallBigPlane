@@ -21,7 +21,6 @@ namespace SmallBallBigPlane.Infrastructure.FSM
             ExitState exitState,
             WinLevelState winLevelState,
             LooseLevelState looseLevelState, 
-            MainMenu mainMenu,
             LoadLevelState loadLevelState,
             RestartState restartState)
         {
@@ -39,8 +38,6 @@ namespace SmallBallBigPlane.Infrastructure.FSM
             
             looseLevelState.SetStateMachine(this);
             _states.Add(looseLevelState.GetType(), looseLevelState);
-            
-            mainMenu.SetStateMachine(this);
             
             loadLevelState.SetStateMachine(this);
             _states.Add(loadLevelState.GetType(), loadLevelState);
