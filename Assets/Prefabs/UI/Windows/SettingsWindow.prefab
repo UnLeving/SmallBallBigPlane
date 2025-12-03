@@ -517,6 +517,8 @@ GameObject:
   - component: {fileID: -2308640798324269552}
   - component: {fileID: -1425856670253552166}
   - component: {fileID: 1769287515561592364}
+  - component: {fileID: -4562005336252672262}
+  - component: {fileID: 1323435121389812790}
   m_Layer: 5
   m_Name: SettingsWindow
   m_TagString: Untagged
@@ -584,7 +586,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -356798857
   m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &-1425856670253552166
@@ -627,6 +629,32 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &-4562005336252672262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7530672220660274355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 367e3bd262a54bcd9dc2463db16542bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: -2308640798324269552}
+--- !u!114 &1323435121389812790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7530672220660274355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20620ae30fdd0164c9bb5bdc717d3ada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionStrategy: 1
 --- !u!1001 &347772252082985717
 PrefabInstance:
   m_ObjectHideFlags: 0
