@@ -826,7 +826,8 @@ PrefabInstance:
       value: UICanvas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6428109310004385390, guid: e1a801313a28d9f49baea07ab1dda718, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1a801313a28d9f49baea07ab1dda718, type: 3}
