@@ -7,10 +7,7 @@ namespace SmallBallBigPlane.Infrastructure.Services.Factories
 {
     public enum WindowId
     {
-        Unknown,
-        MainMenu,
         Settings,
-        LoadingScreen,
         Lose,
         Win
     }

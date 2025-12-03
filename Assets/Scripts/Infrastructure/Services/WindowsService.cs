@@ -22,7 +22,6 @@ namespace SmallBallBigPlane.Infrastructure.Services
             {
                 UIContainer window = windowId switch
                 {
-                    WindowId.Unknown => throw new ArgumentOutOfRangeException(nameof(windowId), windowId, null),
                     WindowId.Lose => await _uiFactory.CreateLoseWindow(),
                     WindowId.Win => await _uiFactory.CreateWinWindow(),
                     WindowId.Settings => await _uiFactory.CreateSettingsWindow(),
