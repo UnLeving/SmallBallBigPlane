@@ -21,12 +21,7 @@ namespace SmallBallBigPlane.Infrastructure.Services.AssetManagement
             this._container = container;
             this._windowsSo = windowsSo;
         }
-
-        public UniTask<UIRoot> CreateUIRoot()
-        {
-            return InstantiateAsync<UIRoot>(AssetPath.UI_ROOT_PATH);
-        }
-
+        
         private UniTask<T> LoadAsync<T>(string path) where T : Object
         {
             var asset = Addressables.LoadAssetAsync<T>(path);
