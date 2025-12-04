@@ -54,6 +54,8 @@ namespace SmallBallBigPlane.UI.AdWheel
             SetButtonText(reward);
 
             arrow.Enable();
+            
+            button.interactable = _reward > 0;
         }
 
         private void Arrow_OnOnValueChanged(float angle)
@@ -86,6 +88,8 @@ namespace SmallBallBigPlane.UI.AdWheel
         private void OnClick()
         {
             arrow.Disable();
+            
+            button.interactable = false;
             
             // show rewarded ad here
             // on shawn callback add money
