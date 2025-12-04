@@ -1,4 +1,4 @@
-using System;
+using System.Threading;
 using UnityEngine;
 using PrimeTween;
 using Cysharp.Threading.Tasks;
@@ -14,25 +14,23 @@ namespace SmallBallBigPlane.Obstacles
         [SerializeField] private float moveDurationSec = 1f;
 
         private Tween _currentTween;
-        private bool _isRunning;
+        private CancellationToken _destroyToken;
 
         private void Awake()
         {
             pointA.gameObject.SetActive(false);
             pointB.gameObject.SetActive(false);
+            
+            _destroyToken = this.GetCancellationTokenOnDestroy();
         }
 
         private void Start()
         {
-            _isRunning = true;
-            
             MoveLoop().Forget();
         }
 
         private void OnDisable()
         {
-            _isRunning = false;
-            
             _currentTween.Stop();
         }
 
@@ -40,19 +38,19 @@ namespace SmallBallBigPlane.Obstacles
         {
             transformToMove.position = pointA.position;
 
-            while (_isRunning)
+            while (!_destroyToken.IsCancellationRequested)
             {
                 // A → B
                 await MoveTo(pointB.position);
 
                 // pause
-                await UniTask.Delay(delayOnPointMS, cancellationToken: this.GetCancellationTokenOnDestroy());
+                await UniTask.Delay(delayOnPointMS, cancellationToken: _destroyToken);
 
                 // B → A
                 await MoveTo(pointA.position);
 
                 // pause
-                await UniTask.Delay(delayOnPointMS, cancellationToken: this.GetCancellationTokenOnDestroy());
+                await UniTask.Delay(delayOnPointMS, cancellationToken: _destroyToken);
             }
         }
 
