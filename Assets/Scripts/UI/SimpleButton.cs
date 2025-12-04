@@ -1,20 +1,27 @@
 ﻿using System.Collections;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 using PrimeTween;
+using UnityEngine;
 
-namespace SmallBallBigPlane
+namespace SmallBallBigPlane.UI
 {
-    public class SimpleButton : MonoBehaviour
+    public sealed class SimpleButton : MonoBehaviour
     {
         [SerializeField] private Transform _animatableParent;
         private IEnumerator _sequence;
+        private bool _animating;
 
-        public void AnimateClick() => AnimateClickAsync().Forget();
+        public void AnimateClick()
+        {
+            AnimateClickAsync().Forget();
+        }
 
         private async UniTask AnimateClickAsync()
         {
-            // Create a punch-like scale animation using sequence
+            if (_animating) return;
+
+            _animating = true;
+
             var originalScale = _animatableParent.localScale;
             var punchScale = originalScale + Vector3.one * 0.2f;
 
@@ -24,6 +31,8 @@ namespace SmallBallBigPlane
                 .ToYieldInstruction();
 
             await _sequence.ToUniTask();
+
+            _animating = false;
         }
     }
 }
