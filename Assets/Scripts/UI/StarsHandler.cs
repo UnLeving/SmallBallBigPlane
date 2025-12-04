@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Reflex.Attributes;
 using UnityEngine;
 
 namespace SmallBallBigPlane.UI
@@ -6,7 +7,8 @@ namespace SmallBallBigPlane.UI
     public sealed class StarsHandler : MonoBehaviour
     {
         [SerializeField] private Star[] stars;
-        [SerializeField] private int delay = 500; // todo move to so config
+        [Inject] private readonly GameSettingsSO gameSettingsSO;
+        private int Delay => gameSettingsSO.delayBetweenStarsMS;
         
         public async UniTask Show(int count)
         {
@@ -14,7 +16,7 @@ namespace SmallBallBigPlane.UI
             {
                 stars[i].Activate();
 
-                await UniTask.Delay(delay);
+                await UniTask.Delay(Delay);
             }
         }
 

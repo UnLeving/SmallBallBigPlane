@@ -16,6 +16,9 @@ namespace SmallBallBigPlane
         
         [Header("UI Settings")]
         public int restartDelayMS = 2500;
+
+        [Header("WinWindow Settings")] 
+        public int delayBetweenStarsMS = 500;
         
         [Header("UI sounds")]
         public AudioClipSO winSound;
