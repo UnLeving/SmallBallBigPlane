@@ -3,10 +3,12 @@ using SmallBallBigPlane.Collectables;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace SmallBallBigPlane
+namespace SmallBallBigPlane.Infrastructure.Services
 {
-    public class GameManager
+    public class GameStateService : IService
     {
+        public string Id { get; set; } = "GameState";
+
         public event Action GameRestarted;
         public event Action GameLost;
         public event Action GameWon;

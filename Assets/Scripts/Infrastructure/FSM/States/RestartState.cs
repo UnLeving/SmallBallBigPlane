@@ -1,4 +1,5 @@
 using SmallBallBigPlane.Collectables;
+using SmallBallBigPlane.Infrastructure.Services;
 
 namespace SmallBallBigPlane.Infrastructure.FSM.States
 {
@@ -7,9 +8,9 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
         private StateMachine _stateMachine;
         
         private readonly CoinManager _coinManager;
-        private readonly GameManager _gameManager;
+        private readonly GameStateService _gameManager;
         
-        public RestartState(CoinManager coinManager, GameManager gameManager)
+        public RestartState(CoinManager coinManager, GameStateService gameManager)
         {
             this._coinManager = coinManager;
             this._gameManager = gameManager;

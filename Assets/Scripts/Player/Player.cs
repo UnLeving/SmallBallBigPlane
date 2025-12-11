@@ -1,5 +1,6 @@
 using Reflex.Attributes;
 using SmallBallBigPlane.Collectables;
+using SmallBallBigPlane.Infrastructure.Services;
 using SmallBallBigPlane.Interactables;
 using UnityEngine;
 
@@ -8,10 +9,10 @@ namespace SmallBallBigPlane
     public class Player : MonoBehaviour
     {
         private Vector3 _startPosition;
-        private GameManager _gameManager;
+        private GameStateService _gameManager;
 
         [Inject]
-        private void Construct(GameManager gameManager)
+        private void Construct(GameStateService gameManager)
         {
             this._gameManager = gameManager;
         }

@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Reflex.Attributes;
+using SmallBallBigPlane.Infrastructure.Services;
 using UnityEngine;
 
 namespace SmallBallBigPlane
@@ -14,16 +15,17 @@ namespace SmallBallBigPlane
         private RaycastHit[] _raycastHits = new RaycastHit[1];
         private bool _blockGroundCheck;
 
-        private GameManager _gameManager;
+
+        private GameStateService _gameStateService;
         private GameSettingsSO _gameSettings;
         
         private LayerMask GroundLayer => _gameSettings.playerGroundLayer;
         private float AcceptableTimeInAir => _gameSettings.timeInAirBeforePlayerDie;
         
         [Inject]
-        private void Construct(GameManager gameManager, GameSettingsSO gameSettings)
+        private void Construct(GameStateService gameManager, GameSettingsSO gameSettings)
         {
-            this._gameManager = gameManager;
+            this._gameStateService = gameManager;
             this._gameSettings = gameSettings;
         }
 
@@ -34,7 +36,7 @@ namespace SmallBallBigPlane
                 groundCheckPoint = transform;
             }
             
-            _gameManager.GameRestarted += GameManager_OnGameRestarted;
+            _gameStateService.GameRestarted += GameManager_OnGameRestarted;
         }
 
         private void GameManager_OnGameRestarted()
@@ -74,7 +76,7 @@ namespace SmallBallBigPlane
 
                 if (_timeInAir > AcceptableTimeInAir)
                 {
-                    _gameManager.PlayerFall();
+                    _gameStateService.PlayerFall();
                     
                     _blockGroundCheck = true;
                 }

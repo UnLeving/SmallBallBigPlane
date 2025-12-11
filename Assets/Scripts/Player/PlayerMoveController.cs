@@ -1,4 +1,5 @@
 using Reflex.Attributes;
+using SmallBallBigPlane.Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,7 +12,7 @@ namespace SmallBallBigPlane
         [SerializeField] private PlayerInputs playerInputs;
         [SerializeField] private PlayerSoundEffectsHandler playerSoundEffectsHandler;
         
-        private GameManager _gameManager;
+        private GameStateService _gameManager;
         private GameSettingsSO _gameSettings;
         
         private float MoveSpeed => _gameSettings.playerMoveSpeed;
@@ -20,7 +21,7 @@ namespace SmallBallBigPlane
         private AnimationCurve VolumeBySpeedCurve => _gameSettings.volumeBySpeedCurve;
 
         [Inject]
-        private void Construct(GameManager gameManager, GameSettingsSO gameSettings )
+        private void Construct(GameStateService gameManager, GameSettingsSO gameSettings )
         {
             this._gameManager = gameManager;
             this._gameSettings = gameSettings;

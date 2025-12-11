@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Reflex.Attributes;
+using SmallBallBigPlane.Infrastructure.Services;
 using UnityEngine;
 
 namespace SmallBallBigPlane.Interactables
@@ -8,10 +9,10 @@ namespace SmallBallBigPlane.Interactables
     {
         [SerializeField] private ParticleSystem particles;
         
-        private GameManager _gameManager;
+        private GameStateService _gameManager;
         
         [Inject]
-        private void Construct(GameManager gameManager)
+        private void Construct(GameStateService gameManager)
         {
             this._gameManager = gameManager;
         }

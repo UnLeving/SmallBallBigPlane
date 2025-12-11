@@ -26,7 +26,7 @@ namespace SmallBallBigPlane.Infrastructure.DI.Installers
         {
             containerBuilder.AddSingleton(typeof(JsonSerializer), typeof(ISerializer));
             containerBuilder.AddSingleton(typeof(SettingsSystem));
-            containerBuilder.AddSingleton(typeof(GameManager));
+            containerBuilder.AddSingleton(typeof(GameStateService));
             containerBuilder.AddSingleton(typeof(CoinManager));
             containerBuilder.AddSingleton(windows);
             containerBuilder.AddSingleton(gameSettings);
@@ -99,6 +99,7 @@ namespace SmallBallBigPlane.Infrastructure.DI.Installers
             containerBuilder.AddSingleton(typeof(SaveLoadSystem));
             containerBuilder.AddSingleton(typeof(SceneLoader));
             containerBuilder.AddSingleton(typeof(LevelsManager));
+            containerBuilder.AddSingleton(typeof(DebugService));
         }
     }
 }

@@ -1,4 +1,5 @@
 using Reflex.Attributes;
+using SmallBallBigPlane.Infrastructure.Services;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -6,11 +7,11 @@ namespace SmallBallBigPlane
 {
     public class VirtualCameraWarp : MonoBehaviour
     {
-        private GameManager _gameManager;
+        private GameStateService _gameManager;
         private CinemachineCamera _virtualCamera;
         
         [Inject]
-        private void Construct(GameManager gameManager)
+        private void Construct(GameStateService gameManager)
         {
             this._gameManager = gameManager;
         }

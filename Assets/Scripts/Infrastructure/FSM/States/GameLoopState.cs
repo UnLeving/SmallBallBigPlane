@@ -1,3 +1,4 @@
+using SmallBallBigPlane.Infrastructure.Services;
 using SmallBallBigPlane.UI;
 
 namespace SmallBallBigPlane.Infrastructure.FSM.States
@@ -5,10 +6,10 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
     public class GameLoopState : IState, IStateExitable, IStateSetStateMachine
     {
         private StateMachine _stateMachine;
-        private readonly GameManager _gameManager;
+        private readonly GameStateService _gameManager;
         private readonly LoadingScreen _loadingScreen;
         
-        public GameLoopState(GameManager gameManager, LoadingScreen loadingScreen)
+        public GameLoopState(GameStateService gameManager, LoadingScreen loadingScreen)
         {
             this._gameManager = gameManager;
             this._loadingScreen = loadingScreen;

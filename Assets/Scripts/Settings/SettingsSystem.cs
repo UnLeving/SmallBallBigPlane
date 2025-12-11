@@ -1,7 +1,6 @@
 using UnityEngine;
-using IngameDebugConsole;
-using OmniSARTechnologies.LiteFPSCounter;
 using HelpersAndExtensions.SaveSystem;
+using System;
 
 namespace SmallBallBigPlane
 {
@@ -17,15 +16,11 @@ namespace SmallBallBigPlane
     
     public class SettingsSystem
     {
-        private const string ConsolePrefabPath = "IngameDebugConsole";
-        private const string FpsCounterPrefabPath = "LiteFPSCounter";
+        public event Action<SettingsData> OnSettingsChanged;
 
         public string Id { get; set; } = "Settings";
         public SettingsData data;
         private readonly SaveLoadSystem _saveLoadSystem;
-        
-        private GameObject _consoleInstance;
-        private GameObject _fpsCounterInstance;
         
         public SettingsSystem(SaveLoadSystem saveLoadSystem)
         {
@@ -36,8 +31,7 @@ namespace SmallBallBigPlane
         {
             ApplyLimitFps();
             ApplySound();
-            ApplyConsole();
-            ApplyStats();
+            OnSettingsChanged?.Invoke(data);
         }
         
         public void Initialize()
@@ -96,85 +90,12 @@ namespace SmallBallBigPlane
 
         public void ApplyConsole()
         {
-            EnsureConsoleInstance();
-
-            if (_consoleInstance == null) return;
-            
-            _consoleInstance.SetActive(this.data.ConsoleEnabled);
-                
-            var manager = DebugLogManager.Instance;
-
-            if (manager == null) return;
-                
-            if (this.data.ConsoleEnabled)
-            {
-                manager.ShowLogWindow();
-            }
-            else
-            {
-                manager.HideLogWindow();
-            }
+            OnSettingsChanged?.Invoke(data);
         }
 
         public void ApplyStats()
         {
-            EnsureStatsInstance();
-            if (_fpsCounterInstance != null)
-            {
-                _fpsCounterInstance.SetActive(this.data.StatsEnabled);
-            }
-        }
-
-        private void EnsureStatsInstance()
-        {
-            if (_fpsCounterInstance != null) return;
-
-            var existing = Object.FindObjectOfType<LiteFPSCounter>(true);
-            if (existing != null)
-            {
-                _fpsCounterInstance = existing.gameObject;
-                Object.DontDestroyOnLoad(_fpsCounterInstance);
-                return;
-            }
-
-            var prefab = Resources.Load<GameObject>(FpsCounterPrefabPath);
-            if (prefab != null)
-            {
-                _fpsCounterInstance = Object.Instantiate(prefab);
-                _fpsCounterInstance.name = "LiteFPSCounter";
-                Object.DontDestroyOnLoad(_fpsCounterInstance);
-                _fpsCounterInstance.SetActive(false);
-            }
-        }
-
-        private void EnsureConsoleInstance()
-        {
-            if (_consoleInstance != null) return;
-
-            if (DebugLogManager.Instance != null)
-            {
-                _consoleInstance = DebugLogManager.Instance.transform.root.gameObject;
-                Object.DontDestroyOnLoad(_consoleInstance);
-                return;
-            }
-
-            var found = GameObject.FindWithTag("IngameDebugConsole");
-            
-            if (found != null)
-            {
-                _consoleInstance = found;
-                Object.DontDestroyOnLoad(_consoleInstance);
-                return;
-            }
-
-            var prefab = Resources.Load<GameObject>(ConsolePrefabPath);
-            
-            if (prefab == null) return;
-            
-            _consoleInstance = Object.Instantiate(prefab);
-            _consoleInstance.name = "IngameDebugConsole";
-            Object.DontDestroyOnLoad(_consoleInstance);
-            _consoleInstance.SetActive(false);
+            OnSettingsChanged?.Invoke(data);
         }
     }
 }

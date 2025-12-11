@@ -13,15 +13,17 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
         private readonly SceneLoader _sceneLoader;
         private readonly SettingsSystem _settingsSystem;
         private readonly LevelsManager _levelsManager;
+        private readonly DebugService _debugService;
 
         public BootstrapState(LoadingScreen loadingScreen, SceneLoader sceneLoader,
-            SaveLoadSystem saveLoadSystem,  SettingsSystem settingsSystem, LevelsManager levelsManager)
+            SaveLoadSystem saveLoadSystem,  SettingsSystem settingsSystem, LevelsManager levelsManager, DebugService debugService)
         {
             this._loadingScreen = loadingScreen;
             this._sceneLoader = sceneLoader;
             this._saveLoadSystem = saveLoadSystem;
             this._settingsSystem = settingsSystem;
             this._levelsManager = levelsManager;
+            this._debugService = debugService;
         }
 
         public void Enter()
@@ -41,6 +43,8 @@ namespace SmallBallBigPlane.Infrastructure.FSM.States
             await _saveLoadSystem.TryLoadGame();
             
             _settingsSystem.Initialize();
+            
+            _debugService.Initialize();
             
             _levelsManager.Initialize(_saveLoadSystem.GameData.LevelData);
 

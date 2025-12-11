@@ -1,13 +1,14 @@
 using Reflex.Attributes;
+using SmallBallBigPlane.Infrastructure.Services;
 using UnityEngine;
 
-namespace SmallBallBigPlane
+namespace SmallBallBigPlane.Infrastructure.Services
 {
     [RequireComponent(typeof(AudioSource))]
-    public class GameSoundManager : MonoBehaviour
+    public class AudioService : MonoBehaviour
     {
         private AudioSource audioSource;
-        private GameManager _gameManager;
+        private GameStateService _gameManager;
         private GameSettingsSO _gameSettings;
         
         private AudioClipSO WinSound => _gameSettings.winSound;
@@ -15,7 +16,7 @@ namespace SmallBallBigPlane
                 
 
         [Inject]
-        private void Construct(GameManager gameManager, GameSettingsSO gameSettings)
+        private void Construct(GameStateService gameManager, GameSettingsSO gameSettings)
         {
             this._gameManager = gameManager;
             this._gameSettings = gameSettings;
